@@ -1,0 +1,133 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--引入jQuery框架-->
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <!--引入jVectorMap库-->
+    <script type="text/javascript" src="js/jquery-jvectormap-2.0.5.min.js"></script>
+    <!--引入样式表-->
+    <link href="js/jquery-jvectormap-2.0.5.css" rel="stylesheet" media="screen">
+
+
+    <!--引入中国地图数据库-->
+    <script type="text/javascript" src="js/jquery-jvectormap-asia-merc.js"></script>
+    <script type="text/javascript" src="js/jquery-jvectormap-cn-mill.js"></script>
+    <!--引入美国地图数据库-->
+    <!--script type="text/javascript" src="js/jquery-jvectormap-us-aea.js"></script-->
+    <!--引入世界地图数据库-->
+    <!--script type="text/javascript" src="js/jquery-jvectormap-world-mill.js"></script-->
+
+</head>
+
+<body>
+	<!--background-color: 地图背景颜色-->
+    <div id="map" style="background-color:#ffffff"> </div>
+    <script>
+        $('#map').vectorMap({
+
+            // 此处更改地图
+            map: 'cn_mill', // 中国地图
+            //map: 'asia_merc',
+            //map: 'us-aea',     // 美国地图
+            //map: 'world-mill', // 世界地图
+
+
+            backgroundColor: 'transparent',
+            zoomMin: 0.9, // 鼠标缩放时的最小比例
+            zoomMax: 2.4, // 鼠标缩放时的最大比例
+            focusOn: {
+                x: 0.55,
+                y: 2,
+                scale: 0.9
+            },
+            regionStyle: {
+                initial: {
+                    fill: '#696969', // 地图颜色
+                    "fill-opacity": 1, // 省份（州）是否隐藏，鼠标滑动时显示; 1：显示，2：隐藏。
+                    stroke: 'none',
+                    "stroke-width": 0,
+                    "stroke-opacity": 1
+                },
+                hover: {
+                    fill: '#808080', // 鼠标滑动至某省份的高亮颜色。
+                    "fill-opacity": 0.8
+                },
+                selected: {
+                    fill: 'yellow'
+                },
+                selectedHover: {}
+            },
+            markerStyle: {
+                initial: {
+                    fill: '#fd8888', // 足迹位置的填充颜色
+                    stroke: '#fff' // 足迹位置的描边颜色
+                },
+                hover: {
+                    fill: '#fd2020', // 鼠标滑动至足迹位置后的填充颜色
+                    stroke: '#fff', // 鼠标滑动至足迹位置后的描边颜色
+                    "fill-opacity": 0.8
+                },
+            },
+            markers: [ // 足迹位置
+
+                // {latLng: [经度（保留两位小数）, 纬度（保留两位小数）], name: '城市名称'},
+                // 推荐查询经纬度网站：http://www.gpsspg.com/maps.htm
+                {
+                    latLng: [31.24, 121.50],
+                    name: '上海'
+                },
+                {
+                    latLng: [30.65, 104.10],
+                    name: '四川-成都'
+                },
+                {
+                    latLng: [29.55, 103.76],
+                    name: '四川-乐山'
+                },
+                {
+                    latLng: [30.06, 103.10],
+                    name: '四川-雅安'
+                },
+                {
+                    latLng: [31.53, 104.56],
+                    name: '四川-绵阳'
+                },
+                {
+                    latLng: [29.59, 105.07],
+                    name: '四川-内江'
+                },
+                {
+                    latLng: [29.40, 106.54],
+                    name: '重庆'
+                },
+                {
+                    latLng: [29.40, 106.54],
+                    name: '重庆'
+                },
+                {
+                    latLng: [26.56, 107.98],
+                    name: '贵州-凯里'
+                },
+                {
+                    latLng: [30.47, 106.64],
+                    name: '四川-广安'
+                },
+                {
+                    latLng: [20.02, 110.32],
+                    name: '海南-海口'
+                },
+                {
+                    latLng: [18.40, 109.75],
+                    name: '海南-三亚'
+                },
+                {
+                    latLng: [27.99, 120.70],
+                    name: '浙江-温州'
+                },
+            ]
+        });
+    </script>
+</body>
+
+</html>
