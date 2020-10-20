@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://itstim.xyz/A&C/</loc>
+    
+    <lastmod>2020-10-20</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://itstim.xyz/01packet/</loc>
     
     <lastmod>2020-10-20</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://itstim.xyz/bigintger/</loc>
     
     <lastmod>2020-10-20</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://itstim.xyz/A&C/</loc>
-    
-    <lastmod>2020-10-10</lastmod>
     
   </url>
   
