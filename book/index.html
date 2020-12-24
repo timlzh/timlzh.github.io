@@ -1,0 +1,62 @@
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>抽书</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+  </head>
+  <body>
+    <div class="newsletter">
+      <h1>
+        输入需要生成的人数
+        <span id = "sp">(剩余37人)</span>
+      </h1>
+
+      <p id = "name"></p>
+      
+      <div class = "txtb">
+        <input id = "input" type = "text" placeholder = "输入需要生成的人数">
+        <button id = "btn" type = "button" onclick = "e()" onkeyup="value=value.replace(/[^\d]/g,'')"on><i class = "fas fa-check" style="font-size: 20px;"></i></button>
+      </div>
+    </div>
+    
+    <script>
+        function rnd() {
+            var r = parseInt(Math.random() * (37) + 1, 10);;
+            if (a[r]) return rnd();
+            else return r;
+        };
+
+        function e() {
+        	if(cnt == 37){
+        		alert("已生成完毕!");
+				return; 
+        	}
+            tims = parseInt(inp.value);
+            if (isNaN(tims)){
+            	alert("请输入一个正确的整数!");
+				return;
+			}
+            name_p.innerText = "";
+            if (tims > 37 - cnt) tims = 37 - cnt;
+            cnt += tims;
+            while (tims--) {
+                r = rnd();
+                a[r] = 1;
+                name_p.innerText = name_p.innerText + " " + nam[r];
+            }
+            re_p.innerText = "(剩余" + (37 - cnt) + "人)";
+        };
+var nam = ["李思程","林亦可","杨铮","张嘉峰","胡月","刘霜旗","余呈祥","王瑞","陈以多","方晨皓","郭徐然","祖诗淇","丁清澜","付思蕊","米思威","钟李涵毅","何语嫣","屈正","史惟舒","杨云天","","黄一","李焌楠","夏誉恒","赵俊杰","","彭友彦","涂彧","张博雅","谢东良","刘锦峰","佘一言","潘彦","冯锦泰","何屹林","厉桢壕","刘庭锐","王佳阳","钟子熙"];
+        var a = new Array();
+        for (var i = 0; i <= 40; i++) a[i] = 0;
+        var cnt = 0,r, tims;
+        var re_p = document.getElementById("sp");
+        var name_p = document.getElementById("name");
+        var btn = document.getElementById("btn");
+        var inp = document.getElementById("input");
+    </script>
+  </body>
+</html>
