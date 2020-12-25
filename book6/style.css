@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans",sans-serif,Youyuan;
+  font-family: "Microsoft Yahei","Open Sans",sans-serif,Youyuan;
 }
 
 body{
@@ -18,7 +18,7 @@ body{
   width: 500px;
   padding: 60px;
   text-align: center;
-  box-shadow: 0 0 20px #00000060;
+  box-shadow: 0 0 40px #00000060;
 }
 
 .newsletter h1{
@@ -35,7 +35,7 @@ body{
 
 .newsletter p{
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   margin: 10px 0;
 }
 

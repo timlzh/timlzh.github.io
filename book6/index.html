@@ -1,0 +1,62 @@
+<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>抽书</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+  </head>
+  <body>
+    <div class="newsletter">
+      <h1>
+        输入需要生成的人数
+        <span id = "sp">(剩余54人)</span>
+      </h1>
+
+      <p id = "name"></p>
+      
+      <div class = "txtb">
+        <input id = "input" type = "text" placeholder = "输入需要生成的人数" onkeyup="value=value.replace(/[^\d]/g,'')">
+        <button id = "btn" type = "button" onclick = "e()" ><i class = "fas fa-check" style="font-size: 20px;"></i></button>
+      </div>
+    </div>
+    
+    <script>
+        function rnd() {
+            var r = parseInt(Math.random() * (54) + 1, 10);;
+            if (a[r]) return rnd();
+            else return r;
+        };
+
+        function e() {
+        	if(cnt == 54){
+        		alert("已生成完毕!");
+				return; 
+        	}
+            tims = parseInt(inp.value);
+            if (isNaN(tims)){
+            	alert("请输入一个正确的整数!");
+				return;
+			}
+            name_p.innerText = "";
+            if (tims > 54 - cnt) tims = 54 - cnt;
+            cnt += tims;
+            while (tims--) {
+                r = rnd();
+                a[r] = 1;
+                name_p.innerText = name_p.innerText + " " + nam[r];
+            }
+            re_p.innerText = "(剩余" + (54 - cnt) + "人)";
+        };
+	var nam = ["","朱仪","任胤同","赖星如","秦欣然","帅李顺","詹彤琪","赖震宇","叶果","吴昊玥","刘柯佳","何宛桐","王林卓","吕科良","秦钰婷","李卓俞","饶芝瑜","吕雪","张文弛","林浩坤","刘若愚","吴昊俣","倪浩宇","顾鉴白","李思璇","郑钰婧","黄浩洋","金倩如","CAMILA MERGENER","张议文","金杨喆","万怡然","杨欣睿","万世杰","舒浩珂","沈柯宇","杨柔然","周乐天","徐仕杰","陈思朋","张正一","陈典册","张雅宁","文浩宇","钱书瀚","杨韵熙","卓润璞","苏晓蝶","徐健钧","尹昊喆","王子涵","蒋宇辉","孔令钦","温家树","黄禾"];
+        var a = new Array();
+        for (var i = 0; i <= 70; i++) a[i] = 0;
+        var cnt = 0,r, tims;
+        var re_p = document.getElementById("sp");
+        var name_p = document.getElementById("name");
+        var btn = document.getElementById("btn");
+        var inp = document.getElementById("input");
+    </script>
+  </body>
+</html>

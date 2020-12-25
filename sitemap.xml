@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://itstim.xyz/book/index.html</loc>
+    <loc>http://itstim.xyz/book6/index.html</loc>
     
-    <lastmod>2020-12-24</lastmod>
+    <lastmod>2020-12-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://itstim.xyz/book9/index.html</loc>
+    
+    <lastmod>2020-12-25</lastmod>
     
   </url>
   
