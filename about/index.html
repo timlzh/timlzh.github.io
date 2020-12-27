@@ -1,113 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-
-    <title>Tim | 一个热爱计算机的咸鱼</title>
-    <meta name="description"
-        content="我是一名高中生，喜欢计算机的咸鱼一条，经常抽出空余时间学习各种语言编程以及知识，虽然懂得不多，但是这是我最喜欢的爱好吧。同时也喜欢各种游戏，FPS我的强项！沉浸在这个完美的虚拟世界，起码能暂时忘掉这充满回忆该死的现实.">
-    <meta name="keywords" content="主页,博客">
-    <link rel="stylesheet" type="text/css" href="./css/FiraCode.css">
-    <link rel="stylesheet" type="text/css" href="./css/nutssss.css">
-    <link rel="icon" href="./favicon.ico">
+  <meta charset="utf-8">
+  <title>About Me</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="FiraCode.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 </head>
 
 <body>
-    <div id="box">
-        <!-- 个人资料卡片 -->
-        <div class="meBox">
-            <!-- 头像 -->
-            <div class="headPhoto"></div>
-            <!-- 介绍 -->
-            <div class="meBox-title">
-                <p>It's Tim</p>
-                <div class="fg"></div>
-            </div>
-            <div class="meBox-text">
-                <p>一条咸鱼<img src="./img/fish.png" alt="咸鱼" style="width: 20px; vertical-align: middle;"></p>
-                <p>爱好计算机，游戏</p>
-                <p>瞎折腾浪费时间最在行</p>
-                <p>最爱<img src="./img/002.png" alt="冰激凌" style="width: 15px; vertical-align: middle;"></p>
-            </div>
-            <!-- 两个按钮 -->
-            <div class="meBox-Button">
-                <a href="http://itstim.xyz">回到博客</a>
-                <a href="http://wpa.qq.com/msgrd?v=3&uin=2921349622&site=qq&menu=yes">联系</a>
-            </div>
+  <div class = "screen">
+    <div class="av_div">
+      <img src="http://q1.qlogo.cn/g?b=qq&nk=2921349622&s=640" alt="avatar" class="avatar">
+    </div>
+    <div class="hi"><span>&lt; Hi,it's Tim/ &gt;</br></span></div>
+    <div class = "btn_div">
+        <div class="hover" id="about" onmouseover="trans(about)">
+          <span>About</span>
         </div>
-
-        <!-- 伪终端介绍 -->
-        <div id="cmdBox">
-            <!-- 第一个终端 -->
-            <div class="cmd">
-                <!-- 三个按钮 -->
-                <div class="click">
-                    <div class="red"></div>
-                    <div class="yellow"></div>
-                    <div class="green"></div>
-                </div>
-                <!-- 顶部标题 -->
-                <div class="title">
-                    <span>Tim - bash</span>
-                </div>
-                <!-- 终端内文字 -->
-                <div class="cmdText">
-                    <span style="color: rgb(0, 190, 0);">root@Tim</span>
-                    <span style="color: blue;">~</span>
-                    <span style="color: rgb(39, 39, 39);">./tianqi.sh</span>
-                    <br />
-                    <iframe scrolling="no" src="https://tianqiapi.com/api.php?style=tc&skin=pitaya" frameborder="0"
-                        width="350" height="24" allowtransparency="true"></iframe>
-                    <br />
-                    <span style="color: rgb(0, 190, 0);">root@Tim</span>
-                    <span style="color: blue;">~</span>
-                    <span style="color: rgb(39, 39, 39);">cat /me.txt</span>
-                    <p>爱好计算机，会去自学自己感兴趣的一切东西</p>
-                    <p>略懂H5，C++开发；爱好折腾去解决一切问题</p>
-                    <p>喜欢科技类的东西，喜欢苹果的理念</p>
-                    <p>这条路我才刚刚迈开了我的第一步</p>
-                    <p>路上的坎一定会非常多，但</p>
-                    <p>在我眼里</p>
-                    <p>没有什么问题是尝试不能解决的，如果有那就多尝试几次甚至上百次</p>
-                    <p>即使前方的路看似绝境，也要有硬生生给自己开出一条路的勇气</p>
-                    <span style="color: rgb(0, 190, 0);">root@Tim</span>
-                    <span style="color: blue;">~</span>
-                    <span style="color: rgb(39, 39, 39);">sudo rm -rf /过去的自己/*</span>
-                </div>
-            </div>
-            <!-- 第二个终端 -->
-            <div class="cmd cmd2">
-                <!-- 三个按钮 -->
-                <div class="click">
-                    <div class="red"></div>
-                    <div class="yellow"></div>
-                    <div class="green"></div>
-                </div>
-                <!-- 顶部标题 -->
-                <div class="title">
-                    <span>Tim - bash</span>
-                </div>
-                <!-- 终端内文字 -->
-                <div class="cmdText">
-                    <span style="color: rgb(0, 190, 0);">root@Tim</span>
-                    <span style="color: blue;">~</span>
-                    <span style="color: rgb(39, 39, 39);">./links.sh</span>
-                    <p>我的其他站点：</p>
-                    <ul class="ul">
-                        <li><a href="https://itstim.xyz/">Blog</a></li>
-                        <li><a href="http://fordoris.xyz/">Love</a></li>
-                        <li><a href="https://itstim.xyz/footprint">FootPrint</a></li>
-                    </ul>
-                    <span style="color: rgb(0, 190, 0);">root@Tim</span>
-                    <span style="color: blue;">~</span>
-                </div>
-            </div>
+        <div class="btn" id="habits" onmouseover="trans(habits)">
+          <span>Sites</span>
+        </div>
+        <div class="btn" id = "contect" onmouseover="trans(contect)">
+          <span>Contect</span>
         </div>
     </div>
+
+    <div class = "info">
+      <div class = "inf_a" id = "inf_a"> 
+        <p>
+          一条热爱计算机的咸鱼。</br>
+          喜欢新东西,喜欢一知半解。</br>
+          C++是主业,略懂H5/CSS和基础的Python</br>
+          会去自学所有自己喜欢的东西。</br>
+          </br>
+          <span style="font-style: italic;font-size: 2vh;text-align: left">『If the people who are crazy enough to think he can change the world, are the ones who do.』</span>
+        </p>
+          <span style="font-style: italic;font-size: 1.8vh;margin-left: auto;padding-right:5%">From "Think Different" Apple Inc,1998</span>
+      </div>
+
+      <div class = "inf_h" id = "inf_h"> 
+        <span onclick="javascript:window.open('http://itstim.xyz')"><i class="fas fa-blog"></i></span>
+        <span onclick="javascript:window.open('http://server.itstim.xyz:2020')"><i class="fas fa-shoe-prints"></i></span>
+        <!--<span onclick="javascript:window.open('http://itstim.xyz/doris')"><i class="fas fa-heartbeat"></i></span>-->
+      </div>
+
+      <div class = "inf_c" id = "inf_c"> 
+        <span onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&uin=2921349622&site=qq&menu=yes')"><i class = "fab fa-qq"></i></span>
+        <span onclick="javascript:window.open('http://itstim.xyz/assets/img/WechatFriend.png')"><i class = "fab fa-weixin"></i></span>
+        <span onclick="javascript:window.open('https://github.com/timlzh/')"><i class = "fab fa-github" ></i></span>
+        <span onclick="javascript:window.open('https://www.zhihu.com/people/timli-83-74/activities')"><i class = "fab fa-zhihu"></i></span>
+      </div>
     </div>
 </body>
+<script src="main.js"></script>
 
 </html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0022)http://oeasy.org/love/ -->
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>For Doris</title>
+    <link type="text/css" rel="stylesheet" href="./Our Story of &amp; love_files/default.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="./Our Story of &amp; love_files/jscex.js"></script>
+    <script type="text/javascript" src="./Our Story of &amp; love_files/jscex-parser.js"></script>
+    <script type="text/javascript" src="./Our Story of &amp; love_files/jscex-jit.js"></script>
+    <script type="text/javascript" src="./Our Story of &amp; love_files/jscex-builderbase.js"></script>
+    <script type="text/javascript" src="./Our Story of &amp; love_files/jscex-async.js"></script>
+    <script type="text/javascript" src="./Our Story of &amp; love_files/jscex-async-powerpack.js"></script>
+    <script type="text/javascript" src="./Our Story of &amp; love_files/functions.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./Our Story of &amp; love_files/love.min.js" charset="utf-8"></script>
+    <link rel="icon" type="image/x-icon" href="icon.ico" />
+    <link rel="stylesheet" href="Our Story of & love_files\skplayer\dist\skPlayer.min.js">
+    <style type="text/css">
+        .STYLE1 {
+            color: #666666
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div id="area">
+        <div id="small_menu">
+            <ul>
+                <li><a href="./version.html">更新历史</a></li>
+                <li><a href="./letters.html">纸短情长</a></li>       
+				<!-- <li><a href="#">item three</a></li>
+				<li><a href="#">item four</a></li>
+				<li><a href="#">item five</a></li> -->
+            </ul>
+        </div>
+        <div id="on" onclick="xuanfu();">
+            <p>+</p>
+        </div>
+    </div>
+    <div class="row" style="display: none;">
+        <div class="col s12 l3">
+            <div class="table cover">
+                <div id="particles-after-filter"><canvas class="particles-js-canvas-el" width="480" height="888"
+                        style="width: 100%; height: 100%;"></canvas></div>
+                <div id="particles"><canvas class="particles-js-canvas-el" width="480" height="888"
+                        style="width: 100%; height: 100%;"></canvas></div>
+            </div>
+        </div>
+
+    </div>
+    <div id="musicContainer">
+        <a id="musicSwitch" href="javascript:void(0)"></a>
+        <div id="skPlayer"></div>
+        <script src="Our Story of & love_files\skplayer\dist\skPlayer.min.js"></script>
+        <script language="javascript" type="text/javascript">
+            // <div id = "skPlayer"> </div>
+            var player = new skPlayer({
+                autoplay: true,
+                //可选项,自动播放,默认为false,true/false
+                listshow: false,
+                //可选项,列表显示,默认为true,true/false
+                mode: 'listloop',
+                //可选项,循环模式,默认为'listloop'
+                //'listloop',列表循环
+                //'singleloop',单曲循环
+                //可选项配置同上
+                music: {
+                    //必需项,音乐配置
+                    type: 'file',
+                    //必需项,自配置文件方式指定填'file'
+                    source: [
+                        //必需项,音乐文件数组
+                        {
+                            name: '水星记',
+                            //必需项,歌名
+                            author: '郭顶',
+                            //必需项,歌手
+                            src: 'http://music.163.com/song/media/outer/url?id=441491828.mp3',
+                            //必需项,音乐文件
+                            cover: 'http://p2.music.126.net/wSMfGvFzOAYRU_yVIfquAA==/2946691248081599.jpg'
+                            //必需项,封面图片
+                        },
+                    ]
+                }
+            });
+        </script>
+    </div>
+    <script language="javascript" type="text/javascript">
+        $(function () {
+            $('#musicSwitch').on('click', function () {
+                $(this).hasClass('active') ? $(this).removeClass('active') : $(this).addClass('active');
+                if (!$('#skPlayer').find('audio').length) {
+                    player = new skPlayer({
+                        autoplay: true,
+                        //可选项,自动播放,默认为false,true/false
+                        listshow: false,
+                        //可选项,列表显示,默认为true,true/false
+                        mode: 'listloop',
+                        //可选项,循环模式,默认为'listloop'
+                        //'listloop',列表循环
+                        //'singleloop',单曲循环
+                        //可选项配置同上
+                        music: {
+                            //必需项,音乐配置
+                            type: 'file',
+                            //必需项,自配置文件方式指定填'file'
+                            source: [
+                                //必需项,音乐文件数组
+                                {
+                                    name: '水星记',
+                                    //必需项,歌名
+                                    author: '郭顶',
+                                    //必需项,歌手
+                                    src: 'http://music.163.com/song/media/outer/url?id=441491828.mp3',
+                                    //必需项,音乐文件
+                                    cover: 'http://p2.music.126.net/wSMfGvFzOAYRU_yVIfquAA==/2946691248081599.jpg'
+                                    //必需项,封面图片
+                                },
+                            ]
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="./Our Story of & love_files/particles.min.js"></script>
+
+    <div id="error">哥儿，浏览器版本太低啦！显示不出来啊……</div>
+    <div id="main">
+        <div id="wrap">
+            <div id="text">
+                <div id="code">
+                    <!--屏幕上方的字-->
+                    <div id="ttc2">
+                        <span class="say"> Our Story</span><br>
+                        <span class="say"> </span><br>
+                        <span class="say"> For Tim &amp; Doris </span><br>
+                        <span class="say"> </span><br>
+                        <span class="say"> 记得我们相识的时候, 或许是缘分，或许是注定的。</span><br>
+                        <span class="say"> </span><br>
+                        <span class="say"> 就像一场梦一样,有开心,也有吵闹。</span><br>
+                        <span class="say"> </span><br>
+                        <span class="say"> 彼此依赖，彼此关心，彼此温暖，谢谢你这么包容我。</span><br>
+                        <span class="say"> </span><br>
+                        <span class="say"> 我看见了你的好多好多优点。</span><br>
+                        <span class="say"> </span><br>
+                        <span class="say"> 我的好多好多缺点你也都看到了。</span><br>
+                        <span class="say"> </span><br>
+                        <span class="say"> We Are Best Friends</span><br>
+                        <span class="say"> </span><br>
+                        <span class="say"> ..Forever..</span><br>
+                        <span class="say"><span class="space"></span><span class="space"></span>Tim</span>
+                    </div>
+                </div>
+            </div>
+            <div id="clock-box">
+                厉桢壕<span class="STYLE1">与</span>孙语笛<span class="STYLE1">已经相识了</span>
+                <!-- 孙语笛🐷的生日还有 -->
+                <div id="clock"></div>
+            </div>
+            <canvas id="canvas" width="1100" height="680"></canvas>
+        </div>
+        <!--屏幕下方的字-->
+        <div id="ememe">
+            <p>「 佛说,"修百世才能同舟，修千世才能共枕",那一只只与我握过的手,那一朵朵与我交换过的粲然微笑,那一句句平淡的对话,我又如何能够像风吹拂过衣袖似的,把这些人淡淡地吹散,漠然的忘记？</p>
+            <p>每一粒沙地里的石子,我尚且珍爱它,每一次日出与日落,我都舍不得忘怀,又何况,这一张张活生生的脸孔,我又如何能在回忆里抹去它们。</p>
+            <p> 其实,这样解释都是多余的了。」</p>
+            <p style="text-align:right;">--三毛《撒哈拉的故事》</p>
+        </div>
+
+    <!-- <div id = "BGMChanger">
+			<p>请粘贴歌曲在网易云音乐的分享链接:<input id="input1"/><input type="button" id="bt2" value="确定" onclick="BGMChanging()"></p>
+		</div> -->
+    <br />
+    <!-- <div id = "version">
+			<input type="button" value ="更新历史 " onclick="window.location.href='./version.html'"/>
+		</div> -->
+
+    <!-- <audio id="bgm" class="media-audio" preload loop="loop"></audio> -->
+
+    <script language="javascript" type="text/javascript">
+        var menubox = document.getElementById("area"); //area为菜单栏的id
+        var cli_on = document.getElementById("on"); //on为按钮
+        var flag = false,
+            timer = null,
+            initime = null,
+            r_len = 0;
+
+        if (menubox.style.right === 0) {
+            flag = true;
+        } else {
+            flag = false;
+        }
+        cli_on.onclick = function () {
+            //为on按钮绑定click事件
+            clearTimeout(initime);
+            //根据状态flag执开展开收缩
+            if (flag) {
+                r_len = 0;
+                timer = setInterval(slideright, 10);
+            } else {
+                r_len = -160;
+                timer = setInterval(slideleft, 10);
+            }
+        }
+        //展开
+        function slideright() {
+            if (r_len <= -160) {
+                clearInterval(timer);
+                flag = !flag;
+                return false;
+            } else {
+                r_len -= 5;
+                menubox.style.right = r_len + 'px';
+            }
+        }
+        //收缩
+        function slideleft() {
+            if (r_len >= 0) {
+                clearInterval(timer);
+                flag = !flag;
+                return false;
+            } else {
+                r_len += 5;
+                menubox.style.right = r_len + 'px';
+            }
+        }
+        // function Appear() {
+        // 	$("#BGMChanger").show();
+        // 	document.getElementById("BGMButton").style = "display:none";
+        // }
+
+        // function BGMChanging() {
+        // 	//分享Ariana Grande/2 Chainz的单曲《7 rings (Remix)》http://music.163.com/song/1343492095/?userid=476020692 (@网易云音乐)
+        // 	var str = document.getElementById("input1").value;
+        // 	var a = str.search("《");
+        // 	var b = str.search("song/");
+        // 	var c = str.search("/?userid");
+        // 	var d = str.search("》");
+        // 	var singer_name = str.slice(2, a - 4);
+        // 	var song_name = str.slice(a, d + 1);
+        // 	var song_id = str.slice(b + 5, c - 2);
+        // 	console.log(song_id + "\n" + song_name + "\n" + singer_name);
+        // 	if (singer_name == null || song_name == null || song_id == null) {
+        // 		alert("无法识别链接，请重新去网易云音乐中复制");
+        // 	} else {
+        // 		var flag = window.confirm("请确认要替换的BGM是" + singer_name + "的" + song_name);
+        // 		if (flag) {
+        // 			if (typeof (localStorage) == "undefind") {
+        // 				alert("您的浏览器不支持本地储存，无法更改BGM");
+        // 				location.reload();
+        // 			} else {
+        // 				localStorage.musicId = song_id;
+        // 				location.reload();
+        // 			}
+        // 		} else {
+        // 			location.reload();
+        // 		}
+        // 	}
+
+        // }
+        // //console.log(localStorage.musicId);
+        // if (localStorage.musicId) {
+        // 	document.getElementById("bgm").src = "http://music.163.com/song/media/outer/url?id=" + localStorage.musicId +
+        // 		".mp3"
+        // } else {
+        // 	document.getElementById("bgm").src = "http://music.163.com/song/media/outer/url?id=426881500.mp3"
+        // }
+        //document.getElementById("bgm").src = "http://music.163.com/song/media/outer/url?id=17177324.mp3"
+    </script>
+
+    <script>
+        (function () {
+            var canvas = $('#canvas');
+
+            if (!canvas[0].getContext) {
+                $("#error").show();
+                return false;
+            } else {
+
+                var width = canvas.width();
+                var height = canvas.height();
+
+                canvas.attr("width", width);
+                canvas.attr("height", height);
+
+                var opts = {
+                    seed: {
+                        x: width / 2 - 20,
+                        color: "rgb(190, 26, 37)",
+                        scale: 2
+                    },
+                    branch: [
+                        [535, 680, 570, 250, 500, 200, 30, 100, [
+                            [540, 500, 455, 417, 340, 400, 13, 100, [
+                                [450, 435, 434, 430, 394, 395, 2, 40]
+                            ]],
+                            [550, 445, 600, 356, 680, 345, 12, 100, [
+                                [578, 400, 648, 409, 661, 426, 3, 80]
+                            ]],
+                            [539, 281, 537, 248, 534, 217, 3, 40],
+                            [546, 397, 413, 247, 328, 244, 9, 80, [
+                                [427, 286, 383, 253, 371, 205, 2, 40],
+                                [498, 345, 435, 315, 395, 330, 4, 60]
+                            ]],
+                            [546, 357, 608, 252, 678, 221, 6, 100, [
+                                [590, 293, 646, 277, 648, 271, 2, 80]
+                            ]]
+                        ]]
+                    ],
+                    bloom: {
+                        num: 700,
+                        width: 1080,
+                        height: 650,
+                    },
+                    footer: {
+                        width: 1200,
+                        height: 5,
+                        speed: 10,
+                    }
+                }
+
+                var tree = new Tree(canvas[0], width, height, opts);
+                var seed = tree.seed;
+                var foot = tree.footer;
+                var hold = 1;
+
+                canvas.click(function (e) {
+                    var offset = canvas.offset(),
+                        x, y;
+                    x = e.pageX - offset.left;
+                    y = e.pageY - offset.top;
+                    if (seed.hover(x, y)) {
+                        var audio = document.getElementById("bgm"),
+                            play = function () {
+                                player.play();
+                                document.removeEventListener("touchstart", play, false);
+                            };
+                        player.play();
+                        hold = 0;
+                        canvas.unbind("click");
+                        canvas.unbind("mousemove");
+                        canvas.removeClass('hand');
+                    }
+                }).mousemove(function (e) {
+                    var offset = canvas.offset(),
+                        x, y;
+                    x = e.pageX - offset.left;
+                    y = e.pageY - offset.top;
+                    canvas.toggleClass('hand', seed.hover(x, y));
+                });
+
+                var seedAnimate = eval(Jscex.compile("async", function () {
+                    seed.draw();
+                    while (hold) {
+                        $await(Jscex.Async.sleep(10));
+                    }
+                    while (seed.canScale()) {
+                        seed.scale(0.95);
+                        $await(Jscex.Async.sleep(10));
+                    }
+                    while (seed.canMove()) {
+                        seed.move(0, 2);
+                        foot.draw();
+                        $await(Jscex.Async.sleep(10));
+                    }
+                }));
+
+                var growAnimate = eval(Jscex.compile("async", function () {
+                    do {
+                        tree.grow();
+                        $await(Jscex.Async.sleep(10));
+                    } while (tree.canGrow());
+                }));
+
+                var flowAnimate = eval(Jscex.compile("async", function () {
+                    do {
+                        tree.flower(2);
+                        $await(Jscex.Async.sleep(10));
+                    } while (tree.canFlower());
+                }));
+
+                var moveAnimate = eval(Jscex.compile("async", function () {
+                    tree.snapshot("p1", 240, 0, 610, 680);
+                    while (tree.move("p1", 500, 0)) {
+                        foot.draw();
+                        $await(Jscex.Async.sleep(10));
+                    }
+                    foot.draw();
+                    tree.snapshot("p2", 500, 0, 610, 680);
+
+                    canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+                    canvas.css("background", "#ffe");
+                    $await(Jscex.Async.sleep(300));
+                    canvas.css("background", "none");
+                }));
+
+                var jumpAnimate = eval(Jscex.compile("async", function () {
+                    var ctx = tree.ctx;
+                    while (true) {
+                        tree.ctx.clearRect(0, 0, width, height);
+                        tree.jump();
+                        foot.draw();
+                        $await(Jscex.Async.sleep(25));
+                    }
+                }));
+
+                var textAnimate = eval(Jscex.compile("async", function () {
+                    var together = new Date();
+                    together.setFullYear(2017, (9 - 1), 27); //时间年月日
+                    //together.setFullYear(2019, (11-1), 23); //时间年月日
+                    together.setHours(0); //小时	
+                    together.setMinutes(0); //分钟
+                    together.setSeconds(0); //秒前一位
+                    together.setMilliseconds(0); //秒第二位
+                    $("#clock-box").fadeIn(500);
+                    while (true) {
+                        timeElapse(together);
+                        $await(Jscex.Async.sleep(1000));
+                    }
+                }));
+
+                var runAsync = eval(Jscex.compile("async", function () {
+                    $await(seedAnimate());
+                    $("#ememe").show().typewriter();
+                    $await(growAnimate());
+                    $await(flowAnimate());
+                    $await(moveAnimate());
+                    textAnimate().start();
+                    //$await(Jscex.Async.sleep(7000));
+                    $("#code").show().typewriter();
+                    $("#version").show();
+                    $await(jumpAnimate());
+                }));
+
+                runAsync().start();
+            }
+        })();
+    </script>
+</body>
+
+</html>
