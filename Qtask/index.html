@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>定时器管理页面</title>
+  </head> 
+  <body>
+    <div style="position: absolute; top: 0; bottom: 0; left: 0; right: 0;width: 400px; height: 200px;margin: auto;">
+      <span>从</span>
+      <select class="selMonth" id="sMonth"> </select>
+      <span>月</span>
+      <select class="selDay" id="sDay"> </select>
+      <span>日</span>
+      <span>起</span>
+      <br>
+      <span>每</span><input id="interval" type="number" min='1' style="width:50px"/><span>天提醒一次</span>
+      <br>
+      <span>提醒时间</span>
+      <select id="eHour" class="selHour"> </select>
+      <span>点</span>
+      <select id="eMinute" class="selMinute"> </select>
+      <span>分</span>
+      <br>
+      <button onclick="delCron();">删除旧提醒</button>
+      <button onclick="addCron();">提交新提醒</button>
+    </div>
+    <script src="main.js"></script>
+  </body>
+

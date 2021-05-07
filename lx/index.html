@@ -1,0 +1,53 @@
+<html lang="en" dir="ltr">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>抽书</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+  <div class="newsletter">
+    <h1>
+      李湘能不能上川大
+    </h1>
+    <div class="btns">
+      <div class="txtb" id="t1">
+        <button class="no" onclick="moveButton()" id="btn">
+          不 行
+        </button>
+      </div>
+      <div class="txtb">
+        <button class="yes" onclick="yes()" id="btn">
+          彳 亍
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let no = document.getElementsByClassName('no')[0];
+    let flag = 1;
+    let cnt = 0;
+
+    function moveButton() {
+      if (flag) no.style = "margin-top: 100px";
+      else no.style = "margin-top: 0";
+
+      flag = !flag;
+      cnt++;
+      if (cnt >= 10) {
+        alert("真无聊，还在点我！\n 不陪你玩了，我走了，886！");
+        document.getElementById('t1').style = "display: none";
+        document.getElementsByClassName('btns')[0].style = "height: 100px";
+      }
+    }
+
+    function yes() {
+      alert("√ 对啦！一定能考上哦! √");
+    }
+  </script>
+
+</body>
+
+</html>

@@ -6,7 +6,7 @@
   <link href="http://itstim.xyz/atom.xml" rel="self"/>
   
   <link href="http://itstim.xyz/"/>
-  <updated>2020-12-12T12:39:17.190Z</updated>
+  <updated>2021-02-23T11:10:23.089Z</updated>
   <id>http://itstim.xyz/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[项目报告]NeuMusic|一个基于原生HTML的新拟态风格第三方网易云音乐播放</title>
+    <link href="http://itstim.xyz/2021223/"/>
+    <id>http://itstim.xyz/2021223/</id>
+    <published>2021-02-23T10:33:00.000Z</published>
+    <updated>2021-02-23T11:10:23.089Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><head>    <link href="https://cdn.bootcss.com/font-awesome/5.10.2/css/all.css" rel="stylesheet"></head> <blockquote><p><i class="fa fa-quote-left fa-2x fa-pull-left"></i>NeuMusic，最开始想做这个播放器，是因为觉得网易云音乐的界面太丑了。然后又是刚接触到新拟态这种神奇的风格，想着自己练练手，写一个新的第三方客户端出来。现在这个客户端已经基本成型了，但是并没有我预期地那么好看，其实也是必然的。但是对一个没有接触过前端和UI设计的屑高中生来说，已经满足了。</p></blockquote><a id="more"></a><h2 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h2><p>允许我先不要脸地把项目地址挂出来:<br><a href="https://github.com/timlzh/NeuMusic">timlzh/Neumusic</a></p><h2 id="开发过程"><a href="#开发过程" class="headerlink" title="开发过程"></a>开发过程</h2><p>其实我有想过学一门更加新潮的语言来写的，我试了试Nodejs、Vue、Electron，但是说实话，对于一个并没有深入了解过JavaScript的蒟蒻来说，这些未免太难以入门了。<br>所以想了想，不如就直接用原生的HTML+Javascript/JQuery+CSS写了，就当练手了，虽然有诸多不便，但是都克服下来了，这应该算是我从零开始做的第一个项目了。</p><h3 id="Issue1-奇怪的请求"><a href="#Issue1-奇怪的请求" class="headerlink" title="Issue1:奇怪的请求"></a>Issue1:奇怪的请求</h3><p>Chrome为了安全不让进行不安全的跨域请求，我一开始没有把index.html部署，导致跨域请求全部GG出问题，我还以为是我的请求方法出现了问题。但是后来我才发现是因为我的网站必须部署到本地了才行，于是我又挂载了一番，才可以正常进行请求。这一搞就是三天，搞得我都快放弃了才发现问题的所在……果然是入门吃亏。</p><h3 id="Issue2-由于算法问题服务器被封禁了"><a href="#Issue2-由于算法问题服务器被封禁了" class="headerlink" title="Issue2:由于算法问题服务器被封禁了"></a>Issue2:由于算法问题服务器被封禁了</h3><p>由于Issue1，我以为的请求方法问题，于是我把记住登录状态这个功能的算法改成了:保存账号密码到本地，每次打开就登录一次。然后由于我调试时不断刷新页面，请求频繁，最后直接gg——服务器ip被网易云封禁了。<br>怎么解决的呢？当然是——我还有个服务器XD，不怕，换了个服务器折腾。</p>]]></content>
+    
+    
+    <summary type="html">&lt;head&gt;
+    &lt;link href=&quot;https://cdn.bootcss.com/font-awesome/5.10.2/css/all.css&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;/head&gt; 
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;i class=&quot;fa fa-quote-left fa-2x fa-pull-left&quot;&gt;&lt;/i&gt;NeuMusic，最开始想做这个播放器，是因为觉得网易云音乐的界面太丑了。然后又是刚接触到新拟态这种神奇的风格，想着自己练练手，写一个新的第三方客户端出来。现在这个客户端已经基本成型了，但是并没有我预期地那么好看，其实也是必然的。但是对一个没有接触过前端和UI设计的屑高中生来说，已经满足了。&lt;/p&gt;
+&lt;/blockquote&gt;</summary>
+    
+    
+    
+    
+    <category term="NeuMusic" scheme="http://itstim.xyz/tags/NeuMusic/"/>
+    
+  </entry>
   
   <entry>
     <title>[数学]圆锥曲线整理（慢慢更新）</title>
@@ -59,9 +84,9 @@
     <category term="随笔" scheme="http://itstim.xyz/categories/%E9%9A%8F%E7%AC%94/"/>
     
     
-    <category term="C++" scheme="http://itstim.xyz/tags/C/"/>
-    
     <category term="随笔" scheme="http://itstim.xyz/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+    <category term="C++" scheme="http://itstim.xyz/tags/C/"/>
     
   </entry>
   
@@ -84,11 +109,11 @@
     <category term="C++" scheme="http://itstim.xyz/categories/C/"/>
     
     
+    <category term="C++" scheme="http://itstim.xyz/tags/C/"/>
+    
     <category term="背包" scheme="http://itstim.xyz/tags/%E8%83%8C%E5%8C%85/"/>
     
     <category term="算法" scheme="http://itstim.xyz/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="C++" scheme="http://itstim.xyz/tags/C/"/>
     
   </entry>
   
@@ -111,11 +136,11 @@
     <category term="C++" scheme="http://itstim.xyz/categories/C/"/>
     
     
+    <category term="C++" scheme="http://itstim.xyz/tags/C/"/>
+    
     <category term="背包" scheme="http://itstim.xyz/tags/%E8%83%8C%E5%8C%85/"/>
     
     <category term="算法" scheme="http://itstim.xyz/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="C++" scheme="http://itstim.xyz/tags/C/"/>
     
   </entry>
   
@@ -138,11 +163,11 @@
     <category term="C++" scheme="http://itstim.xyz/categories/C/"/>
     
     
+    <category term="C++" scheme="http://itstim.xyz/tags/C/"/>
+    
     <category term="背包" scheme="http://itstim.xyz/tags/%E8%83%8C%E5%8C%85/"/>
     
     <category term="算法" scheme="http://itstim.xyz/tags/%E7%AE%97%E6%B3%95/"/>
-    
-    <category term="C++" scheme="http://itstim.xyz/tags/C/"/>
     
   </entry>
   
@@ -193,9 +218,9 @@
     <category term="C++" scheme="http://itstim.xyz/categories/C/"/>
     
     
-    <category term="算法" scheme="http://itstim.xyz/tags/%E7%AE%97%E6%B3%95/"/>
-    
     <category term="C++" scheme="http://itstim.xyz/tags/C/"/>
+    
+    <category term="算法" scheme="http://itstim.xyz/tags/%E7%AE%97%E6%B3%95/"/>
     
     <category term="Programming" scheme="http://itstim.xyz/tags/Programming/"/>
     
@@ -252,7 +277,7 @@
     <published>2020-09-04T15:59:00.000Z</published>
     <updated>2020-09-06T12:24:33.089Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote><p>有人住高楼，有人在深沟。<br>有人光万丈，有人一身锈。<br>世人万千种，浮云莫去求。<br>斯人若彩虹，遇上方知有。  </p></blockquote><a id="more"></a>        <div id="aplayer-WlkTwpnu" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-WlkTwpnu"),            narrow: false,            autoplay: false,            showlrc: false,            music: {              title: "Pretty Little Eyes",              author: "Curtis Lee",              url: "http://music.163.com/song/media/outer/url?id=5039972.mp3",              pic: "http://p1.music.126.net/QMeRbRP6VZ9c0OKnZhZ9Kw==/6644348767350223.jpg",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script><h2 id="Part1"><a href="#Part1" class="headerlink" title="Part1"></a>Part1</h2><p>最近看了《怦然心动》的电影，一连刷了三遍。是真的看哭了，不是因为感动啥的吧，就是心酸和其他的感情交织在一起，一下鼻子酸了。<br>真的好像我的经历啊，只是我和她没有最后那个结局。可能真的是我那个时候还不懂爱情是什么吧。她一开始对我是那么好，然而我却一直让她失望，当我彻底醒悟发现自己很对不起她的时候，我们却疏远了。我不知道她是不是喜欢或者喜欢过我，然而我是肯定喜欢她的，她肯定也知道。有的时候喜欢就是这么让你琢磨不透，来的时候你没有意识到，等你发现的时候你已经追不上了。<br>看到Juli用8美元买了另一个人的时候我就绷不住流下了眼泪。可能那对于大多数人不是一个泪点，但是对我来说那是全片最让我难过的地方。男主的希望越来越高，他一直”害怕”女主选到他，然而当他的希望到高潮的时候，一句”Eight Dollars”让希望一下子落到了冰点。是多么希望她选我，即使那会尴尬，会难为情，但是当她真的选了别人的时候，我却不甘，难过，失望。  </p><blockquote><p>“My Juli,with Eddie Truelock. She’s laughing. What was she laughing about? How could she sit there and laugh and look so beautiful?”</p></blockquote><p>那种冥冥之中注定的事，被认定的事，最后却变的不一样了，那是多么的失望啊……那种机会之前明明就在眼前，却被自己亲手毁掉的感觉，又是多么的无助。<br>明知道一切都是自己的后知后觉造成的，却又很不甘。想弥补，却又越抹越黑最后看着一切被自己亲手推进深渊的时候，留下的无力与无奈，是前所未有的，也是终身无法忘记的。</p><p>我真的好想她好想她，不由自主怦然心动身陷囹圄无法自拔。她是那么的美好，一颦一笑一悲一喜都是那么的美好。我就是喜欢她，那么喜欢她，无可自拔。心动听起来是一瞬间，其实，是那么长，那么长……  </p><blockquote><p>『相思树底说相思，思郎恨郎郎不知』</p></blockquote><h2 id="Part2"><a href="#Part2" class="headerlink" title="Part2"></a>Part2</h2><p>学习和生活压的我喘不过气，我已经做好了考个二流211的准备了。It doesn’t matter。或者说，It does matter，但是我没法改变。<br>竞赛我也是臭鱼烂虾，就算说是学校没给我提供一个好的环境来追赶那些竞赛大校的人，但是也是我一开始就浪费的比较高的起跑线和兴趣。现在花时间来又有什么用呢？用来给四七九的竞赛生们当垫背的么？已经显得浪费时间且毫无意义了。刘冬让我继续学，说我这是遇到困难就放弃，浪费兴趣很可惜。可是这两个观点我都不同意，我这不是遇到困难就放弃，我根本就没遇到什么困难，只是我觉得现在以我的时间，我需要符合学校的TimeTable，这让我根本就没有很多时间来深入学习这个东西，对于其他学校的竞赛生来说，时间是我的十倍，我拿什么跟他们竞争？我也没有浪费兴趣，我的兴趣可以一直保持下去，跟计算机有关的是我的兴趣，而不是参加计算机竞赛。我不去竞赛不代表我丢到了这个兴趣。<br>实话说还是我害怕了，我怕一遍上正课一边学竞赛会两头都不讨好，最后竹篮打水一场空，考的还不如裸分好，那我不是亏了？我为何要去做明知要亏本的生意呢？  </p><h2 id="Part3"><a href="#Part3" class="headerlink" title="Part3"></a>Part3</h2><p>偶尔会对自己产生怀疑，自己是不是喜欢上其他人了，可是当我反问自己是不是把她放下的时候，我的回答却是没有。<br>我是一个算是专一的人吧，就算我对其他人有好感了，我也明确去划清界限，不会放任自己的感情发展下去。我觉得在我没有对自己有没有放下她这个问题上得到一个明确的答案前，我就不该去喜欢别人。有的时候会觉得自己喜欢上了某个人，但是很快就会否认这个想法。可能十天半个月我会和一个人关系比较好，但是自然而然就消退了，抑或不是自然而然，而是我内心拒绝了。总而言之，我还没做好准备去接受别人，我不知道这是不是正确的，但是我还是这么做了。专一在我眼里可能是做一个好的男友的第一条件吧。  </p><p>但有的时候的确是那么迷茫，我觉得自己该放下她向前看了，会试着去喜欢上别的女生，但却失败了。或许我该跟她表白？她不答应我就扭头走一了百了，关于她的所有的事或许就都放下了。唔，其实我根本就没那个勇气去吧……  </p><p>反正，社恐是又加深了，特别是和女生。</p><p>但是那天赵问我是不是喜欢yyl，我确实是犹豫了。我总是说我对她不是喜欢，那到底是不是呢？有待考证。这种夹杂了很多复杂情愫的感情是最难分辨的，或许那只是好朋友，抑或是叫有好感。又或者是说那就是喜欢么？那我应该是高兴还是伤心呢，为什么而高兴呢？为了放下了她？又为了什么而伤心呢？为了放下了她？<br>反正，在我没有真正认定我放下了她之前，我是不会认为我喜欢上了别的女生的。这不是为了谁而做的表面功夫，因为这个认为不仅仅是现实中跟谁说的，也是跟自己认为，在自己的心里认为，打心底地认为自己放下她了。</p><p>或许，放下是一切的开始吧，过去永远是所有过去的最好归宿。</p><p>面朝大海，春暖花开。</p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这篇随笔写完都凌晨1点半了，当时写完就deploy然后睡觉了。第二天起来读有点词不达意。凑合看吧，网抑云Time……XD</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote><p>有人住高楼，有人在深沟。<br>有人光万丈，有人一身锈。<br>世人万千种，浮云莫去求。<br>斯人若彩虹，遇上方知有。  </p></blockquote><a id="more"></a>        <div id="aplayer-vjeCwFVq" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">            <pre class="aplayer-lrc-content"></pre>        </div>        <script>          var ap = new APlayer({            element: document.getElementById("aplayer-vjeCwFVq"),            narrow: false,            autoplay: false,            showlrc: false,            music: {              title: "Pretty Little Eyes",              author: "Curtis Lee",              url: "http://music.163.com/song/media/outer/url?id=5039972.mp3",              pic: "http://p1.music.126.net/QMeRbRP6VZ9c0OKnZhZ9Kw==/6644348767350223.jpg",              lrc: ""            }          });          window.aplayers || (window.aplayers = []);          window.aplayers.push(ap);        </script><h2 id="Part1"><a href="#Part1" class="headerlink" title="Part1"></a>Part1</h2><p>最近看了《怦然心动》的电影，一连刷了三遍。是真的看哭了，不是因为感动啥的吧，就是心酸和其他的感情交织在一起，一下鼻子酸了。<br>真的好像我的经历啊，只是我和她没有最后那个结局。可能真的是我那个时候还不懂爱情是什么吧。她一开始对我是那么好，然而我却一直让她失望，当我彻底醒悟发现自己很对不起她的时候，我们却疏远了。我不知道她是不是喜欢或者喜欢过我，然而我是肯定喜欢她的，她肯定也知道。有的时候喜欢就是这么让你琢磨不透，来的时候你没有意识到，等你发现的时候你已经追不上了。<br>看到Juli用8美元买了另一个人的时候我就绷不住流下了眼泪。可能那对于大多数人不是一个泪点，但是对我来说那是全片最让我难过的地方。男主的希望越来越高，他一直”害怕”女主选到他，然而当他的希望到高潮的时候，一句”Eight Dollars”让希望一下子落到了冰点。是多么希望她选我，即使那会尴尬，会难为情，但是当她真的选了别人的时候，我却不甘，难过，失望。  </p><blockquote><p>“My Juli,with Eddie Truelock. She’s laughing. What was she laughing about? How could she sit there and laugh and look so beautiful?”</p></blockquote><p>那种冥冥之中注定的事，被认定的事，最后却变的不一样了，那是多么的失望啊……那种机会之前明明就在眼前，却被自己亲手毁掉的感觉，又是多么的无助。<br>明知道一切都是自己的后知后觉造成的，却又很不甘。想弥补，却又越抹越黑最后看着一切被自己亲手推进深渊的时候，留下的无力与无奈，是前所未有的，也是终身无法忘记的。</p><p>我真的好想她好想她，不由自主怦然心动身陷囹圄无法自拔。她是那么的美好，一颦一笑一悲一喜都是那么的美好。我就是喜欢她，那么喜欢她，无可自拔。心动听起来是一瞬间，其实，是那么长，那么长……  </p><blockquote><p>『相思树底说相思，思郎恨郎郎不知』</p></blockquote><h2 id="Part2"><a href="#Part2" class="headerlink" title="Part2"></a>Part2</h2><p>学习和生活压的我喘不过气，我已经做好了考个二流211的准备了。It doesn’t matter。或者说，It does matter，但是我没法改变。<br>竞赛我也是臭鱼烂虾，就算说是学校没给我提供一个好的环境来追赶那些竞赛大校的人，但是也是我一开始就浪费的比较高的起跑线和兴趣。现在花时间来又有什么用呢？用来给四七九的竞赛生们当垫背的么？已经显得浪费时间且毫无意义了。刘冬让我继续学，说我这是遇到困难就放弃，浪费兴趣很可惜。可是这两个观点我都不同意，我这不是遇到困难就放弃，我根本就没遇到什么困难，只是我觉得现在以我的时间，我需要符合学校的TimeTable，这让我根本就没有很多时间来深入学习这个东西，对于其他学校的竞赛生来说，时间是我的十倍，我拿什么跟他们竞争？我也没有浪费兴趣，我的兴趣可以一直保持下去，跟计算机有关的是我的兴趣，而不是参加计算机竞赛。我不去竞赛不代表我丢到了这个兴趣。<br>实话说还是我害怕了，我怕一遍上正课一边学竞赛会两头都不讨好，最后竹篮打水一场空，考的还不如裸分好，那我不是亏了？我为何要去做明知要亏本的生意呢？  </p><h2 id="Part3"><a href="#Part3" class="headerlink" title="Part3"></a>Part3</h2><p>偶尔会对自己产生怀疑，自己是不是喜欢上其他人了，可是当我反问自己是不是把她放下的时候，我的回答却是没有。<br>我是一个算是专一的人吧，就算我对其他人有好感了，我也明确去划清界限，不会放任自己的感情发展下去。我觉得在我没有对自己有没有放下她这个问题上得到一个明确的答案前，我就不该去喜欢别人。有的时候会觉得自己喜欢上了某个人，但是很快就会否认这个想法。可能十天半个月我会和一个人关系比较好，但是自然而然就消退了，抑或不是自然而然，而是我内心拒绝了。总而言之，我还没做好准备去接受别人，我不知道这是不是正确的，但是我还是这么做了。专一在我眼里可能是做一个好的男友的第一条件吧。  </p><p>但有的时候的确是那么迷茫，我觉得自己该放下她向前看了，会试着去喜欢上别的女生，但却失败了。或许我该跟她表白？她不答应我就扭头走一了百了，关于她的所有的事或许就都放下了。唔，其实我根本就没那个勇气去吧……  </p><p>反正，社恐是又加深了，特别是和女生。</p><p>但是那天赵问我是不是喜欢yyl，我确实是犹豫了。我总是说我对她不是喜欢，那到底是不是呢？有待考证。这种夹杂了很多复杂情愫的感情是最难分辨的，或许那只是好朋友，抑或是叫有好感。又或者是说那就是喜欢么？那我应该是高兴还是伤心呢，为什么而高兴呢？为了放下了她？又为了什么而伤心呢？为了放下了她？<br>反正，在我没有真正认定我放下了她之前，我是不会认为我喜欢上了别的女生的。这不是为了谁而做的表面功夫，因为这个认为不仅仅是现实中跟谁说的，也是跟自己认为，在自己的心里认为，打心底地认为自己放下她了。</p><p>或许，放下是一切的开始吧，过去永远是所有过去的最好归宿。</p><p>面朝大海，春暖花开。</p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这篇随笔写完都凌晨1点半了，当时写完就deploy然后睡觉了。第二天起来读有点词不达意。凑合看吧，网抑云Time……XD</p>]]></content>
     
     
     <summary type="html">&lt;blockquote&gt;
@@ -499,37 +524,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>[服务器]搭建CSGO服务器</title>
-    <link href="http://itstim.xyz/%E6%88%91%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%81/"/>
-    <id>http://itstim.xyz/%E6%88%91%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%81/</id>
-    <published>2020-08-08T10:07:00.000Z</published>
-    <updated>2020-08-21T10:18:18.760Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><head>    <link href="https://cdn.bootcss.com/font-awesome/5.10.2/css/all.css" rel="stylesheet"></head> <blockquote><p><i class="fa fa-gamepad fa-3x fa-pull-left"></i>作为一个(云)游戏爱好者，有着一群水友，打游戏常常需要调试局域网联机或者自己创建房间啥的，会有些许不方便。有了一个服务器，就可以搭建一个游戏服务端，不仅方便一起玩，还可以自己定义插件啥的。爽歪歪!</p></blockquote><a id="more"></a><hr><h1 id="Step1-基本设置-安装Steamcmd"><a href="#Step1-基本设置-安装Steamcmd" class="headerlink" title="Step1:基本设置|安装Steamcmd"></a>Step1:基本设置|安装Steamcmd</h1><ol><li><p>使用ssh以root用户身份登录到服务器，创建名为steam的用户，并切换到该用户和该用户的根目录下（用户名可以自行选择，但在后续的操作中，路径需要进行替换）</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">useradd -m steam   <span class="comment"># 添加名为steam的用户</span></span><br><span class="line">su steam    <span class="comment">#切换到steam用户</span></span><br><span class="line"><span class="built_in">cd</span> /home/steam/   <span class="comment">#切换到steam用户的根目录下</span></span><br></pre></td></tr></table></figure></li><li><p>创建名为steamcmd的文件夹，下载steamcmd并解压。</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir steamcmd    <span class="comment">#创建名为steamcmd的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> steamcmd/    <span class="comment">#切换到文件夹目录下</span></span><br><span class="line">wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz    <span class="comment">#下载steamcmd</span></span><br><span class="line">tar zxvf steamcmd_linux.tar.gz    <span class="comment"># 解压steamcmd</span></span><br><span class="line">rm steamcmd_linux.tar.gz    <span class="comment">#删除下载的安装包，也可以保留</span></span><br></pre></td></tr></table></figure></li><li><p>安装运行steamcmd所需的环境，运行steamcmd并安装CS:GO服务端</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install glibc.i686    <span class="comment"># 安装steamcmd运行所需的库</span></span><br><span class="line">sudo yum install libstdc++.i686    <span class="comment">#有的主机已经安装其他同样效果的依赖，不用多次安装</span></span><br><span class="line">./steamcmd.sh</span><br></pre></td></tr></table></figure></li></ol><h1 id="Step2-通过Steamcmd安装CSGO服务端"><a href="#Step2-通过Steamcmd安装CSGO服务端" class="headerlink" title="Step2:通过Steamcmd安装CSGO服务端"></a>Step2:通过Steamcmd安装CSGO服务端</h1><ol><li><p>以匿名用户身份登录steamcmd</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">login anonymous</span><br></pre></td></tr></table></figure></li><li><p>创建CS:GO服务器文件夹，该文件夹在steamcmd文件夹目录下</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">force_install_dir ./csgo_server</span><br></pre></td></tr></table></figure></li><li><p>安装csgo服务端(需要至少30G磁盘空间)</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">app_update 740 validate</span><br></pre></td></tr></table></figure><p> 在看到如下图片中最后的行的”Success!”后，表明CS:GO服务端安装成功（此处使用了更新成功的图片，但同样是”Success!”字样）</p><p> <img src="/images/pasted-0.png" alt="安装成功提示" title="安装成功提示"></p></li><li><p>安装完成后，退出steamcmd</p> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">quit</span><br></pre></td></tr></table></figure></li></ol><h1 id="Step3-编写CS-GO更新脚本（可选）"><a href="#Step3-编写CS-GO更新脚本（可选）" class="headerlink" title="Step3:编写CS:GO更新脚本（可选）"></a>Step3:编写CS:GO更新脚本（可选）</h1><blockquote><p>CSGO更新的频率还是挺高的，服务端也是要同步更新的，所以我们可以写一个小脚本来一键更新服务端。</p></blockquote><ol><li><p>编写steamcmd的runscript脚本</p><ul><li><p>在steamcmd目录下（退出steamcmd.sh后的当前目录），使用vim创建新的update.txt文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi update.txt</span><br></pre></td></tr></table></figure></li><li><p>进入编辑模式，写入以下语句，然后保存退出</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">login anonymous</span><br><span class="line">force_install_dir ./csgo_server</span><br><span class="line">app_update 740</span><br><span class="line">quit</span><br></pre></td></tr></table></figure></li></ul></li><li><p>编写steamcmd运行脚本</p><ul><li><p>在steamcmd目录下，使用vim创建新的csgo_server_update.sh文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi csgo_server_update.sh</span><br></pre></td></tr></table></figure></li><li><p>进入编辑模式，写入以下语句后保存退出</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">#!/bin/bash</span></span><br><span class="line">./steamcmd.sh +runscript update.txt</span><br></pre></td></tr></table></figure></li><li><p>若出现了权限不足的情况，提升权限再次运行即可</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 775 csgo_server_update.sh</span><br></pre></td></tr></table></figure></li></ul></li></ol><h1 id="Step4-配置并运行CS-GO服务端"><a href="#Step4-配置并运行CS-GO服务端" class="headerlink" title="Step4:配置并运行CS:GO服务端"></a>Step4:配置并运行CS:GO服务端</h1><ol><li><p>前往Steam游戏服务器帐户管理注册steam服务器登录令牌。没有该令牌服务器只能在本地网络中进行连接，在社区服务器浏览器中也不会显示。</p><ul><li><p>在App ID中填入CS:GO的ID：730。备忘录选填。</p><p><img src="/images/pasted-2.png" alt="填写AppID会返回你的登录令牌" title="填写AppID会返回你的登录令牌"></p></li><li><p>点击创建之后便获得了登录令牌，不要将该令牌泄露出去，该令牌用于服务器在CS:GO社区服务器中验证</p></li></ul></li><li><p>下载服务器配置文件server.cfg</p><ul><li><p>切换目录到CS:GO的cfg文件夹下，下载server.cfg文件，编辑server.cfg文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">   <span class="built_in">cd</span> csgo_server/csgo/cfg/</span><br><span class="line">wget http://www.csgodev.com/downloads/server.cfg</span><br><span class="line">vi server.cfg</span><br></pre></td></tr></table></figure></li><li><p>进入编辑模式，在server.cfg文件中添加登录令牌，修改部分参数（这部分一定要改，不然很影响游戏体验！）</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">   // 新增以下参数：</span><br><span class="line">// steam account，修改为自己刚刚申请的登陆令牌</span><br><span class="line">sv_setsteamaccount <span class="string">&quot;4FXXXXXXXXXXXXXXXXXXXXXXXXX&quot;</span></span><br><span class="line"></span><br><span class="line">// 找到并修改以下参数：</span><br><span class="line">// 服务器名称，安全方面</span><br><span class="line">hostname <span class="string">&quot;Nice&#x27;s CSGO Server&quot;</span>    // 服务器在社区服务器浏览器上显示的名称，自行修改为喜欢的名字</span><br><span class="line">rcon_password <span class="string">&quot;***&quot;</span>    // CS:GO远程控制台密码，修改为自己定义的密码</span><br><span class="line">sv_password <span class="string">&quot;***&quot;</span>    // 服务器连接密码，在连接服务器时输入，不要密码可以留空</span><br><span class="line">// 游戏参数方面</span><br><span class="line">sv_maxrate <span class="string">&quot;128000&quot;</span>    // 服务器最大带宽使用量，默认值非常小，因此会造成choke值异常，此处建议改为128000</span><br><span class="line">sv_minrate <span class="string">&quot;80000&quot;</span>    // 服务器最小带宽使用量，与上面同理，此处建议改为80000</span><br><span class="line">sv_accelerate <span class="string">&quot;5.5&quot;</span>    // 人物移动速度，默认值为10，快到恶心，此处建议修改为5.5</span><br></pre></td></tr></table></figure></li><li><p>最关键的参数在下图已经用红笔圈出来了</p><p><img src="/images/pasted-3.png" alt="服务器配置"></p></li><li><p>修改完以上参数之后，服务器便可以启动了，关于server.cfg中的其他参数说明，可以在server.cfg文件的注释中查看，也可以前往<a href="https://links.jianshu.com/go?to=http%3A%2F%2Fcsgodev.com%2Fcsgodev-server-cfg-for-csgo%2F">CSGODev</a>查看</p></li></ul></li><li><p>开放UDP 27015端口</p><ul><li><p>前往阿里云服务器防火墙控制面板，添加防火墙规则</p><p><img src="/images/pasted-4.png" alt="开放端口"></p></li></ul></li><li><p>安装screen，启动CS:GO服务器</p><ul><li><p>安装screen，以便CS:GO服务进程在后台运行</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install screen</span><br></pre></td></tr></table></figure></li><li><p>返回csgo_server目录，使用screen创建新的会话</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   <span class="built_in">cd</span> /home/steam/steamcmd/csgo_server/</span><br><span class="line">screen -S csgo</span><br></pre></td></tr></table></figure></li><li><p>注意：当screen会话未结束时，在下次ssh登陆时可以使用命令”screen -r csgo”来恢复会话</p></li><li><p>此时屏幕会清屏，说明你成功进入到”csgo”这个会话当中，这时开始启动服务器</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./srcds_run -debug -game csgo -console -port 27015 -steamcmd_script /home/steam/steamcmd/update.txt -steam_dir /home/steam/ +map de_dust2</span><br></pre></td></tr></table></figure></li></ul><blockquote><p>参数解释:<br>-debug 开启调试模式<br>-game 指明游戏，此处是csgo<br>-console 打开游戏控制台<br>-port 游戏服务器端口，此处是27015<br>-steamcmd_script 运行steamcmd的脚本文件地址<br>-steam_dir Steam的安装地址<br>+map 服务器加载的地图（此处只能用官方地图，创意工坊地图请看后面）  </p></blockquote><ul><li><p>当看到如下图所示的界面之后，说明服务器成功地运行，可以在游戏中连接了</p><p><img src="/images/pasted-5.png" alt="服务器启动成功"></p></li><li><p>记下红圈中的服务器IP地址，等会要用</p></li></ul></li></ol><h1 id="Step5-连接服务器"><a href="#Step5-连接服务器" class="headerlink" title="Step5:连接服务器"></a>Step5:连接服务器</h1><blockquote><p>控制台输入connect+空格+你的ip.</p></blockquote><h1 id="Step6-使用创意工坊地图"><a href="#Step6-使用创意工坊地图" class="headerlink" title="Step6:使用创意工坊地图"></a>Step6:使用创意工坊地图</h1><ol><li><p>注册Steam网页API</p><ul><li><p>前往Steam网页API注册页面注册API，获得Authkey（注意不要泄露出去）</p><p><img src="/images/pasted-6.png" alt="Authkey"></p></li></ul></li><li><p>获取创意工坊地图ID</p><ul><li><p>在steam的创意工坊中打开自己想要的地图的页面，复制浏览器地址上的ID。比如说，aim_map_c的地图ID是465367694</p><p><img src="/images/pasted-7.png" alt="获取地图ID"></p></li></ul></li><li><p>启动服务器</p><ul><li><p>在csgo_server文件夹中输入命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./srcds_run -debug -game csgo -console -port 27015 -steamcmd_script /home/steam/steamcmd/update.txt -steam_dir /home/steam/ +host_workshop_map 465367694 -authkey 3XXXXXXXXXXXXXXXXXXXXXXX</span><br></pre></td></tr></table></figure><blockquote><p> 相同的参数在之前有解释，这里只解释新的参数:<br>+host_workshop_map 465367694 <strong>切换地图为来自创意工坊的地图，后面的数字填入刚刚获取的地图ID</strong><br>-authkey 3XXXXXXXXXX <strong>Steam网页API的Authkey，填入刚刚获取的API Authkey</strong></p></blockquote></li><li><p>如果不想通过重启服务器的方法来更换地图，可以在服务器控制台中输入以下命令：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">changelevel XXXX    // XXXX可以是创意工坊地图ID，也可以是官方地图名字</span><br></pre></td></tr></table></figure><p><img src="/images/pasted-8.png" alt="服务器后台直接更换地图"></p></li></ul></li></ol><p><strong>以上。</strong></p>]]></content>
-    
-    
-    <summary type="html">&lt;head&gt;
-    &lt;link href=&quot;https://cdn.bootcss.com/font-awesome/5.10.2/css/all.css&quot; rel=&quot;stylesheet&quot;&gt;
-&lt;/head&gt; 
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;i class=&quot;fa fa-gamepad fa-3x fa-pull-left&quot;&gt;&lt;/i&gt;作为一个(云)游戏爱好者，有着一群水友，打游戏常常需要调试局域网联机或者自己创建房间啥的，会有些许不方便。有了一个服务器，就可以搭建一个游戏服务端，不仅方便一起玩，还可以自己定义插件啥的。爽歪歪!&lt;/p&gt;
-&lt;/blockquote&gt;</summary>
-    
-    
-    
-    <category term="服务器" scheme="http://itstim.xyz/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
-    
-    <category term="游戏" scheme="http://itstim.xyz/tags/%E6%B8%B8%E6%88%8F/"/>
-    
-    <category term="服务器" scheme="http://itstim.xyz/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-    
-    <category term="云" scheme="http://itstim.xyz/tags/%E4%BA%91/"/>
     
   </entry>
   
