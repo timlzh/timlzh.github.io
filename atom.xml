@@ -6,7 +6,7 @@
   <link href="https://timlzh.com/atom.xml" rel="self"/>
   
   <link href="https://timlzh.com/"/>
-  <updated>2026-09-01T12:02:10.326Z</updated>
+  <updated>2026-09-02T07:58:29.365Z</updated>
   <id>https://timlzh.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://timlzh.com/post/hello-world.html"/>
     <id>https://timlzh.com/post/hello-world.html</id>
     <published>2026-09-01T20:00:00.000Z</published>
-    <updated>2026-09-01T12:02:10.326Z</updated>
+    <updated>2026-09-02T07:58:29.365Z</updated>
     
     <content type="html"><![CDATA[<p>Hello World.</p><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">]]></content>
     
