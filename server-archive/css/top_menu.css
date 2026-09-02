@@ -1,0 +1,13 @@
+.top_menu {
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 98%;
+  font-size: calc(0.1em + min(4vw, 1em));
+  text-align: right;
+  margin-top: 15px;
+}
+.top_menu a {
+  margin: 0 10px;
+}

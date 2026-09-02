@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="IDS (Instrucion Detection System) 即入侵检测系统，是一种主动防御的安全技术，主要用于检测网络和系统中的异常行为，如端口扫描、暴力破解、漏洞利用等，以及恶意软件的传播和潜伏。IDS 通过对日志、文件、进程等进行监控，发现异常行为后，会记入安全管理系统(如 SIEM) 或者发送警报，以便安全人员进行进一步的分析和处理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Timlzh">
+    
+
+    <!-- Title -->
+    
+    <title>基于主机的入侵检测系统 | HIDS学习笔记 | Tim的杂货铺</title>
+
+    <!-- favicon -->
+    
+        <link rel="shortcut icon" href="https://timlzh.github.io/melody-favicon.ico">
+    
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Valine -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+    <link rel="stylesheet" href="/server-archive/css/darkmode.css">
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/server-archive/css/style.css">
+
+
+    <!-- Top Menu  -->
+    <div class="top_menu">
+        
+            
+            <a href="/server-archive/">Home</a>
+            
+            <a href="/server-archive/links">Friends</a>
+            
+            <a href="/server-archive/tags">Tags</a>
+            
+            <a href="/server-archive/about">About</a>
+            
+            <a href="/server-archive/">asdfa</a>
+            
+        
+        <a class="darkmode-toggle" href="#" data-toggle="darkmode">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o" style="display: none;"></i>
+        </a>
+    </div>
+
+    <!-- Darkmode -->
+    <script src='/server-archive/js/darkmode.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.jsdelivr.net/npm/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- Highlight -->
+    
+        <script>
+            var lightTheme = "github";
+            var darkTheme = "github-dark-dimmed";
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/server-archive/atom.xml" title="Tim的杂货铺" type="application/atom+xml">
+</head>
+
+
+<body>
+
+    <!-- Content -->
+    
+
+
+<section class="article-container">
+    <!-- Back Home -->
+    <!-- <a class="nav-back" href="javascript:back()">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<script>
+    function back() {
+        var home = '/server-archive/'
+        if (document.referrer && document.referrer.indexOf(home) > -1) {
+            window.history.back();
+        } else {
+            window.location.href = home;
+        }
+    }
+</script> -->
+
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                基于主机的入侵检测系统
+                            </h1>
+                            <div class="subheading">
+                                HIDS学习笔记
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <blockquote>
+<p>IDS (Instrucion Detection System) 即入侵检测系统，是一种主动防御的安全技术，主要用于检测网络和系统中的异常行为，如端口扫描、暴力破解、漏洞利用等，以及恶意软件的传播和潜伏。IDS 通过对日志、文件、进程等进行监控，发现异常行为后，会记入安全管理系统(如 SIEM) 或者发送警报，以便安全人员进行进一步的分析和处理</p>
+</blockquote>
+<span id="more"></span>
+<ul>
+<li><a href="#host-based-intrusion-detection-system">Host-based Intrusion Detection System</a>
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a>
+<ul>
+<li><a href="#ids">IDS</a>
+<ul>
+<li><a href="#ids%E7%9A%84%E7%BB%84%E6%88%90">IDS的组成</a></li>
+<li><a href="#ids%E7%9A%84%E5%88%86%E7%B1%BB">IDS的分类</a></li>
+</ul>
+</li>
+<li><a href="#hids">HIDS</a></li>
+</ul>
+</li>
+<li><a href="#hids-%E7%9A%84%E6%95%B0%E6%8D%AE%E6%BA%90">HIDS 的数据源</a>
+<ul>
+<li><a href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8">系统调用</a></li>
+<li><a href="#%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95">审计记录</a></li>
+<li><a href="#%E6%96%87%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A0%A1%E9%AA%8C">文件完整性校验</a></li>
+<li><a href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E7%9B%91%E6%8E%A7">注册表监控</a></li>
+</ul>
+</li>
+<li><a href="#ids-%E7%9A%84%E5%88%86%E6%9E%90%E5%8E%9F%E7%90%86">IDS 的分析原理</a>
+<ul>
+<li><a href="#%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B">异常检测</a>
+<ul>
+<li><a href="#%E5%9F%BA%E4%BA%8E%E7%BB%9F%E8%AE%A1">基于统计</a></li>
+<li><a href="#%E5%9F%BA%E4%BA%8E%E8%A7%84%E5%88%99">基于规则</a></li>
+<li><a href="#%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">基于机器学习</a></li>
+</ul>
+</li>
+<li><a href="#%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B%E5%92%8C%E5%90%AF%E5%8F%91%E5%BC%8F%E6%A3%80%E6%B5%8B">特征检测和启发式检测</a>
+<ul>
+<li><a href="#%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B">特征检测</a></li>
+<li><a href="#%E5%90%AF%E5%8F%91%E5%BC%8F%E6%A3%80%E6%B5%8B">启发式检测</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AE%80%E5%8D%95-hids-%E7%9A%84%E5%AE%9E%E7%8E%B0">简单 HIDS 的实现</a>
+<ul>
+<li><a href="#%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7">进程监控</a>
+<ul>
+<li><a href="#netlink">Netlink</a></li>
+<li><a href="#%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96">进程信息获取</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BD%91%E7%BB%9C%E7%9B%91%E6%8E%A7">网络监控</a></li>
+<li><a href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7">文件系统监控</a></li>
+<li><a href="#%E8%A1%8C%E4%B8%BA%E5%8C%B9%E9%85%8D">行为匹配</a>
+<ul>
+<li><a href="#%E8%A7%84%E5%88%99%E6%95%B0%E6%8D%AE%E5%BA%93">规则数据库</a></li>
+<li><a href="#%E8%A7%84%E5%88%99%E5%8C%B9%E9%85%8D">规则匹配</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA">效果展示</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="%E4%BB%8B%E7%BB%8D" tabindex="-1">介绍</h2>
+<h3 id="ids" tabindex="-1">IDS</h3>
+<p>IDS (Instrucion Detection System) 即入侵检测系统，是一种主动防御的安全技术，主要用于检测网络和系统中的异常行为，如端口扫描、暴力破解、漏洞利用等，以及恶意软件的传播和潜伏。IDS 通过对日志、文件、进程等进行监控，发现异常行为后，会记入安全管理系统(如 SIEM) 或者发送警报，以便安全人员进行进一步的分析和处理<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。</p>
+<h4 id="ids%E7%9A%84%E7%BB%84%E6%88%90" tabindex="-1">IDS的组成</h4>
+<p>IDS 由以下几个部分组成<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>：</p>
+<ul>
+<li><strong>传感器</strong>：负责监控网络、主机、应用等，发现异常行为后，将信息发送给 IDS 引擎。</li>
+<li><strong>分析器</strong>：负责对传感器发送的信息进行分析，判断是否为异常行为。</li>
+<li><strong>用户接口</strong>：负责向用户展示 IDS 的运行状态、异常行为等信息。</li>
+</ul>
+<h4 id="ids%E7%9A%84%E5%88%86%E7%B1%BB" tabindex="-1">IDS的分类</h4>
+<p>IDS 可以主要分为以下两类<sup class="footnote-ref"><a href="#fn2" id="fnref2:1">[2:1]</a></sup>：</p>
+<ul>
+<li><strong>基于网络的 IDS (NIDS)</strong>：基于网络的 IDS 主要用于监控网络流量，发现网络中的异常行为。NIDS 通常部署在网络的边界，如防火墙、路由器等，以便监控网络中的所有流量。</li>
+<li><strong>基于主机的 IDS (HIDS)</strong>：基于主机的 IDS 主要用于监控主机的日志、文件、进程等，发现主机中的异常行为。HIDS 通常部署在主机上，以便监控主机的所有行为。</li>
+</ul>
+<p>本文主要介绍基于主机的 IDS。</p>
+<h3 id="hids" tabindex="-1">HIDS</h3>
+<p>HIDS (Host-based Intrusion Detection System) 即基于主机的入侵检测系统，是一种主动防御的安全技术，主要用于检测主机中的异常行为，如端口扫描、暴力破解、漏洞利用等，以及恶意软件的传播和潜伏。HIDS 通过对日志、文件、进程等进行监控，发现异常行为后，会记入安全管理系统 (如 SIEM) 或者发送警报，以便安全人员进行进一步的分析和处理<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>。</p>
+<h2 id="hids-%E7%9A%84%E6%95%B0%E6%8D%AE%E6%BA%90" tabindex="-1">HIDS 的数据源</h2>
+<h3 id="%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8" tabindex="-1">系统调用</h3>
+<p>在 Unix/Linux 系统中，进程在系统中的一系列系统调用被公认为是HIDS的首选数据源<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup><sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>。</p>
+<p>传统来说，Windows 下由于 DLL 的广泛使用，导致谁调用了特定的系统调用变得不那么明确。但是 G. Creech 在2014年的研究<sup class="footnote-ref"><a href="#fn4" id="fnref4:1">[4:1]</a></sup>中，提出了一种基于 Windows 的 HIDS，通过基于虚拟内核理论 (The Virtual Kernel Concept)，监控 DLL 函数调用踪迹，实现了类似于 Unix/Linux 下的 System Call Trace。</p>
+<h3 id="%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95" tabindex="-1">审计记录</h3>
+<p>大多数现代操作系统以及很多应用程序都会记录一些重要的事件，如用户登录、文件访问、进程创建等。这些记录可以作为 HIDS 的数据源。</p>
+<h3 id="%E6%96%87%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A0%A1%E9%AA%8C" tabindex="-1">文件完整性校验</h3>
+<p>文件完整性校验是一种被动的防御技术，主要用于检测文件是否被篡改。HIDS 可以通过文件完整性校验来检测文件是否被篡改，从而发现异常行为。</p>
+<p>本方法的缺点是，需要用已有的正常文件生成一个文件完整性校验数据库，并且定期监控维护，这个过程需要花费大量的时间和资源。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Tripwire/tripwire-open-source">Tripwire</a> 就是一个基于文件完整性校验的 HIDS。Tripwire 会根据策略文件配置，监视文件的哈希值、权限、所有权等，从而发现文件是否被篡改<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
+<h3 id="%E6%B3%A8%E5%86%8C%E8%A1%A8%E7%9B%91%E6%8E%A7" tabindex="-1">注册表监控</h3>
+<p>Windows 系统中的注册表是一个重要的配置数据库，记录了系统的配置信息。HIDS 可以通过监控注册表的变化，发现异常行为。</p>
+<p>本方法的缺点是，注册表仅局限于 Windows，且变化非常频繁、数量庞大，监控可能会带来较大的性能开销。恶意软件对注册表的修改也较少，因此注册表监控的效果可能不是很好。</p>
+<h2 id="ids-%E7%9A%84%E5%88%86%E6%9E%90%E5%8E%9F%E7%90%86" tabindex="-1">IDS 的分析原理</h2>
+<p>判断一个检测方法能力高低的最主要的指标是误报 (False Positive, FP) 率和漏报 (False Negative, FN) 率，而衡量整个系统好坏还需要考虑到系统的效率。</p>
+<p>在 IDS 系统中，常见的检测方法有异常检测 (Anomaly Detection) 和特征或启发式检测 (Signature or Heuristic Detection)。前者定义了正常行为的模型，来判断是否为异常行为；后者则直接检测行为是否为恶意行为。</p>
+<h3 id="%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B" tabindex="-1">异常检测</h3>
+<p>异常检测首先会有一个训练阶段，用于生成一个正常行为的模型。在训练阶段，IDS 会监控系统的行为，生成一个正常行为的模型。训练过程可以在不同的时间段进行，也可以持续训练使其演化。</p>
+<p>如前文提到的，HIDS 中通常利用系统调用来作为数据源。在 Linux 内核源码<sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup> 的<code>arch/x86/entry/syscalls/syscall_64.tbl</code>文件中，列出了<code>x86_64</code>架构下的系统调用 (如 Code 1 所示)。HIDS 可以通过监控系统调用的调用次数、调用顺序、调用参数等，来生成一个正常行为的模型。当系统调用的行为与模型不符时，IDS 就会判断为异常行为。</p>
+<pre><code>#
+# 64-bit system call numbers and entry vectors
+#
+# The format is:
+# &lt;number&gt; &lt;abi&gt; &lt;name&gt; &lt;entry point&gt;
+...
+0    common    read            sys_read
+1    common    write            sys_write
+2    common    open            sys_open
+...
+546    x32    preadv2            compat_sys_preadv64v2
+547    x32    pwritev2        compat_sys_pwritev64v2
+# This is the end of the legacy x32 range.  Numbers 548 and above are
+# not special and are not to be used for x32-specific syscalls.
+</code></pre>
+<p><em>Code 1 - arch/x86/entry/syscalls/syscall_64.tbl文件片段<sup class="footnote-ref"><a href="#fn7" id="fnref7:1">[7:1]</a></sup></em></p>
+<p>Windows 下 HIDS 通常监控 DLL 函数调用踪迹，来生成一个正常行为的模型。当 DLL 函数调用的行为与模型不符时，IDS 就会判断为异常行为。表 1 列出了 Windows 下 HIDS 关注的部分重点 DLL 文件。</p>
+<table>
+<thead>
+<tr>
+<th>DLL</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kernel32.dll</td>
+<td>Windows API 的核心组件，包含了系统的内存管理、进程管理、线程管理、同步、设备管理、文件管理、网络管理等功能。</td>
+</tr>
+<tr>
+<td>user32.dll</td>
+<td>Windows API 的用户界面组件，包含了窗口管理、菜单管理、消息管理、剪贴板管理、对话框管理、图标管理、光标管理、键盘管理、鼠标管理等功能。</td>
+</tr>
+<tr>
+<td>comctl32.dll</td>
+<td>Windows API 的通用控件组件，包含了通用控件、通用对话框、通用对话框控件等功能。</td>
+</tr>
+<tr>
+<td>msvcrt.dll</td>
+<td>Microsoft Visual C++ 运行库，包含了 C/C++ 的运行库。</td>
+</tr>
+<tr>
+<td>msvcpp.dll</td>
+<td>Microsoft Visual C++ 运行库，包含了 C++ 的运行库。</td>
+</tr>
+<tr>
+<td>ntdll.dll</td>
+<td>Windows API 的内部组件，包含了系统的内存管理、进程管理、线程管理、同步、设备管理、文件管理、网络管理等功能。</td>
+</tr>
+</tbody>
+</table>
+<p><em>表 1 - Windows 下 HIDS 关注的部分重点 DLL 文件<sup class="footnote-ref"><a href="#fn2" id="fnref2:2">[2:2]</a></sup></em></p>
+<p>在 Garcı́a-Teodoro 等人的研究<sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup>中，列出了 IDS 一些常用的异常检测方法：</p>
+<p><img src="http://pic.timlzh.com/i/2023/12/24/2f5dlq-2.png" alt="图 1"><br>
+<em>图 1 - 异常检测技术分类<sup class="footnote-ref"><a href="#fn8" id="fnref8:1">[8:1]</a></sup></em></p>
+<h4 id="%E5%9F%BA%E4%BA%8E%E7%BB%9F%E8%AE%A1" tabindex="-1">基于统计</h4>
+<p>基于统计 (Statistical based) 法利用传感器的数据，通过统计学方法，生成一个正常行为的指标曲线。最开始的统计法使用单变量 (Univariate) 模型，每一个指标都有一个单独的模型。由于单变量模型较为粗糙，后更多使用多变量 (Multivariate) 模型，将多个指标组合成一个模型，可以更好地反映系统的整体行为。时间序列模型 (Time Series Model) 是一种特殊的多变量模型，它将时间作为一个指标，可以更好地区分行为。</p>
+<p>统计法的优点是计算简单、开销低，但是由于其模型较为简单，可能会导致误报率和漏报率难以平衡。</p>
+<h4 id="%E5%9F%BA%E4%BA%8E%E8%A7%84%E5%88%99" tabindex="-1">基于规则</h4>
+<p>基于知识 (Knowledge based) 法利用规则集对传感器的数据进行分析，判断是否为异常行为。规则集通常在训练阶段中手动生成和特征化。这些规则的描述通常利用有限状态机 (Finite State Machine, FSM) 或标准描述语言 (Description Languages) 进行描述。</p>
+<p>基于规则法的优点是可以根据需要生成规则，检测效果较为精准和灵活，但是需要大量的人工参与，且规则集的维护和更新也是一个问题。</p>
+<h4 id="%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0" tabindex="-1">基于机器学习</h4>
+<p>基于机器学习 (Machine Learning based) 法利用机器学习的方法，对传感器的数据进行建模。随后，利用训练好的模型，对传感器的数据进行分析，判断是否为异常行为。</p>
+<p>基于机器学习的缺陷是需要大量的训练数据，训练时的开销较大，且模型的可解释性较差。当然，当模型建立完成后，可以实现自动化的检测，且检测效果较好、开销较小。</p>
+<h3 id="%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B%E5%92%8C%E5%90%AF%E5%8F%91%E5%BC%8F%E6%A3%80%E6%B5%8B" tabindex="-1">特征检测和启发式检测</h3>
+<p>特征检测 (Signature based) 和启发式检测 (Heuristic based) 是两种常用的检测方法。目前市面上大多数的反病毒软件都是基于特征检测结合启发式检测，对恶意软件进行检测的。</p>
+<h4 id="%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B" tabindex="-1">特征检测</h4>
+<p>特征检测利用对已知的恶意行为进行分析提取出的一个特征集，对传感器的数据进行分析，判断是否为恶意行为。</p>
+<p>特征检测的优点是精准和快速，特征集的高复用性也保证了特征检测法的广泛可用性。但是特征检测法的缺点也很明显，由于学习能力的缺失，其需要大量的数据生成精准的特征集。此外，特征检测点到点的检测方法使其无法检测没有任何特征的新漏洞。</p>
+<h4 id="%E5%90%AF%E5%8F%91%E5%BC%8F%E6%A3%80%E6%B5%8B" tabindex="-1">启发式检测</h4>
+<p>启发式检测是基于规则的检测方法，利用已知的恶意行为，制定一系列的规则来检测和识别可能的入侵行为。这些规则可以是基于已知的攻击行为，也可以是基于安全策略和模式识别等方面的规则。</p>
+<p>启发式检测的优点是可以检测到一部分的新漏洞，但是不当的规则可能导致误报率较高，如果新漏洞利用不常见的攻击路径也无法被检测到。</p>
+<h2 id="%E7%AE%80%E5%8D%95-hids-%E7%9A%84%E5%AE%9E%E7%8E%B0" tabindex="-1">简单 HIDS 的实现</h2>
+<p>本节简单介绍一下 Linux 下 HIDS 的实现。本例子主要基于 c 配合 golang 实现 (使用 <a target="_blank" rel="noopener" href="https://golang.org/cmd/cgo/">cgo</a> 在 golang 中直接调用 c 函数，利用 <code>udp socket</code> 通信)。项目部分思路参考于<sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup><sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup>。</p>
+<h3 id="%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7" tabindex="-1">进程监控</h3>
+<h4 id="netlink" tabindex="-1">Netlink</h4>
+<p>利用 <code>netlink</code> 机制，可以让程序在内核态和用户态之间传递消息。利用这一特性，可以在内核态中监控程序的行为，从而实现 HIDS。</p>
+<p>如 Code 2 所示，<code>netlink</code> 机制的使用非常简单，只需要直接创建一个 <code>netlink</code> socket，然后通过 <code>bind</code> 绑定即可监听。</p>
+<pre><code class="language-c">/**
+ * connect to netlink
+ * @return netlink socket fd
+ */
+static int nl_connect() &#123;
+    int netlinkSock;
+    struct sockaddr_nl netlinkSockAddr;
+
+    netlinkSock = socket(PF_NETLINK, SOCK_DGRAM, NETLINK_CONNECTOR);
+    if (netlinkSock == -1) &#123;
+        perror(&quot;socket&quot;);
+        return -1;
+    &#125;
+
+    netlinkSockAddr.nl_family = AF_NETLINK;
+    netlinkSockAddr.nl_groups = CN_IDX_PROC;
+    netlinkSockAddr.nl_pid = getpid();
+
+    if (bind(netlinkSock, (struct sockaddr *)&amp;netlinkSockAddr, sizeof(netlinkSockAddr)) == -1) &#123;
+        perror(&quot;bind&quot;);
+        close(netlinkSock);
+        return -1;
+    &#125;
+
+    return netlinkSock;
+&#125;
+</code></pre>
+<p><em>Code 2 - netlink 机制的使用</em></p>
+<p>在内核态中，可以通过 <code>netlink</code> 机制，监听到进程的创建、退出、执行的系统调用等。如 Code 3 所示，<code>netlink</code> 机制的回调函数中，可以通过 <code>nlcn_msg.proc_ev.what</code> 来判断进程的行为，然后通过 <code>nlcn_msg.proc_ev.event_data</code> 来获取进程的信息。Code 3中，将进程的行为通过 <code>udp</code> socket 发送给服务器，服务器可以根据这些信息来判断是否为异常行为。</p>
+<pre><code class="language-c">/**
+ * handle netlink message
+ * @param netlinkSock netlink socket fd
+ * @param rev_sock udp socket fd for send message to server
+ * @param server server address
+ * @return 0 on success, -1 on error
+ */
+static int handle_proc_ev(int netlinkSock, int rev_sock, struct sockaddr_in server) &#123;
+    struct __attribute__((aligned(NLMSG_ALIGNTO))) &#123;
+        struct nlmsghdr nl_hdr;
+        struct __attribute__((__packed__)) &#123;
+            struct cn_msg cn_msg;
+            struct proc_event proc_ev;
+        &#125;;
+    &#125; nlcn_msg;
+
+    char buf[256];
+    char sendbuffer[256];
+        if (total &lt;= 5)&#123;
+    int recvLen;
+
+    cJSON *root = cJSON_CreateObject();
+    cJSON *data = cJSON_CreateObject();
+
+    while (1) &#123;
+        recvLen = recv(netlinkSock, &amp;nlcn_msg, sizeof(nlcn_msg), 0);
+        if (recvLen == 0) &#123;
+            return 0;
+        &#125; else if (recvLen == -1) &#123;
+            if (errno == EINTR) continue;
+            perror(&quot;netlink recv&quot;);
+            return -1;
+        &#125;
+
+        root = cJSON_CreateObject();
+        data = cJSON_CreateObject();
+        switch (nlcn_msg.proc_ev.what) &#123;
+            case PROC_EVENT_NONE:
+                cJSON_AddStringToObject(root, &quot;type&quot;, &quot;none&quot;);
+
+                out = cJSON_Print(root);
+                sprintf(sendbuffer, &quot;%s\n&quot;, out);
+                sendto(rev_sock, sendbuffer, strlen(sendbuffer), 0, (struct sockaddr *)&amp;server, sizeof(server));
+                break;
+            case PROC_EVENT_FORK:
+                cJSON_AddStringToObject(root, &quot;type&quot;, &quot;fork&quot;);
+                cJSON_AddNumberToObject(data, &quot;pid&quot;, nlcn_msg.proc_ev.event_data.fork.child_pid);
+                cJSON_AddNumberToObject(data, &quot;tgid&quot;, nlcn_msg.proc_ev.event_data.fork.child_tgid);
+                cJSON_AddNumberToObject(data, &quot;ppid&quot;, nlcn_msg.proc_ev.event_data.fork.parent_pid);
+                cJSON_AddNumberToObject(data, &quot;ptgid&quot;, nlcn_msg.proc_ev.event_data.fork.parent_tgid);
+                cJSON_AddItemToObject(root, &quot;data&quot;, data);
+
+                out = cJSON_Print(root);
+                sprintf(sendbuffer, &quot;%s\n&quot;, out);
+                sendto(rev_sock, sendbuffer, strlen(sendbuffer), 0, (struct sockaddr *)&amp;server, sizeof(server));
+                break;
+            case PROC_EVENT_EXEC:
+                cJSON_AddStringToObject(root, &quot;type&quot;, &quot;exec&quot;);
+                cJSON_AddNumberToObject(data, &quot;pid&quot;, nlcn_msg.proc_ev.event_data.exec.process_pid);
+                cJSON_AddNumberToObject(data, &quot;tgid&quot;, nlcn_msg.proc_ev.event_data.exec.process_tgid);
+                cJSON_AddItemToObject(root, &quot;data&quot;, data);
+
+                out = cJSON_Print(root);
+                sprintf(sendbuffer, &quot;%s\n&quot;, out);
+                sendto(rev_sock, sendbuffer, strlen(sendbuffer), 0, (struct sockaddr *)&amp;server, sizeof(server));
+                break;
+            case PROC_EVENT_UID:
+                break;
+            case PROC_EVENT_GID:
+                break;
+            case PROC_EVENT_EXIT:
+                break;
+            default:
+                break;
+        &#125;
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
+<p><em>Code 3 - netlink 机制的回调函数</em></p>
+<p>在 golang 中，可以通过 <code>cgo</code> 启动上述 c 的监听器，然后通过 <code>udp</code> socket 接收消息，如 Code 4 所示。</p>
+<pre><code class="language-go">package agent
+
+/*
+#cgo CFLAGS: -I../c-libs
+#define GO_ENV
+#include &quot;cJSON/cJSON.c&quot;
+#include &quot;monitor/linux/monitor.c&quot;
+*/
+import &quot;C&quot;
+
+import (
+    &quot;encoding/json&quot;
+    &quot;fmt&quot;
+    &quot;log&quot;
+    &quot;net&quot;
+    &quot;os&quot;
+
+    &quot;hids/model&quot;
+)
+
+// processMonitorStart
+//
+//    @param ip string
+//    @param port int
+func processMonitorStart(ip string, port int) &#123;
+    log.Println(fmt.Sprintf(&quot;Starting System Monitor Tunnel on %s:%d&quot;, ip, port))
+
+    udpAddr, err := net.ResolveUDPAddr(&quot;udp&quot;, fmt.Sprintf(&quot;%s:%d&quot;, ip, port))
+    if err != nil &#123;
+        log.Println(&quot;error ResolveUDPAddr&quot;)
+        os.Exit(1)
+    &#125;
+
+    serverConn, err := net.ListenUDP(&quot;udp&quot;, udpAddr)
+    if err != nil &#123;
+        log.Println(&quot;ListenUDP error: &quot;, err)
+        return
+    &#125;
+    defer serverConn.Close()
+
+    go C.startMonitor(C.CString(ip), C.int(port))
+
+    buf := make([]byte, 1024)
+    var data model.UdpResponse
+    for &#123;
+        n, _, err := serverConn.ReadFromUDP(buf)
+        if err != nil &#123;
+            log.Println(&quot;error during read: &quot;, err)
+        &#125;
+
+        err = json.Unmarshal(buf[:n], &amp;data)
+        if err != nil &#123;
+            log.Println(&quot;json.Unmarshal error: &quot;, err)
+        &#125;
+        log.Println(&quot;type: &quot;, data.Type)
+        log.Println(&quot;data: &quot;, data.Data)
+    &#125;
+&#125;
+</code></pre>
+<h4 id="%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96" tabindex="-1">进程信息获取</h4>
+<p>在 Linux 下，可以通过 <code>/proc</code> 文件系统获取进程的信息。如 Code 5 所示，通过读取 <code>/proc/[pid]/cwd</code>、<code>/proc/[pid]/exe</code>、<code>/proc/[pid]/cmdline</code>、<code>/proc/[pid]/status</code> 等文件，可以获取进程的当前工作目录、可执行文件路径、命令行参数、状态等信息。</p>
+<pre><code class="language-go">// getProcessCWD
+//
+//    @param pid int
+//    @return cwd string
+func getProcessCWD(pid int) string &#123;
+    cwd, err := os.Readlink(fmt.Sprintf(&quot;/proc/%d/cwd&quot;, pid))
+    if err != nil &#123;
+        log.Println(&quot;error Readlink: &quot;, err)
+        return &quot;&quot;
+    &#125;
+    return cwd
+&#125;
+
+// getProcessName
+//
+//    @param pid int
+//    @return name string
+func getProcessName(pid int) string &#123;
+    name, err := os.Readlink(fmt.Sprintf(&quot;/proc/%d/exe&quot;, pid))
+    if err != nil &#123;
+        log.Println(&quot;error Readlink: &quot;, err)
+        return &quot;&quot;
+    &#125;
+    return name
+&#125;
+
+// getProcessCmdline
+//
+//    @param pid int
+//    @return cmdline string
+func getProcessCmdline(pid int) string &#123;
+    cmdline, err := os.ReadFile(fmt.Sprintf(&quot;/proc/%d/cmdline&quot;, pid))
+    if err != nil &#123;
+        log.Println(&quot;error ReadFile: &quot;, err)
+        return &quot;&quot;
+    &#125;
+    return string(cmdline)
+&#125;
+
+// getProcessEnv
+//
+//    @param pid int
+//    @return env string
+func getProcessEnv(pid int) string &#123;
+    env, err := os.ReadFile(fmt.Sprintf(&quot;/proc/%d/environ&quot;, pid))
+    if err != nil &#123;
+        log.Println(&quot;error ReadFile: &quot;, err)
+        return &quot;&quot;
+    &#125;
+    return string(env)
+&#125;
+
+// getProcessInfo
+//
+//    @param process model.Process
+//    @return process model.Process
+func getProcessInfo(process model.Process) model.Process &#123;
+    process.CWD = getProcessCWD(process.Pid)
+    process.Cmdline = getProcessCmdline(process.Pid)
+    process.Name = getProcessName(process.Pid)
+    process.Env = getProcessEnv(process.Pid)
+    return process
+&#125;
+</code></pre>
+<p><em>Code 5 - 进程信息获取</em></p>
+<h3 id="%E7%BD%91%E7%BB%9C%E7%9B%91%E6%8E%A7" tabindex="-1">网络监控</h3>
+<p>在 Linux 下，可以通过 <code>pcap</code> 库来获取网络流量。如 Code 6 所示，通过 <code>pcap</code> 库，可以获取到网络流量的源地址、目的地址、源端口、目的端口、协议等信息。</p>
+<pre><code class="language-go">// getPacketInfo
+//
+// @param pkt *pcap.Packet
+// @param deviceIP string
+// @return packet model.Packet
+func getPacketInfo(pkt *pcap.Packet, deviceIP string) model.Packet &#123;
+ defer func() &#123;
+  if err := recover(); err != nil &#123;
+   // log.Println(&quot;getPacketInfo panic: &quot;, err)
+   return
+  &#125;
+ &#125;()
+ // in or out
+ direction := &quot;in&quot;
+ if pkt.IP.SrcAddr() == deviceIP &#123;
+  direction = &quot;out&quot;
+ &#125;
+
+ protocol := &quot;tcp&quot;
+ if pkt.IP.Protocol == 17 &#123;
+  protocol = &quot;udp&quot;
+ &#125;
+
+ packet := model.Packet&#123;
+  SourceIP:   pkt.IP.SrcAddr(),
+  SourcePort: fmt.Sprintf(&quot;%d&quot;, pkt.TCP.SrcPort),
+  DestIP:     pkt.IP.DestAddr(),
+  DestPort:   fmt.Sprintf(&quot;%d&quot;, pkt.TCP.DestPort),
+  Protocol:   protocol,
+  Direction:  direction,
+  Payload:    string(pkt.Payload),
+ &#125;
+
+ return packet
+&#125;
+</code></pre>
+<p><em>Code 6 - 网络流量获取</em></p>
+<h3 id="%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7" tabindex="-1">文件系统监控</h3>
+<p>Linux 下可以通过 <code>inotify</code> 来监控文件系统的变化。golang 的 <a target="_blank" rel="noopener" href="https://github.com/fsnotify/fsnotify">fsnotify</a><sup class="footnote-ref"><a href="#fn11" id="fnref11">[11]</a></sup> 库就是基于 <code>inotify</code> 实现的。通过 <code>fsnotify</code> 库，可以非常容易地控文件系统的变化，如 Code 7 所示。</p>
+<pre><code class="language-go">package main
+
+import (
+    &quot;log&quot;
+
+    &quot;github.com/fsnotify/fsnotify&quot;
+)
+
+func main() &#123;
+    // Create new watcher.
+    watcher, err := fsnotify.NewWatcher()
+    if err != nil &#123;
+        log.Fatal(err)
+    &#125;
+    defer watcher.Close()
+
+    // Start listening for events.
+    go func() &#123;
+        for &#123;
+            select &#123;
+            case event, ok := &lt;-watcher.Events:
+                if !ok &#123;
+                    return
+                &#125;
+                log.Println(&quot;event:&quot;, event)
+                if event.Has(fsnotify.Write) &#123;
+                    log.Println(&quot;modified file:&quot;, event.Name)
+                &#125;
+            case err, ok := &lt;-watcher.Errors:
+                if !ok &#123;
+                    return
+                &#125;
+                log.Println(&quot;error:&quot;, err)
+            &#125;
+        &#125;
+    &#125;()
+
+    // Add a path.
+    err = watcher.Add(&quot;/tmp&quot;)
+    if err != nil &#123;
+        log.Fatal(err)
+    &#125;
+
+    // Block main goroutine forever.
+    &lt;-make(chan struct&#123;&#125;)
+&#125;
+</code></pre>
+<p><em>Code 7 - 文件系统监控<sup class="footnote-ref"><a href="#fn11" id="fnref11:1">[11:1]</a></sup></em></p>
+<h3 id="%E8%A1%8C%E4%B8%BA%E5%8C%B9%E9%85%8D" tabindex="-1">行为匹配</h3>
+<h4 id="%E8%A7%84%E5%88%99%E6%95%B0%E6%8D%AE%E5%BA%93" tabindex="-1">规则数据库</h4>
+<p>本例采用了数据库的方式来存储规则集，如图 2 所示。<code>Rule</code> 表示一个规则，其下属的多个 <code>Expression</code> 则存储了该规则的匹配表达式。当进程的行为发生变化时，可以通过匹配规则数据库中的规则，来判断是否为异常行为。</p>
+<p><img src="/server-archive/files/imgs/ruledb.svg" alt="图 2"><br>
+<em>图 2 - 规则数据库设计</em></p>
+<h4 id="%E8%A7%84%E5%88%99%E5%8C%B9%E9%85%8D" tabindex="-1">规则匹配</h4>
+<p>在本例中，规则匹配的过程如下：</p>
+<ol>
+<li>读取数据库中的所有该类型的规则；</li>
+<li>遍历所有规则，对每一个规则的所有表达式进行匹配；</li>
+<li>如果所有表达式都匹配成功，则判断为异常行为。</li>
+</ol>
+<p>Code 8 展示了对进程的匹配过程。其他数据源 (如通过 <code>pcap</code> 获取网络流量、通过 <code>inotify</code> 获取文件变化等) 的匹配过程类似。</p>
+<pre><code class="language-go">// checkProcess
+//
+//    @param process model.Process
+//    @return []model.Warning
+func checkProcess(process model.Process) []model.Warning &#123;
+    warnings := []model.Warning&#123;&#125;
+    rules, err := api.GetRulesByField(&quot;type&quot;, &quot;process&quot;)
+    if err != nil &#123;
+        log.Println(&quot;error GetRuleByField: &quot;, err)
+        return warnings
+    &#125;
+
+    
+    for _, rule := range rules &#123;
+        result := true
+        warning := model.Warning&#123;
+            Severity: rule.Severity,
+            Process:  process,
+            Rule:     rule,
+        &#125;
+        for _, expression := range rule.Expressions &#123;
+            switch expression.Field &#123;
+            case &quot;name&quot;:
+                result = result &amp;&amp; utils.CheckExpression(expression, process.Name)
+                warning.Behaviors = append(warning.Behaviors, model.Behavior&#123;
+                    Field: expression.Field,
+                    Value: process.Name,
+                &#125;)
+            case &quot;cwd&quot;:
+                result = result &amp;&amp; utils.CheckExpression(expression, process.CWD)
+                warning.Behaviors = append(warning.Behaviors, model.Behavior&#123;
+                    Field: expression.Field,
+                    Value: process.CWD,
+                &#125;)
+            case &quot;cmdline&quot;:
+                result = result &amp;&amp; utils.CheckExpression(expression, process.Cmdline)
+                warning.Behaviors = append(warning.Behaviors, model.Behavior&#123;
+                    Field: expression.Field,
+                    Value: process.Cmdline,
+                &#125;)
+            case &quot;env&quot;:
+                result = result &amp;&amp; utils.CheckExpression(expression, process.Env)
+                warning.Behaviors = append(warning.Behaviors, model.Behavior&#123;
+                    Field: expression.Field,
+                    Value: process.Env,
+                &#125;)
+            &#125;
+
+            if !result &#123;
+                break
+            &#125;
+        &#125;
+        if result &#123;
+            warnings = append(warnings, warning)
+        &#125;
+    &#125;
+
+    return warnings
+&#125;
+</code></pre>
+<p><em>Code 8 - 进程匹配</em></p>
+<h3 id="%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA" tabindex="-1">效果展示</h3>
+<p>本例简单编写了几种规则，如 Code 9 所示。这些规则可以用来简单监控部分重要文件已以及检测反弹shell payload和sql注入等行为。</p>
+<pre><code class="language-json">[
+    &#123;
+        &quot;name&quot;: &quot;/etc/passwd&quot;,
+        &quot;description&quot;: &quot;/etc/passwd&quot;,
+        &quot;type&quot;: &quot;file&quot;,
+        &quot;severity&quot;: 3,
+        &quot;is_enable&quot;: true
+    &#125;, 
+    &#123;
+        &quot;name&quot;: &quot;/etc/shadow&quot;,
+        &quot;description&quot;: &quot;/etc/shadow&quot;,
+        &quot;type&quot;: &quot;file&quot;,
+        &quot;severity&quot;: 3,
+        &quot;is_enable&quot;: true
+    &#125;, 
+    &#123;
+        &quot;name&quot;: &quot;/etc/sudoers&quot;,
+        &quot;description&quot;: &quot;/etc/sudoers&quot;,
+        &quot;type&quot;: &quot;file&quot;,
+        &quot;severity&quot;: 3,
+        &quot;is_enable&quot;: true
+    &#125;, 
+    &#123;
+        &quot;name&quot;: &quot;/var/www/html&quot;,
+        &quot;description&quot;: &quot;/var/www/html&quot;,
+        &quot;type&quot;: &quot;file&quot;,
+        &quot;severity&quot;: 3,
+        &quot;is_enable&quot;: true
+    &#125;,
+    &#123;
+        &quot;name&quot;: &quot;Bash Reverse Shell&quot;,
+        &quot;description&quot;: &quot;Bash Reverse Shell&quot;,
+        &quot;type&quot;: &quot;process&quot;,
+        &quot;severity&quot;: 5,
+        &quot;is_enable&quot;: true,
+        &quot;expressions&quot;: [
+            &#123;
+                &quot;field&quot;: &quot;cmdline&quot;,
+                &quot;expression&quot;: &quot;bash\\s+-i\\s+&gt;&amp;\\s+/dev/tcp/.*?&quot;,
+                &quot;is_regex&quot;: true
+            &#125;
+        ]
+    &#125;,
+    &#123;
+        &quot;name&quot;: &quot;Python Reverse Shell&quot;,
+        &quot;description&quot;: &quot;Python Reverse Shell&quot;,
+        &quot;type&quot;: &quot;process&quot;,
+        &quot;severity&quot;: 5,
+        &quot;is_enable&quot;: true,
+        &quot;expressions&quot;: [
+            &#123;
+                &quot;field&quot;: &quot;cmdline&quot;,
+                &quot;expression&quot;: &quot;python.*?import.*?socket,subprocess,os;.*?&quot;,
+                &quot;is_regex&quot;: true
+            &#125;
+        ]
+    &#125;,
+    &#123;
+        &quot;name&quot;: &quot;Sql Injection&quot;,
+        &quot;description&quot;: &quot;Sql Injection&quot;,
+        &quot;type&quot;: &quot;network&quot;,
+        &quot;severity&quot;: 2,
+        &quot;is_enable&quot;: true,
+        &quot;expressions&quot;: [
+            &#123;
+                &quot;field&quot;: &quot;payload&quot;,
+                &quot;expression&quot;: &quot;select.*?from.*?&quot;,
+                &quot;is_regex&quot;: true
+            &#125;
+        ]
+    &#125;
+]
+</code></pre>
+<p><em>Code 9 - 规则示例</em></p>
+<p>当进程的行为发生变化时，可以通过匹配规则数据库中的规则，来判断是否为异常行为。如图 3、图 4 所示，当进程的命令行参数匹配到了规则中的正则表达式或文件系统发生改变时，就会判断为异常行为。</p>
+<p><img src="http://pic.timlzh.com/i/2023/12/24/nvsjbs-2.png" alt="图 3"><br>
+<em>图 3 - 进程检测效果</em></p>
+<p><img src="http://pic.timlzh.com/i/2023/12/24/qq9rkl-2.png" alt="图 4"><br>
+<em>图 4 - 网络连接检测效果</em></p>
+<p><img src="http://pic.timlzh.com/i/2023/12/25/porx27-2.png" alt="图 5"><br>
+<em>图 5 - 文件系统监控效果</em></p>
+<h2 id="%E6%80%BB%E7%BB%93" tabindex="-1">总结</h2>
+<p>一个完善的 HIDS 远远不止上述的功能，还需要考虑到日志监控、注册表监控、系统调用监控等。本例仅仅是一个简单的 HIDS Demo，仅仅实现了进程监控和网络监控，实际功能细节还有待深入讨论和实现。</p>
+<p>在 HIDS 的基础上，还可以扩展出 HIPS (Host-based Intrusion Prevention System, 基于主机的入侵预防系统)。HIPS 将 HIDS 的检测能力和防御能力相结合，可以在检测到异常行为后，主动阻止恶意行为的发生。</p>
+<blockquote>
+<p>完整项目 Demo 地址：<a target="_blank" rel="noopener" href="https://github.com/timlzh/hids-demo">https://github.com/timlzh/hids-demo</a>。</p>
+</blockquote>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Wikipedia contributors, Host-based intrusion detection system — Wikipedia, The Free Encyclopedia. 2023. [Online]. Available: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/w/index.php?title=Host-based_intrusion_detection_system&amp;oldid=1185583815">https://en.wikipedia.org/w/index.php?title=Host-based_intrusion_detection_system&amp;oldid=1185583815</a>. <a href="#fnref1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>W. Stallings and L. Brown, Computer Security: Principles and Practice, 1st ed. USA: Prentice Hall Press, 2007. <a href="#fnref2" class="footnote-backref">↩︎</a> <a href="#fnref2:1" class="footnote-backref">↩︎</a> <a href="#fnref2:2" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>Wikipedia contributors, Intrusion detection system — Wikipedia, The Free Encyclopedia. 2023. [Online]. Available: <a target="_blank" rel="noopener" href="https://en.wikipedia.org/w/index.php?title=Intrusion_detection_system&amp;oldid=1190613453">https://en.wikipedia.org/w/index.php?title=Intrusion_detection_system&amp;oldid=1190613453</a>. <a href="#fnref3" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p>G. Creech, “Developing a high-accuracy cross platform Host-Based Intrusion Detection System capable of reliably detecting zero-day attacks,” 2014. <a href="#fnref4" class="footnote-backref">↩︎</a> <a href="#fnref4:1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p>S. Forrest, S. A. Hofmeyr, A. Somayaji, and T. A. Longstaff, “A sense of self for Unix processes,” in Proceedings 1996 IEEE Symposium on Security and Privacy, 1996, pp. 120–128. doi: 10.1109/SECPRI.1996.502675. <a href="#fnref5" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p>Tripwire, tripwire-open-source. GitHub, 2019. [Online]. Available: <a target="_blank" rel="noopener" href="https://github.com/Tripwire/tripwire-open-source">https://github.com/Tripwire/tripwire-open-source</a>. <a href="#fnref6" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn7" class="footnote-item"><p>torvalds, linux. GitHub, 2023. [Online]. Available: <a target="_blank" rel="noopener" href="https://github.com/torvalds/linux">https://github.com/torvalds/linux</a>. <a href="#fnref7" class="footnote-backref">↩︎</a> <a href="#fnref7:1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn8" class="footnote-item"><p>P. Garcı́a-Teodoro, J. Dı́az-Verdejo, G. Maciá-Fernández, and E. Vázquez, “Anomaly-Based Network Intrusion Detection: Techniques, Systems and Challenges,” Comput. Secur., vol. 28, no. 1–2, pp. 18–28, Feb. 2009, doi: 10.1016/j.cose.2008.08.003. <a href="#fnref8" class="footnote-backref">↩︎</a> <a href="#fnref8:1" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn9" class="footnote-item"><p>driverxdw, Felicia. GitHub, 2020. [Online]. Available: <a target="_blank" rel="noopener" href="https://github.com/driverxdw/Felicia">https://github.com/driverxdw/Felicia</a>. <a href="#fnref9" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn10" class="footnote-item"><p>ysrc, yulong-hids-archived. GitHub, 2020. [Online]. Available: <a target="_blank" rel="noopener" href="https://github.com/ysrc/yulong-hids-archived">https://github.com/ysrc/yulong-hids-archived</a> <a href="#fnref10" class="footnote-backref">↩︎</a></p>
+</li>
+<li id="fn11" class="footnote-item"><p>fsnotify, fsnotify. GitHub, 2023. [Online]. Available: <a target="_blank" rel="noopener" href="https://github.com/fsnotify/fsnotify">https://github.com/fsnotify/fsnotify</a>. <a href="#fnref11" class="footnote-backref">↩︎</a> <a href="#fnref11:1" class="footnote-backref">↩︎</a></p>
+</li>
+</ol>
+</section>
+
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                        
+
+<a href="/server-archive/tags/学习/">#学习</a> <a href="/server-archive/tags/安全/">#安全</a>
+
+
+                                            
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2023-12-26
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
+
+<div id="vcomments" class="comment"></div>
+<script>
+  new Valine({
+    el: '.comment',
+    appId: 'TSp33hlPwuAsaq6YiQt7qxqB-gzGzoHsz',
+    appKey: '4pv9GKDHCxnThP1EN1u9uYSN',
+    placeholder: 'random',
+    avatar: '',
+    enableQQ: true,
+    emojiCDN: '//i0.hdslb.com/bfs/emote/',
+    // 表情title和图片映射
+    emojiMaps: {
+      "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+      "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+      "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+      "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+      "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+      "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+      "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+      "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+      "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+      "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+      "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+      "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+      "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+      "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+      "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+      "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+      "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+      "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+      "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+      "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+      "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+      "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+      "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+      "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+      "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+      "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+      "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+      "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+      "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+      "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+      "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+      "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+      "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+      "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+      "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+      "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+      "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+      "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+      "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+      "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+      "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+      "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+      "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+      "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+      "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+      "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+      "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+      "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+      "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+      "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+      // ... 更多表情
+    }
+  })
+  if('random' == 'random'){
+    var veditor = document.getElementById("veditor");
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+        veditor.placeholder = '『' + data.hitokoto + '』' + '\n\n\n' + 'From  ' + data.from;
+        })
+        .catch(console.error)
+  }
+</script>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+</section>
+
+<!-- Image viewer-->
+
+    
+    <!-- Custom picture view-->
+    <link href="/server-archive/css/viewer.min.css" rel="stylesheet" />
+    <script
+      src="/server-archive/js/viewer.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    
+    <script type="text/javascript">
+      // set image viewer
+      Viewer.setDefaults({
+        zoomRatio: [0.5],
+        navbar: false,
+        toolbar: false,
+        button: false,
+        title: [2, (image, imageData) => `${image.alt}`],
+        show: function() {
+          this.viewer.zoomTo(0.5);
+        }
+      });
+      var imageList = document.getElementsByTagName("img");
+      Array.prototype.forEach.call(imageList, element => {
+        var viewer = new Viewer(element);
+      });
+    </script>
+
+    
+
+
+<!-- TOC -->
+<!-- 
+    <aside id="article-toc" role="navigation" class="fixed">
+        <div id="article-toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ids"><span class="toc-text">IDS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ids%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-text">IDS的组成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ids%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">IDS的分类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hids"><span class="toc-text">HIDS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hids-%E7%9A%84%E6%95%B0%E6%8D%AE%E6%BA%90"><span class="toc-text">HIDS 的数据源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-text">系统调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%A1%E8%AE%A1%E8%AE%B0%E5%BD%95"><span class="toc-text">审计记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%AE%8C%E6%95%B4%E6%80%A7%E6%A0%A1%E9%AA%8C"><span class="toc-text">文件完整性校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E8%A1%A8%E7%9B%91%E6%8E%A7"><span class="toc-text">注册表监控</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ids-%E7%9A%84%E5%88%86%E6%9E%90%E5%8E%9F%E7%90%86"><span class="toc-text">IDS 的分析原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B"><span class="toc-text">异常检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%BB%9F%E8%AE%A1"><span class="toc-text">基于统计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%A7%84%E5%88%99"><span class="toc-text">基于规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="toc-text">基于机器学习</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B%E5%92%8C%E5%90%AF%E5%8F%91%E5%BC%8F%E6%A3%80%E6%B5%8B"><span class="toc-text">特征检测和启发式检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E5%BE%81%E6%A3%80%E6%B5%8B"><span class="toc-text">特征检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8F%91%E5%BC%8F%E6%A3%80%E6%B5%8B"><span class="toc-text">启发式检测</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95-hids-%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">简单 HIDS 的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9B%91%E6%8E%A7"><span class="toc-text">进程监控</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#netlink"><span class="toc-text">Netlink</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96"><span class="toc-text">进程信息获取</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%9B%91%E6%8E%A7"><span class="toc-text">网络监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7"><span class="toc-text">文件系统监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E4%B8%BA%E5%8C%B9%E9%85%8D"><span class="toc-text">行为匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">规则数据库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E5%8C%B9%E9%85%8D"><span class="toc-text">规则匹配</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-text">效果展示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+        </div>
+    </aside>
+ -->
+
+
+    <script>
+        hljs.highlightAll();
+    </script>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© Timlzh 🙋 2022-" + new Date().getFullYear());
+    console.log("Welcome to my blog: https://timlzh.com");
+</script>
+  
+    <!-- Google Analytics -->
+    
+
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
+    <!-- Go Top -->
+    <a class="go-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    if ($(window).scrollTop() <= 100) {
+        $(".go-top").hide();
+    }
+    
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".go-top").fadeIn(500);
+            } else {
+                $(".go-top").fadeOut(500);
+            }
+        });
+        $(".go-top").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
+</body>
+
+<footer>
+    
+    
+    
+        <div class="beian">
+            <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备2022036129号-2</a>
+        </div>
+    
+
+</footer>
+
+</html>

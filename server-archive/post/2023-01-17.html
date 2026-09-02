@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="第一轮
+什么是程序（Program），什么是进程（Process）？它们之间有何联系与区别？">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Timlzh">
+    
+
+    <!-- Title -->
+    
+    <title>Python微服务设计与DevOps实践 | 寒假小作业 | Tim的杂货铺</title>
+
+    <!-- favicon -->
+    
+        <link rel="shortcut icon" href="https://timlzh.github.io/melody-favicon.ico">
+    
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Valine -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+    <link rel="stylesheet" href="/server-archive/css/darkmode.css">
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/server-archive/css/style.css">
+
+
+    <!-- Top Menu  -->
+    <div class="top_menu">
+        
+            
+            <a href="/server-archive/">Home</a>
+            
+            <a href="/server-archive/links">Friends</a>
+            
+            <a href="/server-archive/tags">Tags</a>
+            
+            <a href="/server-archive/about">About</a>
+            
+            <a href="/server-archive/">asdfa</a>
+            
+        
+        <a class="darkmode-toggle" href="#" data-toggle="darkmode">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o" style="display: none;"></i>
+        </a>
+    </div>
+
+    <!-- Darkmode -->
+    <script src='/server-archive/js/darkmode.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.jsdelivr.net/npm/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- Highlight -->
+    
+        <script>
+            var lightTheme = "github";
+            var darkTheme = "github-dark-dimmed";
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/server-archive/atom.xml" title="Tim的杂货铺" type="application/atom+xml">
+</head>
+
+
+<body>
+
+    <!-- Content -->
+    
+
+
+<section class="article-container">
+    <!-- Back Home -->
+    <!-- <a class="nav-back" href="javascript:back()">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<script>
+    function back() {
+        var home = '/server-archive/'
+        if (document.referrer && document.referrer.indexOf(home) > -1) {
+            window.history.back();
+        } else {
+            window.location.href = home;
+        }
+    }
+</script> -->
+
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                Python微服务设计与DevOps实践
+                            </h1>
+                            <div class="subheading">
+                                寒假小作业
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <h1 id="%E7%AC%AC%E4%B8%80%E8%BD%AE" tabindex="-1">第一轮</h1>
+<h2 id="%E4%BB%80%E4%B9%88%E6%98%AF%E7%A8%8B%E5%BA%8F%EF%BC%88program%EF%BC%89%EF%BC%8C%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%EF%BC%88process%EF%BC%89%EF%BC%9F%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BD%95%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB%EF%BC%9F" tabindex="-1">什么是程序（Program），什么是进程（Process）？它们之间有何联系与区别？</h2>
+<span id="more"></span>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>程序</th>
+<th>进程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定义</td>
+<td>计算机程序是指一组指示电子计算机或其他具有消息处理能力的电子设备每一步动作的指令</td>
+<td>进程是指计算机中已执行的程序</td>
+</tr>
+<tr>
+<td>形式</td>
+<td>储存在二级存储器(如硬盘)上的静态资源</td>
+<td>加载进主存储器(如各种RAM)的动态资源</td>
+</tr>
+<tr>
+<td>需求/占用</td>
+<td>仅储存空间</td>
+<td>需要多资源配合，如CPU、内存地址、I/O等</td>
+</tr>
+</tbody>
+</table>
+<p>可以说 Thread⊆Process⊆Programme</p>
+<ul>
+<li>References<br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A8%8B%E5%BA%8F">计算机程序 - 维基百科，自由的百科全书</a><br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%A1%8C%E7%A8%8B">行程 - 维基百科，自由的百科全书</a><br>
+<a target="_blank" rel="noopener" href="https://techdifferences.com/difference-between-program-and-process.html">Difference Between Program and Process (with Comparison Chart) - Tech Differences</a><br>
+<a target="_blank" rel="noopener" href="https://www.geeksforgeeks.org/difference-between-program-and-process/">Difference between Program and Process - GeeksforGeeks</a><br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B">线程 - 维基百科，自由的百科全书</a></li>
+</ul>
+<h2 id="app%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%AF%AD%E4%B9%89%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%85%B7%E4%BD%93%E6%8C%87%E4%BB%A3" tabindex="-1">App在不同语义场景下的具体指代</h2>
+<p>App一般是特指应用程序(Application Software)的，是程序(Programme)的一类。但是在特定场景下，并不局限于应用程序。如Application programming interface(API)不仅限于应用程序之间的接口，同样可指代于如系统级别的通讯等非应用层面的交互。广义的，Application倾向于”应用层面(application layer)的“之意。</p>
+<ul>
+<li>References<br>
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Application_software">Application software - Wikipedia</a><br>
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Application_layer">Application layer - Wikipedia</a><br>
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/API">API - Wikipedia</a><br>
+<a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc4949">RFC ft-shirey-secgloss-v2: Internet Security Glossary, Version 2</a></li>
+</ul>
+<h2 id="application-%26-service" tabindex="-1">Application &amp; Service</h2>
+<p>应用是指软件，可以帮助用户完成某种任务。服务是指提供某种一次性或持续性的功能服务，它依赖于应用或软件，一般用于远程访问和控制、运行计算、条件管理等。总之，应用是软件，服务是应用所提供的服务。</p>
+<p>更广义的，Service不仅限于应用提供的系统架构上的服务，而是宏观上对终端用户提供的服务，如在类似软件即服务(SaaS)的概念中指代的服务。</p>
+<ul>
+<li>References<br>
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Service_(systems_architecture)">Service (systems architecture) - Wikipedia</a><br>
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Application_software">Application software - Wikipedia</a><br>
+<a target="_blank" rel="noopener" href="https://www.ibm.com/cn-zh/topics/saas">SaaS - 软件即服务 | IBM</a></li>
+</ul>
+<h1 id="%E7%AC%AC%E4%BA%8C%E8%BD%AE" tabindex="-1">第二轮</h1>
+<h2 id="c%2Fs-%26-p2p-%E6%9E%B6%E6%9E%84" tabindex="-1">C/S &amp; P2P 架构</h2>
+<h3 id="client-server-model-(%E4%B8%BB%E4%BB%8E%E5%BC%8F%E6%9E%B6%E6%9E%84)" tabindex="-1">Client-server model (主从式架构)</h3>
+<p>最简单的主从式架构分为两层，客户端(主动)和服务器(从动/被动)。一般情况下，客户端把任务委派给服务器，服务器负责处理，然后返回处理结果。这种架构能够实现集中式管理和控制，一般情况下不需要客户端参与任务处理，它们只需要提出要求，由服务器负责完成。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12olzfm-2.png" alt="image"></p>
+<h3 id="peer-to-peer-(%E7%82%B9%E5%AF%B9%E7%82%B9%E7%BD%91%E7%BB%9C)" tabindex="-1">Peer-to-Peer (<strong>点对点网络</strong>)</h3>
+<p>传统定义下的P2P是没有中心索引服务器的，也就是说每一个网络节点各自都同时是客户端和服务器端。这种网络架构不受限于中心服务器的性能(如带宽、存储空间和计算能力等)限制，实现了分布式的管理和控制，多节点的特性也使之不会出现单点崩溃。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12om2vc-2.png" alt="image"></p>
+<ul>
+<li>Reference<br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%B0%8D%E7%AD%89%E7%B6%B2%E8%B7%AF">對等網路 - 维基百科，自由的百科全书</a><br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%B8%BB%E5%BE%9E%E5%BC%8F%E6%9E%B6%E6%A7%8B">主從式架構 - 维基百科，自由的百科全书</a><br>
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Client%E2%80%93server_model">Client-server model - Wikipedia</a></li>
+</ul>
+<h2 id="%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84-%26-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84" tabindex="-1">单体架构 &amp; 微服务架构</h2>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oma1l-2.png" alt="image"></p>
+<h3 id="%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84" tabindex="-1">单体架构</h3>
+<p>单体架构是一种UI层、业务逻辑层和数据层均在一个程序中的架构</p>
+<p>单体架构的优点：</p>
+<ol>
+<li>可以简化测试和开发，因为应用程序的所有功能都在一个代码库中，所以可以节省大量的时间和精力</li>
+<li>开发和部署的成本较低</li>
+<li>更容易实施安全控制，因为所有功能都在一个地方</li>
+</ol>
+<p>单体架构的缺点：</p>
+<ol>
+<li>不利于扩展和重新组合服务</li>
+<li>由于高度集成，程序大小不好控制</li>
+<li>一处功能崩溃，整个软件都会崩溃</li>
+</ol>
+<h3 id="%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84" tabindex="-1">微服务架构</h3>
+<p>微服务架构是以专注于单一责任与功能的小型功能区块为基础，利用模块化的方式组合出复杂的大型应用程序，各功能区块使用API集相互通信。</p>
+<p>微服务架构的优点：</p>
+<ol>
+<li>可以提高代码的可维护性、可测试性和可扩展性</li>
+<li>可以更有效地扩展和重新组合服务，因为每个服务都是可复用的，可以更容易地创建新的服务，并有效地实现组合</li>
+<li>高可靠性(fail-proof)</li>
+</ol>
+<p>微服务架构的缺点:</p>
+<ol>
+<li>微服务开发和部署会更加复杂</li>
+<li>测试和调试起来会更加困难</li>
+<li>增加了网络调用开销</li>
+</ol>
+<ul>
+<li>Reference<br>
+<a target="_blank" rel="noopener" href="https://www.decipherzone.com/blog-detail/Monolithic-vs-Microservice-Architecture">Monolithic vs Microservice Architecture- Pros and Cons</a><br>
+<a target="_blank" rel="noopener" href="https://www.digiteum.com/monolithic-vs-microservices-architecture/">Monolithic vs. Microservices Architectures: Detailed Comparison | Digiteum</a><br>
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Monolithic_application">Monolithic application - Wikipedia</a><br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%BE%AE%E6%9C%8D%E5%8B%99">微服務 - 维基百科，自由的百科全书</a></li>
+</ul>
+<h1 id="%E7%AC%AC%E4%B8%89%E8%BD%AE" tabindex="-1">第三轮</h1>
+<h2 id="%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%B9%E5%99%A8" tabindex="-1">什么是容器</h2>
+<p>容器是软件的可执行单元，它采用通用方式封装了应用程序代码及其库和依赖项，因此可以随时随地运行容器（无论是在桌面、传统 IT 还是云端）。</p>
+<p>容器提供了将应用程序的代码、运行时、系统工具、系统库和配置打包到一个实例中的标准方法。容器共享一个内核（操作系统），它安装在硬件上。</p>
+<ul>
+<li>References<br>
+<a target="_blank" rel="noopener" href="https://www.ibm.com/cn-zh/cloud/learn/containers">containers</a><br>
+<a target="_blank" rel="noopener" href="https://www.alibabacloud.com/zh/knowledge/what-is-containerization">什么是容器? 什么是容器编排? 容器化的好处 - 阿里云知识库</a></li>
+</ul>
+<h2 id="%E5%AE%B9%E5%99%A8%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB" tabindex="-1">容器与操作系统的联系与区别</h2>
+<p>联系：实际上容器化(Containerization)就是操作系统层虚拟化(Operating system–level virtualization)，容器的核心就是一个虚拟化的操作系统内核。</p>
+<p>区别：通常来说一个设备通常只会同时启动一个操作系统，这个操作系统占用的资源、提供的功能和容器不是一个级别的。而容器更像是操作系统中的一个软件示例，可以同时启动多个，并分别提供不同的功能，互不串扰，占用的内存、硬盘空间等都较小。可以说操作系统主要负责提供硬件设备和应用程序之间的接口，而容器则更关注于软件应用层。</p>
+<ul>
+<li>References<br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E5%B1%A4%E8%99%9B%E6%93%AC%E5%8C%96">作業系統層虛擬化 - 维基百科，自由的百科全书</a><br>
+<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/LXC">LXC - Wikipedia</a></li>
+</ul>
+<h2 id="%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E6%9C%BA" tabindex="-1">什么是虚拟机</h2>
+<p>虚拟机是一种特殊的计算机软件，它可以通过软件技术在原有计算机平台中模拟多个虚拟的计算机，允许用户在一台物理机上同时运行多个完全独立的系统，用户可以为每个虚拟机指定所需的操作系统、硬件设置和应用程序。</p>
+<ul>
+<li>References<br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%99%9B%E6%93%AC%E6%A9%9F%E5%99%A8">虛擬機器 - 维基百科，自由的百科全书</a></li>
+</ul>
+<h2 id="%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8E%E7%89%A9%E7%90%86%E6%9C%BA%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB" tabindex="-1">虚拟机与物理机的联系与区别</h2>
+<p>联系：虚拟机运行于物理机之上，是一个仿真可调节的物理机环境。</p>
+<p>区别：虚拟机是模拟出来的独立的环境，资源都是在物理机上以软件的形式提供，用户可以在一台物理机上同时运行多个虚拟机；而物理机是真实的硬件，它的资源是固定的，同一时间只能运行一个操作系统。</p>
+<ul>
+<li>References<br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E8%99%9B%E6%93%AC%E6%A9%9F%E5%99%A8">虛擬機器 - 维基百科，自由的百科全书</a></li>
+</ul>
+<h2 id="%E7%89%A9%E7%90%86%E6%9C%BA%E3%80%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%81%E5%AE%B9%E5%99%A8%E5%9B%9B%E8%80%85%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB" tabindex="-1">物理机、虚拟机、操作系统、容器四者之间的关系</h2>
+<ol>
+<li>容器也是一种虚拟机技术</li>
+<li>虚拟机(包括容器)和物理机中均运行的是操作系统</li>
+<li>虚拟机(包括容器)是模拟的物理机环境，在其中有与物理机类似的硬件资源的模拟</li>
+<li>虚拟机(包括容器)运行在物理机运行的操作系统中</li>
+</ol>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12omg8b-2.png" alt="image"></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                        
+
+<a href="/server-archive/tags/学习/">#学习</a>
+
+
+                                            
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2023-01-17
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
+
+<div id="vcomments" class="comment"></div>
+<script>
+  new Valine({
+    el: '.comment',
+    appId: 'TSp33hlPwuAsaq6YiQt7qxqB-gzGzoHsz',
+    appKey: '4pv9GKDHCxnThP1EN1u9uYSN',
+    placeholder: 'random',
+    avatar: '',
+    enableQQ: true,
+    emojiCDN: '//i0.hdslb.com/bfs/emote/',
+    // 表情title和图片映射
+    emojiMaps: {
+      "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+      "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+      "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+      "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+      "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+      "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+      "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+      "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+      "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+      "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+      "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+      "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+      "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+      "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+      "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+      "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+      "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+      "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+      "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+      "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+      "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+      "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+      "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+      "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+      "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+      "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+      "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+      "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+      "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+      "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+      "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+      "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+      "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+      "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+      "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+      "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+      "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+      "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+      "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+      "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+      "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+      "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+      "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+      "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+      "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+      "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+      "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+      "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+      "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+      "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+      // ... 更多表情
+    }
+  })
+  if('random' == 'random'){
+    var veditor = document.getElementById("veditor");
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+        veditor.placeholder = '『' + data.hitokoto + '』' + '\n\n\n' + 'From  ' + data.from;
+        })
+        .catch(console.error)
+  }
+</script>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+</section>
+
+<!-- Image viewer-->
+
+    
+    <!-- Custom picture view-->
+    <link href="/server-archive/css/viewer.min.css" rel="stylesheet" />
+    <script
+      src="/server-archive/js/viewer.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    
+    <script type="text/javascript">
+      // set image viewer
+      Viewer.setDefaults({
+        zoomRatio: [0.5],
+        navbar: false,
+        toolbar: false,
+        button: false,
+        title: [2, (image, imageData) => `${image.alt}`],
+        show: function() {
+          this.viewer.zoomTo(0.5);
+        }
+      });
+      var imageList = document.getElementsByTagName("img");
+      Array.prototype.forEach.call(imageList, element => {
+        var viewer = new Viewer(element);
+      });
+    </script>
+
+    
+
+
+<!-- TOC -->
+<!-- 
+    <aside id="article-toc" role="navigation" class="fixed">
+        <div id="article-toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E8%BD%AE"><span class="toc-text">第一轮</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%A8%8B%E5%BA%8F%EF%BC%88program%EF%BC%89%EF%BC%8C%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%EF%BC%88process%EF%BC%89%EF%BC%9F%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BD%95%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">什么是程序（Program），什么是进程（Process）？它们之间有何联系与区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#app%E5%9C%A8%E4%B8%8D%E5%90%8C%E8%AF%AD%E4%B9%89%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%85%B7%E4%BD%93%E6%8C%87%E4%BB%A3"><span class="toc-text">App在不同语义场景下的具体指代</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#application-&-service"><span class="toc-text">Application &amp; Service</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%BD%AE"><span class="toc-text">第二轮</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#c/s-&-p2p-%E6%9E%B6%E6%9E%84"><span class="toc-text">C&#x2F;S &amp; P2P 架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#client-server-model-(%E4%B8%BB%E4%BB%8E%E5%BC%8F%E6%9E%B6%E6%9E%84)"><span class="toc-text">Client-server model (主从式架构)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#peer-to-peer-(%E7%82%B9%E5%AF%B9%E7%82%B9%E7%BD%91%E7%BB%9C)"><span class="toc-text">Peer-to-Peer (点对点网络)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84-&-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84"><span class="toc-text">单体架构 &amp; 微服务架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E4%BD%93%E6%9E%B6%E6%9E%84"><span class="toc-text">单体架构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84"><span class="toc-text">微服务架构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E8%BD%AE"><span class="toc-text">第三轮</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%B9%E5%99%A8"><span class="toc-text">什么是容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E4%B8%8E%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB"><span class="toc-text">容器与操作系统的联系与区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-text">什么是虚拟机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8E%E7%89%A9%E7%90%86%E6%9C%BA%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB"><span class="toc-text">虚拟机与物理机的联系与区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E6%9C%BA%E3%80%81%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E3%80%81%E5%AE%B9%E5%99%A8%E5%9B%9B%E8%80%85%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">物理机、虚拟机、操作系统、容器四者之间的关系</span></a></li></ol></li></ol>
+        </div>
+    </aside>
+ -->
+
+
+    <script>
+        hljs.highlightAll();
+    </script>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© Timlzh 🙋 2022-" + new Date().getFullYear());
+    console.log("Welcome to my blog: https://timlzh.com");
+</script>
+  
+    <!-- Google Analytics -->
+    
+
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
+    <!-- Go Top -->
+    <a class="go-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    if ($(window).scrollTop() <= 100) {
+        $(".go-top").hide();
+    }
+    
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".go-top").fadeIn(500);
+            } else {
+                $(".go-top").fadeOut(500);
+            }
+        });
+        $(".go-top").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
+</body>
+
+<footer>
+    
+    
+    
+        <div class="beian">
+            <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备2022036129号-2</a>
+        </div>
+    
+
+</footer>
+
+</html>

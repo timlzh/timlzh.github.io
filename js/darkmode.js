@@ -1,0 +1,78 @@
+function enableDarkMode() {
+    var css = document.getElementById('hljs-theme-light');
+    css && document.head.removeChild(css);
+
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/' + darkTheme + '.min.css';
+    css.id = 'hljs-theme-dark';
+    document.head.appendChild(css);
+
+    if (document.querySelector('link[href="/css/darkmode.css"]')) {
+        return;
+    }
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = '/css/darkmode.css';
+    
+    document.head.appendChild(css);
+}
+
+function disableDarkMode() {
+    var css = document.querySelector('link[href="/css/darkmode.css"]');
+    css && document.head.removeChild(css);
+
+    var css = document.getElementById('hljs-theme-dark');
+    css && document.head.removeChild(css);
+
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/' + lightTheme + '.min.css';
+    css.id = 'hljs-theme-light';
+    document.head.appendChild(css);
+}
+
+function isDarkMode() {
+    return !!document.querySelector('link[href="/css/darkmode.css"]');
+}
+
+function toggleDarkMode() {
+    if (isDarkMode()) {
+        disableDarkMode();
+        localStorage.setItem('darkmode', '0');
+    } else {
+        enableDarkMode();
+        localStorage.setItem('darkmode', '1');
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (localStorage.getItem('darkmode') === null) {
+        localStorage.setItem('darkmode', '0');
+    }
+
+    if (localStorage.getItem('darkmode') === '0') {
+        disableDarkMode();
+        document.querySelector('[data-toggle="darkmode"] .fa-moon-o').style.display = 'inline-block';
+        document.querySelector('[data-toggle="darkmode"] .fa-sun-o').style.display = 'none';
+    } else {
+        enableDarkMode();
+        document.querySelector('[data-toggle="darkmode"] .fa-moon-o').style.display = 'none';
+        document.querySelector('[data-toggle="darkmode"] .fa-sun-o').style.display = 'inline-block';
+    }
+});
+
+document.querySelector('[data-toggle="darkmode"]').addEventListener('click', function(e) {
+    e.preventDefault();
+    toggleDarkMode();
+
+    if (isDarkMode()) {
+        document.querySelector('[data-toggle="darkmode"] .fa-moon-o').style.display = 'none';
+        document.querySelector('[data-toggle="darkmode"] .fa-sun-o').style.display = 'inline-block';
+    }
+    else {
+        document.querySelector('[data-toggle="darkmode"] .fa-moon-o').style.display = 'inline-block';
+        document.querySelector('[data-toggle="darkmode"] .fa-sun-o').style.display = 'none';
+    }
+    
+});

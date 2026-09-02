@@ -1,59 +1,287 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="zh-Hans">
 
+<!-- Head tag -->
 <head>
-  <meta charset="utf-8">
-  <title>About Me</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="FiraCode.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="🏫 UoG, UESTC
+🕶️ 现役网安黑阔
+⌨️ 退役 OI 蒟蒻
+🪛 退役电赛冤种
+📖 偶尔写写博客，有学术文也有Emo文   
+👀 开盒?我来!             
+📮 联系可以恰个扣  OR 
+
+
+.post-html li{
+    display: flex;
+}
+
+i">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Timlzh">
+    
+
+    <!-- Title -->
+    
+    <title>关于我 | Tim的杂货铺 | 个人学习记录</title>
+
+    <!-- favicon -->
+    
+        <link rel="shortcut icon" href="http://q1.qlogo.cn/g?b=qq&amp;nk=2921349622&amp;s=40">
+    
+
+    <!-- Bootstrap Core CSS -->
+    <!-- <link href="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="//unpkg.com/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Valine -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+    <link rel="stylesheet" href="/css/darkmode.css">
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Top Menu  -->
+    <div class="top_menu">
+        
+            
+            <a href="/">Home</a>
+            
+            <a href="/links">Friends</a>
+            
+            <a href="/tags">Tags</a>
+            
+            <a href="/about">About</a>
+            
+        
+        <a class="darkmode-toggle" href="#" data-toggle="darkmode">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o" style="display: none;"></i>
+        </a>
+    </div>
+
+    <!-- Darkmode -->
+    <script src='/js/darkmode.js'></script>
+
+    <!-- Custom Fonts -->
+    <!-- <link href="//cdn.jsdelivr.net/npm/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="//unpkg.com/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script> -->
+    <script src="//unpkg.com/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- Highlight -->
+    
+        <script>
+            var lightTheme = "github";
+            var darkTheme = "github-dark-dimmed";
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+<meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="Tim的杂货铺 | 个人学习记录" type="application/atom+xml">
 </head>
 
+
 <body>
-  <div class = "screen">
-    <div class="av_div">
-      <img src="http://q1.qlogo.cn/g?b=qq&nk=2921349622&s=640" alt="avatar" class="avatar">
-    </div>
-    <div class="hi"><span>&lt; Hi,it's Tim/ &gt;</br></span></div>
-    <div class = "btn_div">
-        <div class="hover" id="about" onmouseover="trans(about)">
-          <span>About</span>
-        </div>
-        <div class="btn" id="habits" onmouseover="trans(habits)">
-          <span>Sites</span>
-        </div>
-        <div class="btn" id = "contect" onmouseover="trans(contect)">
-          <span>Contect</span>
-        </div>
-    </div>
 
-    <div class = "info">
-      <div class = "inf_a" id = "inf_a"> 
-        <p>
-          一条热爱计算机的咸鱼。</br>
-          喜欢新东西,喜欢一知半解。</br>
-          C++是主业,略懂H5/CSS和基础的Python</br>
-          会去自学所有自己喜欢的东西。</br>
-          </br>
-          <span style="font-style: italic;font-size: 2vh;text-align: left">『If the people who are crazy enough to think he can change the world, are the ones who do.』</span>
-        </p>
-          <span style="font-style: italic;font-size: 1.5vh;margin-left: auto;padding-right:5%">From "Think Different" Apple</span>
-      </div>
+    <!-- Content -->
+    
+    
 
-      <div class = "inf_h" id = "inf_h"> 
-        <span onclick="javascript:window.open('http://itstim.xyz')"><i class="fas fa-blog"></i></span>
-        <span onclick="javascript:window.open('http://server.itstim.xyz:2020')"><i class="fas fa-shoe-prints"></i></span>
-        <!--<span onclick="javascript:window.open('http://itstim.xyz/doris')"><i class="fas fa-heartbeat"></i></span>-->
-      </div>
 
-      <div class = "inf_c" id = "inf_c"> 
-        <span onclick="javascript:window.open('http://wpa.qq.com/msgrd?v=3&uin=2921349622&site=qq&menu=yes')"><i class = "fab fa-qq"></i></span>
-        <span onclick="javascript:window.open('http://itstim.xyz/assets/img/WechatFriend.png')"><i class = "fab fa-weixin"></i></span>
-        <span onclick="javascript:window.open('https://github.com/timlzh/')"><i class = "fab fa-github" ></i></span>
-        <span onclick="javascript:window.open('https://www.zhihu.com/people/timli-83-74/activities')"><i class = "fab fa-zhihu"></i></span>
-      </div>
-    </div>
+<section class="article-container">
+    <!-- Back Home -->
+    <!-- <a class="nav-back" href="javascript:back()">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<script>
+    function back() {
+        var home = '/'
+        if (document.referrer && document.referrer.indexOf(home) > -1) {
+            window.history.back();
+        } else {
+            window.location.href = home;
+        }
+    }
+</script> -->
+
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                关于我
+                            </h1>
+                            <div class="subheading">
+                                
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <h1 align="center">
+  <a target="_blank" rel="noopener" href="https://github.com/timlzh">
+    <!-- <img src="http://readme-typing-svg.herokuapp.com?font=Source+Code+Pro&weight=500&size=30&pause=500&color=29F744&center=true&vCenter=true&random=false&width=435&lines=Hi%2C+There!+%F0%9F%91%8B;This+is+Timlzh+.+.+.;Welcome+to+my+blog😇!"> -->
+    <img src="/files/banner.svg">
+  </a>
+</h1>
+<ul>
+<li>🏫 UoG, UESTC</li>
+<li>🕶️ 现役网安黑阔</li>
+<li>⌨️ 退役 OI 蒟蒻</li>
+<li>🪛 退役电赛冤种</li>
+<li>📖 偶尔写写博客，有学术文也有Emo文   <a href="https://timlzh.com"><img src="https://img.shields.io/badge/%E5%8D%9A%E5%AE%A2-timlzh.com-brightgreen" alt=""></a></li>
+<li>👀 开盒?我来!    <a target="_blank" rel="noopener" href="https://github.com/timlzh"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.swo.moe%2Fstats%2Fgithub%2Ftimlzh&amp;query=count&amp;color=181717&amp;label=GitHub&amp;labelColor=282c34&amp;logo=github&amp;suffix=+follows&amp;cacheSeconds=3600" alt="GitHub"></a>   <a target="_blank" rel="noopener" href="https://space.bilibili.com/76963343"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.swo.moe%2Fstats%2Fbilibili%2F76963343&amp;query=count&amp;color=282c34&amp;label=%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9&amp;labelColor=FE7398&amp;logo=data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAD7ElEQVR4nO2dW9WrMBCFK6ESkFAJSKiESqgEHCABCZWAhEpAAhL2ecik5dDc%2FpXLBDLfWnlqy0xmJ5BMQnq5CIIgCIIgCIIgCIIgCEIBAHQAemYfrgCunD6wAKAHsEKxALgx+bCQD8%2FS9tmgVqeDr1lLigDgZvDhXso+K9TyTBQRwRJ8AHjntl0Flh5QRAQK%2FmKxPeayWx2OXpBNBKiHvi34b7T2MC4pAvW6twR%2FRwkRKPizBN8CgEcuESj4Lwm+BwBjahEk+H8EwJRKhOaCDzW8e1JLfkUUH1NgmR3XmHffHR1l+72BSs8d7w8U+JDAnZERQMcV+CtUi7dNqFqibB4J7vtrq7xKCuAasbTMXCL4T+5aVk6+2xHUrWdhruAR6HIJcOeu2UHI8zyAe2ytWfEdWz9PVvQ8YAmIQ5dDAB9LFsMVAv8oMO2zAGrC5WNIarRiAuKR9jYEd9pY08aa6uUzIHGRdkgKd8pY0yc1WjEBAqypDYoAG0QAZkQAZkQAZkQAZk4vANQenjsSzS3I%2FwcSbXU5jQBUkRtdf4Rar90v8kSv3+I3ffCCSpk8I%2Fw+lgDkdI%2Fv2rEp2CaiWm1AsDQLlDAD+dlFXLMeAaCSeLZdaSFE5VUQNot38cKuEeBgAsSuG0flVZBmEanbXfNQAsS0fgBYIn2fIu3%2FBBMHEyBmDXlFfA8IzeHb+Ems4WAChKykrVA9ZfsQTL57jXzRg4A5wC%2FA8N4ADiZAZwm2XjW75Qh2KOTfA0p4kygPw28OJcCVgn3nDnYo2EwEYRgGH0qAMyICMCMCMCMCMCMCMCMCMCMCfP3qwHDOQ4AAUekTk8FaBRihJnZdYbvtCGC7LvmkM63GjVDINPFrQgCq5ETXfmMzI90FXzPvfqt7x4rEu%2FZaEcCUxFvgz2zO+BUn6UkoaEEAsptiMSX5e8FoRYCN7cVgb4Vq7U%2FH50Pq4JNP7Qiw8UFnJwcK+tXy+Wj6PLEvPgHSHv5UgwA1IQIwwyFAyLJin9RoxYgAzAQIkPwNmf26busC+OIx5TDqo5nDT+F%2FSS%2F9CYzwb+No49zNy2evkYv0LywGGAXUvp6eSneycqOic0w20k7CNgKE7jJunSGLACTCxF27ylmQc98T5MQUH49swd+I0HPXslLKnT0N+wnkrTKi9JZL%2FL9i1SorMmdeQ4TQQ7OFMxIMzGD45w8nUL1im7efENZLJpgPSw0pfz0cdt4U3230Td%2FTvx2R6d2FrHhEWLkq5PELOMsRPHCPnAZGv1xJteL7jbJiaW3sB2nDvPC%2FosSYvjRQz4cJ6n7KO3rYQL7M+L6nVtfDVRAEQRAEQRAEQRAEIZ5%2FSAXmdfXaoQsAAAAASUVORK5CYII%3D&amp;suffix=+%E5%85%B3%E6%B3%A8&amp;cacheSeconds=3600" alt="哔哩哔哩"></a>   <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/timli-83-74"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.swo.moe%2Fstats%2Fzhihu%2Ftimli-83-74&amp;query=count&amp;color=282c34&amp;label=%E7%9F%A5%E4%B9%8E&amp;labelColor=0084ff&amp;logo=zhihu&amp;logoColor=ffffff&amp;suffix=+%E5%85%B3%E6%B3%A8&amp;cacheSeconds=3600" alt="知乎"></a>   <a target="_blank" rel="noopener" href="https://steamcommunity.com/profiles/76561198889733341"><img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.swo.moe%2Fstats%2Fsteamgames%2F76561198889733341&amp;query=count&amp;color=0b1a37&amp;label=Steam&amp;labelColor=134375&amp;logo=steam&amp;suffix=+games&amp;cacheSeconds=3600" alt="Steam"></a></li>
+<li>📮 联系可以恰个扣 <a target="_blank" rel="noopener" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2921349622&amp;site=qq&amp;menu=yes"><img src="https://img.shields.io/badge/QQ-%C2%AF%5C__(%E3%83%84)__%2F%C2%AF-orange" alt=""></a> OR <a href="mailto://admin@timlzh.com"><img src="https://img.shields.io/badge/Email-admin@timlzh.com-red" alt=""></a></li>
+</ul>
+<style>
+.post-html li{
+    display: flex;
+}
+
+img{
+    margin: 0 2px !important;
+    box-shadow: none !important;
+    transform: none !important;
+    cursor: pointer !important;
+}
+
+h1::before{
+    content: none !important;
+}
+</style>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2077-01-01
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
+
+                    </div>
+                </div>
+            </div>
+        </article>
+</section>
+
+<!-- Image viewer-->
+
+
+<!-- TOC -->
+<!--  -->
+
+
+    <script>
+        hljs.highlightAll();
+    </script>
+
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© Timlzh 🙋 2022-" + new Date().getFullYear());
+    console.log("Welcome to my blog: https://timlzh.com");
+</script>
+  
+    <!-- Google Analytics -->
+    
+
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
+    <!-- Go Top -->
+    <a class="go-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    if ($(window).scrollTop() <= 100) {
+        $(".go-top").hide();
+    }
+    
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".go-top").fadeIn(500);
+            } else {
+                $(".go-top").fadeOut(500);
+            }
+        });
+        $(".go-top").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
 </body>
-<script src="main.js"></script>
+
+<footer>
+    
+    
+        <div class="content">
+            <a href="https://icp.gov.moe/?keyword=20240214" target="_blank">萌ICP备20240214号</a>
+        </div>
+    
+    
+        <div class="beian">
+            <a href="https://beian.miit.gov.cn/" target="_blank"><span style="opacity:0.8">浙ICP备2022036129号-2</span></a>
+        </div>
+    
+
+
+</footer>
 
 </html>

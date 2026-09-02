@@ -1,0 +1,69 @@
+.friend-cards-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 30%);
+  grid-column-gap: 3%;
+  grid-row-gap: 3%;
+  margin-bottom: 100px;
+}
+.friend-cards-container .card {
+  cursor: pointer;
+  position: relative;
+  transition: transform 300ms ease-in-out;
+}
+.friend-cards-container .card a {
+  width: 100%;
+  height: 100%;
+  transform: translate(0, -100%);
+  display: none;
+}
+.friend-cards-container .card .avatar {
+  width: 100%;
+}
+.friend-cards-container .card .avatar img {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  box-shadow: none;
+  border-radius: 10%;
+  transform: none;
+  margin: 0;
+  margin-left: 0;
+  max-width: 100% !important;
+  transition: filter 250ms ease-in-out !important;
+}
+.friend-cards-container .card .content {
+  top: 50%;
+  transform: translate(0, -50%);
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  border-radius: 50px;
+}
+.friend-cards-container .card .content p {
+  color: #f0f0f0;
+  width: 100%;
+  margin: 0;
+}
+.friend-cards-container .card .content .nick {
+  font-size: calc(0.8em + min(1vw, 1em));
+  font-weight: 600;
+}
+.friend-cards-container .card .content .description {
+  font-size: calc(0.3em + min(1vw, 1em));
+}
+.friend-cards-container .card:hover {
+  transform: scale(1.05);
+}
+.friend-cards-container .card:hover img {
+  -webkit-filter: brightness(50%);
+  filter: brightness(50%);
+}
+.friend-cards-container .card:hover .content {
+  opacity: 100%;
+}
+.friend-cards-container .card:hover a {
+  display: block;
+}

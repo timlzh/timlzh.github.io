@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="😇 [Baby] Welcome to Reverse World
+IDA打开即是flag.
+
+cnss&amp;#123;1t_s3ems_l1ke_Y0u_c4n_us3_IDA_n0w!&amp;#125;">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Timlzh">
+    
+
+    <!-- Title -->
+    
+    <title>2022 CNSS Recruit Reverse 复现wp | CTF Writeup | Tim的杂货铺</title>
+
+    <!-- favicon -->
+    
+        <link rel="shortcut icon" href="https://timlzh.github.io/melody-favicon.ico">
+    
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Valine -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+    <link rel="stylesheet" href="/server-archive/css/darkmode.css">
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/server-archive/css/style.css">
+
+
+    <!-- Top Menu  -->
+    <div class="top_menu">
+        
+            
+            <a href="/server-archive/">Home</a>
+            
+            <a href="/server-archive/links">Friends</a>
+            
+            <a href="/server-archive/tags">Tags</a>
+            
+            <a href="/server-archive/about">About</a>
+            
+            <a href="/server-archive/">asdfa</a>
+            
+        
+        <a class="darkmode-toggle" href="#" data-toggle="darkmode">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o" style="display: none;"></i>
+        </a>
+    </div>
+
+    <!-- Darkmode -->
+    <script src='/server-archive/js/darkmode.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.jsdelivr.net/npm/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- Highlight -->
+    
+        <script>
+            var lightTheme = "github";
+            var darkTheme = "github-dark-dimmed";
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/server-archive/atom.xml" title="Tim的杂货铺" type="application/atom+xml">
+</head>
+
+
+<body>
+
+    <!-- Content -->
+    
+
+
+<section class="article-container">
+    <!-- Back Home -->
+    <!-- <a class="nav-back" href="javascript:back()">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<script>
+    function back() {
+        var home = '/server-archive/'
+        if (document.referrer && document.referrer.indexOf(home) > -1) {
+            window.history.back();
+        } else {
+            window.location.href = home;
+        }
+    }
+</script> -->
+
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                2022 CNSS Recruit Reverse 复现wp
+                            </h1>
+                            <div class="subheading">
+                                CTF Writeup
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <h1 id="%F0%9F%98%87-%5Bbaby%5D-welcome-to-reverse-world" tabindex="-1">😇 [Baby] Welcome to Reverse World</h1>
+<p>IDA打开即是flag.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12owdzl-2.png" alt="image"></p>
+<p><code>cnss&#123;1t_s3ems_l1ke_Y0u_c4n_us3_IDA_n0w!&#125;</code></p>
+<span id="more"></span>
+<h1 id="%F0%9F%92%94-%5Bbaby%5D-find-me" tabindex="-1">💔 [Baby] Find me</h1>
+<p>根据提示打开Strings窗口, 已经可以看到第一段和最后一段flag</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12owiav-2.png" alt="image"></p>
+<p>根据提示<code>Learn about Functions and you can see the second part of flag.</code>, 在旁边的functions窗口找到第二段flag</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ownlr-2.png" alt="image"></p>
+<p>根据提示<code>Learn about Xref and you can see the third part of flag.</code>和<code>Find out which function refer to me!</code>找到第三段flag(右键Xref)</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ows8p-2.png" alt="image"></p>
+<p>把每一段拼接起来即可</p>
+<p><code>cnss&#123;W0w!Y0u_Comp1et3ly_Uns7and_h0w_t0_us3_ID4_N0w!&#125;</code></p>
+<h1 id="%F0%9F%92%AB-%5Beasy%5D-%E5%9B%9E%E3%83%AC!-%E9%9B%AA%E6%9C%88%E8%8A%B1" tabindex="-1">💫 [Easy] 回レ! 雪月花</h1>
+<p>打开ida, 在main里F5, 查看加密逻辑:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12owrdq-2.png" alt="image"></p>
+<p>第一次处理是异或0x11, 点进encode查看第二次处理:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12owzvc-2.png" alt="image"></p>
+<p>这里稍微理解一下, 比如v5, 它的二进制位有8位, 后7位即为a2的前面七位, 第一位即为a1的最后一位, v7异或v6的值正好相反, 与v5的信息组合即可还原出a1和a2. 同样的, 将v6异或v5还原的值, 二进制位后6位为a4的前6位, 前两位为a3的最后两位, 与v8异或v7的值组合, 即可还原出a3和a4.</p>
+<p>下面为还原脚本:</p>
+<pre><code class="language-python">def decode(v5, v6, v7, v8):
+    a1 = (((v7 ^ v6) &amp; 0b01111111) &lt;&lt; 1) + (v5 &gt;&gt; 7)
+    a2 = ((v5 &amp; 0b01111111) &lt;&lt; 1) + ((v7 ^ v6) &gt;&gt; 7)
+    a3 = (((v8 ^ v7) &amp; 0b00111111) &lt;&lt; 2) + ((v6 ^ v5) &gt;&gt; 6)
+    a4 = (((v6 ^ v5) &amp; 0b00111111) &lt;&lt; 2) + ((v8 ^ v7) &gt;&gt; 6)
+    return a1, a2, a3, a4
+
+
+cipher = [63, 143, 163, 188, 141,  39, 122, 103, 226, 3,
+          162, 224, 172, 234, 149, 139, 163, 237, 204, 182,
+          50, 140, 148,  82, 130, 138,  20, 198, 245, 174,
+          104, 115]
+
+for i in range(28, -1, -1):
+    cipher[i], cipher[i+1], cipher[i+2], cipher[i+3] = decode(cipher[i], cipher[i+1], cipher[i+2], cipher[i+3])
+
+print(''.join(chr(c ^ 0x11) for c in cipher))
+</code></pre>
+<p><code>cnss&#123;So_d1zzy...Wh3r3_am_i_N0w?&#125;</code></p>
+<h1 id="%F0%9F%91%81-%5Beasy%5D-%E9%82%AA%E7%8E%8B%E7%9C%9F%E7%9C%BC" tabindex="-1">👁 [Easy] 邪王真眼</h1>
+<p>IDA打开可以看到加密:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ox24y-2.png" alt="image"></p>
+<p>拿到加密后的字符串<code>UR3oWS5E0G03tRibWRrR0cEx</code></p>
+<p>查看encode函数:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ox9ck-2.png" alt="image"></p>
+<p>根据加密特征, 猜测是base64, 查看alpha数组(字符表), 可以发现不是标准的base64表:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ox5p1-2.png" alt="image"></p>
+<p>EXP即进行一个换表解密:</p>
+<pre><code class="language-python">import base64
+
+originString = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/' # 原索引表
+changedString = 'abcd4EFGHij8k0lMNOPqr6stU91VWXyz7+/ABCDefg2hI5JKLmnopQRST3uvwxYZ' # 替换后的索引表
+encodedString = 'UR3oWS5E0G03tRibWRrR0cEx' # 加密后的字符串
+
+print(base64.b64decode(encodedString.translate(str.maketrans(changedString, originString))))
+</code></pre>
+<p><code>cnss&#123;E4sy_bAse64!&#125;</code></p>
+<h1 id="%F0%9F%94%AA-%5Beasy%5D-%E6%81%AD%E5%96%9C%E4%BD%A0%E8%8E%B7%E5%BE%97%E4%BA%86flag%E6%8F%90%E7%8E%B0%E6%9C%BA%E4%BC%9A%EF%BC%81" tabindex="-1">🔪 [Easy] 恭喜你获得了flag提现机会！</h1>
+<p>IDA打开发现需要通过某些方式调用outputflag函数</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oxeru-2.png" alt="image"></p>
+<p>可以直接nop掉if, 让程序直接执行outputflag</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oxq7a-2.png" alt="image"></p>
+<p>nop后效果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p6eb7-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p6lim-2.png" alt="image"></p>
+<p>写入到文件, 直接打开即可</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p6w5z-2.png" alt="image"></p>
+<p><code>cnss&#123;3njoy_H4cK1ng!&#125;</code></p>
+<h1 id="%F0%9F%92%BB-%5Beasy%2B%5D-diannaobaozhale" tabindex="-1">💻 [Easy+] diannaobaozhale</h1>
+<p>反写汇编, 没啥说的, 直接对着写就好了</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p6v1e-2.png" alt="image"></p>
+<pre><code class="language-python">a = [0x63, 0x6E, 0x73, 0x73, 0x7B]
+print(''.join(chr(c) for c in a), end='')
+
+v5 = 0x63
+v4 = 0
+while v4 &lt;= 9:
+    print(chr(v5), end='')
+    v5 = (v5 + 2) ^ 1
+    v4 += 1
+
+print(chr(0x7d), end='')
+</code></pre>
+<p><code>cnss&#123;cdghklopst&#125;</code></p>
+<h1 id="%F0%9F%A4%A1-%5Bmiddle%5D-vip-of-mihoyo" tabindex="-1">🤡 [Middle] Vip of Mihoyo</h1>
+<p>IDA打开发现是虚拟机, 导出操作码后可以发现对每一个字符的处理都是一样的:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p75s1-2.png" alt="image"></p>
+<p><code>7, a, 2, 8, 3, 14, 1, 10, 5, 128, 6, b</code>可以翻译为<code>(flag[a] * 8 - 14 + 10)^128 == b</code></p>
+<p>那么<code>flag[a]</code>就等于<code>((b^128)-10+14)//8</code>, 直接解码即可</p>
+<p>以下为解码脚本</p>
+<pre><code class="language-python"># 注释掉的这部分是对ida导出的byte数组进行小端转换为整数, 获得实际的opcode
+# opcode = [0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 
+#   0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 
+#   0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 
+#   0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 
+#   0x06, 0x00, 0x00, 0x00, 0x94, 0x03, 0x00, 0x00, 0x07, 0x00, 
+#   0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 
+#   0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 
+#   0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 
+#   0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 
+#   0x00, 0x00, 0xEC, 0x03, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 
+#   0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 
+#   0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 
+#   0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 
+#   0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 
+#   0x14, 0x03, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x03, 0x00, 
+#   0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 
+#   0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 
+#   0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 
+#   0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x14, 0x03, 
+#   0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 
+#   0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 
+#   0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 
+#   0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 
+#   0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x54, 0x03, 0x00, 0x00, 
+#   0x07, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x02, 0x00, 
+#   0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 
+#   0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 
+#   0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 
+#   0x06, 0x00, 0x00, 0x00, 0xAC, 0x02, 0x00, 0x00, 0x07, 0x00, 
+#   0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 
+#   0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 
+#   0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 
+#   0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 
+#   0x00, 0x00, 0x3C, 0x03, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 
+#   0x07, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 
+#   0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 
+#   0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 
+#   0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 
+#   0xCC, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x08, 0x00, 
+#   0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 
+#   0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 
+#   0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 
+#   0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0xD4, 0x03, 
+#   0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 
+#   0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 
+#   0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 
+#   0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 
+#   0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x74, 0x02, 0x00, 0x00, 
+#   0x07, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x02, 0x00, 
+#   0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 
+#   0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 
+#   0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 
+#   0x06, 0x00, 0x00, 0x00, 0x2C, 0x02, 0x00, 0x00, 0x07, 0x00, 
+#   0x00, 0x00, 0x0B, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 
+#   0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 
+#   0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 
+#   0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 
+#   0x00, 0x00, 0xE4, 0x03, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 
+#   0x0C, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 
+#   0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 
+#   0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 
+#   0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 
+#   0x74, 0x02, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x0D, 0x00, 
+#   0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 
+#   0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 
+#   0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 
+#   0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x24, 0x01, 
+#   0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 
+#   0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 
+#   0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 
+#   0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 
+#   0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x1C, 0x03, 0x00, 0x00, 
+#   0x07, 0x00, 0x00, 0x00, 0x0F, 0x00, 0x00, 0x00, 0x02, 0x00, 
+#   0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 
+#   0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 
+#   0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 
+#   0x06, 0x00, 0x00, 0x00, 0x0C, 0x03, 0x00, 0x00, 0x07, 0x00, 
+#   0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 
+#   0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 
+#   0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 
+#   0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 
+#   0x00, 0x00, 0x24, 0x02, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 
+#   0x11, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 
+#   0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 
+#   0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 
+#   0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 
+#   0x94, 0x03, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x12, 0x00, 
+#   0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 
+#   0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 
+#   0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 
+#   0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x1C, 0x03, 
+#   0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 
+#   0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 
+#   0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 
+#   0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 
+#   0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x0C, 0x02, 0x00, 0x00, 
+#   0x07, 0x00, 0x00, 0x00, 0x14, 0x00, 0x00, 0x00, 0x02, 0x00, 
+#   0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 
+#   0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 
+#   0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 
+#   0x06, 0x00, 0x00, 0x00, 0x24, 0x03, 0x00, 0x00, 0x07, 0x00, 
+#   0x00, 0x00, 0x15, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 
+#   0x08, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 
+#   0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 
+#   0x05, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 
+#   0x00, 0x00, 0x14, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 
+#   0x16, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 
+#   0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 
+#   0x01, 0x00, 0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 
+#   0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 
+#   0x84, 0x01, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x17, 0x00, 
+#   0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 
+#   0x03, 0x00, 0x00, 0x00, 0x0E, 0x00, 0x00, 0x00, 0x01, 0x00, 
+#   0x00, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 
+#   0x80, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x64, 0x03, 
+#   0x00, 0x00]
+# opcode = [opcode[i + 3] &lt;&lt; 24 | opcode[i + 2] &lt;&lt; 16 | opcode[i + 1] &lt;&lt; 8 | opcode[i] for i in range(0, len(opcode), 4)]
+# print(opcode)
+
+# 转换后的opcode
+opcode = [7, 0, 2, 8, 3, 14, 1, 10, 5, 128, 6, 916, 
+          7, 1, 2, 8, 3, 14, 1, 10, 5, 128, 6, 1004, 
+          7, 2, 2, 8, 3, 14, 1, 10, 5, 128, 6, 788, 
+          7, 3, 2, 8, 3, 14, 1, 10, 5, 128, 6, 788, 
+          7, 4, 2, 8, 3, 14, 1, 10, 5, 128, 6, 852, 
+          7, 5, 2, 8, 3, 14, 1, 10, 5, 128, 6, 684, 
+          7, 6, 2, 8, 3, 14, 1, 10, 5, 128, 6, 828, 
+          7, 7, 2, 8, 3, 14, 1, 10, 5, 128, 6, 460, 
+          7, 8, 2, 8, 3, 14, 1, 10, 5, 128, 6, 980, 
+          7, 9, 2, 8, 3, 14, 1, 10, 5, 128, 6, 628, 
+          7, 10, 2, 8, 3, 14, 1, 10, 5, 128, 6, 556, 
+          7, 11, 2, 8, 3, 14, 1, 10, 5, 128, 6, 996, 
+          7, 12, 2, 8, 3, 14, 1, 10, 5, 128, 6, 628, 
+          7, 13, 2, 8, 3, 14, 1, 10, 5, 128, 6, 292, 
+          7, 14, 2, 8, 3, 14, 1, 10, 5, 128, 6, 796, 
+          7, 15, 2, 8, 3, 14, 1, 10, 5, 128, 6, 780, 
+          7, 16, 2, 8, 3, 14, 1, 10, 5, 128, 6, 548, 
+          7, 17, 2, 8, 3, 14, 1, 10, 5, 128, 6, 916, 
+          7, 18, 2, 8, 3, 14, 1, 10, 5, 128, 6, 796, 
+          7, 19, 2, 8, 3, 14, 1, 10, 5, 128, 6, 524, 
+          7, 20, 2, 8, 3, 14, 1, 10, 5, 128, 6, 804, 
+          7, 21, 2, 8, 3, 14, 1, 10, 5, 128, 6, 276, 
+          7, 22, 2, 8, 3, 14, 1, 10, 5, 128, 6, 388, 
+          7, 23, 2, 8, 3, 14, 1, 10, 5, 128, 6, 868]
+
+
+# 这里是把虚拟机转写成python版本了(好理解一点)
+def vm():
+    flag = &quot;asdasdasdasdasdasd&quot;
+    i = 0
+    v5 = 0
+    operator = &#123;
+        1: lambda a,b: a+b,
+        2: lambda a,b: a*b,
+        3: lambda a,b: a-b,
+        4: lambda a,b: a//b,
+        5: lambda a,b: a^b,
+    &#125;
+    while i &lt;= 287:
+        v3 = opcode[i+1]
+        
+        if opcode[i] in operator:
+            v5 = operator[opcode[i]](v5,v3)
+        elif opcode[i] == 6:
+            if v5 != v3:
+                return False
+        elif opcode[i] == 7:
+            v5 = ord(flag[v3])
+        elif opcode[i] == 8:
+            flag[v3] = chr(v5)
+        
+        v5 &amp;= 0xff
+        i+=2
+    return True
+
+def decode():
+    flag = ''.join(chr(((opcode[i + 11] ^ 128) - 10 + 14) // 8) for i in range(0, len(opcode), 12))
+    print(flag)
+    return flag
+
+decode()
+</code></pre>
+<p><code>cnss&#123;Fx*k_Vm_5trUctRu3!&#125;</code></p>
+<h1 id="%E2%AD%90-%5Bmiddle%5D-super-mario-code" tabindex="-1">⭐ [Middle] Super Mario Code</h1>
+<p>打开IDA, 发现main是乱码, 根据题目可以知道是SMC.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p7bcs-2.png" alt="image"></p>
+<p>动调找到解码后的SMC(可能需要到断点的时候按u将main取消定义了再按p重新生成函数)</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p7gbv-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p7lka-2.png" alt="image"></p>
+<p>可以看见就是个异或加密, 脚本解密就行</p>
+<pre><code class="language-python">from Crypto.Util.number import *
+
+a = 0x200E103830302D20
+b = 0x3A3072261C30721C
+c = b&quot;b s-$1\&quot;76/\&quot;7r,-0b&gt;&quot;
+
+a = long_to_bytes(a)[::-1]
+b = long_to_bytes(b)[::-1]
+
+cipher = a + b + c
+
+flag = &quot;&quot;.join([chr(i^0x43) for i in cipher])
+print(flag)
+</code></pre>
+<p><code>cnss&#123;SMc_1s_e1sy!c0ngratulat1ons!&#125;</code></p>
+<h1 id="%F0%9F%8C%B8-%5Bmiddle%5D-%E8%8A%B1%E8%8A%B1" tabindex="-1">🌸 [Middle] 花花</h1>
+<p>打开IDA无法反汇编, 结合题目发现是花指令</p>
+<p>类似这样的都是花指令，一般nop掉再重新按p生成函数即可</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p7qrv-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p7q09-2.png" alt="image"></p>
+<p>可以得到两部分加密函数</p>
+<p>main函数：</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p80t7-2.png" alt="image"></p>
+<p>第一部分：</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p83si-2.png" alt="image"></p>
+<p>第二部分：</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p85hs-2.png" alt="image"></p>
+<p>脚本解密即可</p>
+<pre><code class="language-python">cipher = list('Jew&#123;PwcnwJJsCMMM1qyPZE5iHshiOF')
+l = len(cipher)
+for i in range(len(cipher)-1,-1,-1):
+    tmp = cipher[i]
+    cipher[i] = cipher[(i+9)%l]
+    cipher[(i+9)%l] = tmp
+for i in range(len(cipher)-1,-1,-1):
+    tmp = cipher[i]
+    cipher[i] = cipher[(i+3)%l]
+    cipher[(i+3)%l] = tmp
+
+a = [0, 0, 4, 6, 16, 20, 36, 42, 64, 72, 100, 110, 144, 156, 196, 210, 256, 272, 324, 342, 400, 420, 484, 506, 576, 600, 676, 702, 784, 812, 900, 930, 1024, 1056, 1156, 1190, 1296, 1332, 1444, 1482, 1600, 1640, 1764, 1806, 1936, 1980, 2116, 2162, 2304, 2352, 2500, 2550, 2704, 2756, 2916, 2970, 3136, 3192, 3364, 
+3422, 3600, 3660, 3844, 3906, 4096, 4160, 4356, 4422, 4624, 4692, 4900, 4970, 5184, 5256, 5476, 5550, 5776, 5852, 6084, 6162, 6400, 6480, 6724, 6806, 7056, 7140, 7396, 7482, 7744, 7832, 8100, 8190, 8464, 8556, 8836, 8930, 9216, 9312, 9604, 9702]
+
+alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789&#125;&#123;'
+l = len(alphabet)
+for i,c in enumerate(cipher):
+    indexC = alphabet.index(c)
+    indexF = ((indexC - a[i]) + 10*l)%l
+    cipher[i] = alphabet[indexF]
+
+print(''.join(cipher))
+</code></pre>
+<p><code>cnss&#123;Fl0w3rC0de1sRe41llyC0oOl&#125;</code></p>
+<h1 id="%E2%9D%A4-%5Bmiddle%5D-shino-%E7%9A%84%E5%BF%83%E8%B7%B3%E5%A4%A7%E5%86%92%E9%99%A9" tabindex="-1">❤ [Middle] Shino 的心跳大冒险</h1>
+<p>一直走流程到最后发现flag被挡住了</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p8cy7-2.png" alt="image"></p>
+<p>这里用Cheat Engine的骚操作直接扫描cnss这个字符串即可~~（想到CE是因为它是常用游戏作弊器）~~</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p8of8-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p8vse-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p8ruy-2.png" alt="image"></p>
+<p><code>cnss&#123;W0w!Y0u_4re_K1ng_0f_R3vers1g_n0W!!!&#125;</code></p>
+<blockquote>
+<p>这道题还有很多其他做法，比如修改资源删掉这张图片（应该是官解）、修改资源文件修改字体大小让flag漏出来（SSG爷的做法）等等，可以自己试试，方法很多</p>
+</blockquote>
+<h1 id="%F0%9F%A6%A0-%5Beasy%3F%5D-baby-xor%3F" tabindex="-1">🦠 [Easy?] Baby XOR?</h1>
+<p>打开IDA发现加密逻辑，尝试之后发现不对。看汇编可以发现<code>try...catch</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p8xlb-2.png" alt="image"></p>
+<p>按u将整个main函数（包括catch部分）全部undefinded掉，然后在catch处按p将catch部分生成为函数。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p8yil-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p9alv-2.png" alt="image"></p>
+<p>进入_Encrypt函数，根据S、ST、K可以大致猜测到为RC4加密</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p9dda-2.png" alt="image"></p>
+<p>根据提示利用Meet In the Middle攻击，明文部分即为png的文件头，我们取四个字节当明文，再从密文中选四个字节作为对应的密文</p>
+<p>等式对应如下</p>
+<section><eqn><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mi>C</mi><mn>4</mn><mo stretchy="false">(</mo><mi>k</mi><mi>e</mi><mi>y</mi><mn>1</mn><mo separator="true">,</mo><mi>p</mi><mi>l</mi><mi>a</mi><mi>i</mi><mi>n</mi><mi>T</mi><mi>e</mi><mi>x</mi><mi>t</mi><mo stretchy="false">)</mo><mo>=</mo><mo>=</mo><mi>R</mi><mi>C</mi><mn>4</mn><mo stretchy="false">(</mo><mi>k</mi><mi>e</mi><mi>y</mi><mn>2</mn><mo separator="true">,</mo><mi>c</mi><mi>i</mi><mi>p</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>T</mi><mi>e</mi><mi>x</mi><mi>t</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">RC4(key1, plainText) == RC4(key2, cipherText)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">RC</span><span class="mord">4</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.03588em;">ey</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">pl</span><span class="mord mathnormal">ain</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mord mathnormal">t</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">==</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">RC</span><span class="mord">4</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mord mathnormal" style="margin-right:0.03588em;">ey</span><span class="mord">2</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal">i</span><span class="mord mathnormal">p</span><span class="mord mathnormal">h</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mord mathnormal">t</span><span class="mclose">)</span></span></span></span></span></eqn></section><p>下面为爆破程序，实测使用Cython和pypy均可将运行时间控制在十多分钟，使用原版python大概需要四十分钟以上</p>
+<pre><code class="language-python">import binascii
+import itertools
+
+def rc4_crypt(PlainBytes:bytes, KeyBytes:bytes) -&gt; bytes:
+    cipherList = []
+ 
+    keyLen = len(KeyBytes)
+    plainLen = len(PlainBytes)
+    S = list(range(256))
+ 
+    j = 0
+    for i in range(256):
+        j = (j + S[i] + KeyBytes[i % keyLen]) % 256
+        S[i], S[j] = S[j], S[i]
+ 
+    i = 0
+    j = 0
+    for m in range(plainLen):
+        i = (i + 1) % 256
+        j = (j + S[i]) % 256
+        S[i], S[j] = S[j], S[i]
+        k = S[(S[i] + S[j]) % 256]
+        cipherList.append(k ^ PlainBytes[m])
+ 
+    return bytes(cipherList)
+
+def main():
+    keys = [bytes([i, j, k, l]) for i, j, k, l in itertools.product(range(81), repeat=4)]
+    with open(&quot;./setu_encoded.png&quot;,&quot;rb&quot;) as f:
+        cipherText = b&quot;&quot;.join((i-17) for i in f.read()[:4])
+    plainText = b&quot;\x89\x50\x4E\x47&quot;
+    
+    dic = &#123;&#125;
+    
+    for key in keys:
+        encoded = rc4_crypt(plainText, key)
+        dic[encoded] = key
+        # print(f'\r&#123;binascii.b2a_hex(key)&#125; : &#123;binascii.b2a_hex(encoded)&#125;', end='', flush=True)
+    
+    for key in keys:
+        # print(f'\r&#123;binascii.b2a_hex(key)&#125;', end='', flush=True)
+        if rc4_crypt(cipherText, key) in dic:
+            print(f&quot;\nFound: &#123;binascii.b2a_hex(key)&#125; , &#123;binascii.b2a_hex(dic[rc4_crypt(cipherText, key)])&#125;&quot;)
+
+main()
+</code></pre>
+<p>可以跑出来两个key分别为35, 31, 34, 69和25, 6, 19, 6解密setu即可</p>
+<p><s>flag怎么把关键部位挡住了啊喂</s></p>
+<p><code>cnss&#123;Re4a1_Fu1_St4ck_CtfER_1s_cl3r&#125;</code></p>
+<h1 id="%F0%9F%A7%A0-%5Bhard%5D-brainfuck%2B%2B" tabindex="-1">🧠 [Hard] Brainfuck++</h1>
+<h2 id="%E5%8F%8D%E5%8F%8D%E8%B0%83%E8%AF%95" tabindex="-1">反反调试</h2>
+<p>IDA打开调试时发现有反调试，在exe的逆向里并没有发现反调试相关的代码，于是进入dll中寻找，利用Strings定位到反调试所在之处</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p9odw-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12p9w8m-2.png" alt="image"></p>
+<p>反调试逻辑还是较为简单的，将这一大部分nop掉即可</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pa0y4-2.png" alt="image"></p>
+<p>nop的效果为</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pa91v-2.png" alt="image"></p>
+<h2 id="%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95" tabindex="-1">动态调试</h2>
+<p>开始动态调试，这里将Application改成Brainfuck++.exe</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pacoq-2.png" alt="image"></p>
+<p>我选择在此处打断点（因为上面那部分字符串异或的结果是brainfuck++.exe）</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pag0h-2.png" alt="image"></p>
+<p>成功捕获断点</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12patfs-2.png" alt="image"></p>
+<p>这里查看v3的值，就可以找到被dll更改过的brainfuck++码。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pazg7-2.png" alt="image"></p>
+<p>这里可以发现会对数据预处理，从最后一位开始异或后一位，（最后一位的后一位被赋值成了4，动调可以看出来，这里不再赘述），解密时也要做反向的操作。</p>
+<p>按住F8单步步过，一直到程序等待输入的时候</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pb3zy-2.png" alt="image"></p>
+<p>尝试搜索flag字符串，可以找到stack里有flag相关的字符串</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pberb-2.png" alt="image"></p>
+<p>这里给这个内存空间打上断点</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pbisg-2.png" alt="image"></p>
+<p>输入数据继续调试, 进入到了一部分无法反汇编的代码，可以先在这里打个断点，然后取消刚刚在内存空间打的断点。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pbrwq-2.png" alt="image"></p>
+<p>这里我们直接将这一部分代码按u取消定义，到上面去按p创建函数。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pc1xv-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pc9yj-2.png" alt="image"></p>
+<p>可以发现这里就是虚拟机的函数。在调用dll里的函数的这一步打上断点</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pcdq9-2.png" alt="image"></p>
+<p>继续运行，成功捕获</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pcp1x-2.png" alt="image"></p>
+<p>按下F7步进，可以进入加密的函数</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pcxgq-2.png" alt="image"></p>
+<p>这里照样遇到了不能反编译，按之前的方法先取消再创建即可。</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pd30r-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pdb9n-2.png" alt="image"></p>
+<p>这里的v2数组可以猜测就是加密后的字符串了，直接导出即可</p>
+<pre><code class="language-python">v2 = [203, 189, 254, 233, 107,  96,  96,  40,  30, 206, 230,  99, 176, 194,  46,  15, 111, 237,   3,  85, 235, 139,  61, 138,  60, 229, 116, 153, 130,  37, 245,  63]
+</code></pre>
+<p>点击进入sub_401550, 可以看出明显的TEA加密</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pdijz-2.png" alt="image"></p>
+<p>在里面打上断点，运行进入。</p>
+<p>可以发现v4就是delta，值为0x9E3779B9</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pe0ra-2.png" alt="image"></p>
+<p>a2是key，值为[0x69207A6C, 0x7475706E, 0x65687420, 0x616C6620]</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pe2ze-2.png" alt="image"></p>
+<h2 id="%E8%A7%A3%E5%AF%86" tabindex="-1">解密</h2>
+<p>写脚本解密即可</p>
+<pre><code class="language-python">from ctypes import *
+from Crypto.Util.number import *
+
+delta = 0x9E3779B9
+
+def decrypt(v, k):
+    v0, v1 = c_uint32(v[0]), c_uint32(v[1])
+    k0, k1, k2, k3 = k[0], k[1], k[2], k[3]
+
+    total = c_uint32(delta * 32)
+    for i in range(32):                       
+        v1.value -= ((v0.value&lt;&lt;4) + k2) ^ (v0.value + total.value) ^ ((v0.value&gt;&gt;5) + k3) 
+        v0.value -= ((v1.value&lt;&lt;4) + k0) ^ (v1.value + total.value) ^ ((v1.value&gt;&gt;5) + k1)  
+        total.value -= delta
+
+    return v0.value, v1.value   
+
+def toLittleEndian(x):
+    return x[0] + (x[1] &lt;&lt; 8) + (x[2] &lt;&lt; 16) + (x[3] &lt;&lt; 24)
+
+if __name__ == &quot;__main__&quot;:
+    cipher = [203, 189, 254, 233, 107,  96,  96,  40,  30, 206, 230,  99, 176, 194,  46,  15, 111, 237,   3,  85, 235, 139,  61, 138,  60, 229, 116, 153, 130,  37, 245,  63]
+    
+    key = [0x69207A6C, 0x7475706E, 0x65687420, 0x616C6620]
+
+    bytes = b''
+    for i in range(0, len(cipher), 8):
+        v = [toLittleEndian(cipher[i:i+4]), toLittleEndian(cipher[i+4:i+8])]
+        res = decrypt(v, key)
+        bytes += long_to_bytes(res[0])[::-1] + long_to_bytes(res[1])[::-1]
+
+    flag = list(bytes)
+
+    flag.append(4)
+    for i in range(len(flag)-1):
+        flag[i] ^= flag[i+1]
+
+    flag = ''.join([chr(i) for i in flag])
+    
+    print(flag) 
+</code></pre>
+<p><code>cnss&#123;k1nG_0f_tHE_BRa1nFuCk++!!!&#125;</code></p>
+<h1 id="%F0%9F%98%B4-%5Bboss%5D-crazy-hacker" tabindex="-1">😴 [BOSS] Crazy Hacker</h1>
+<h1 id="%E2%9A%93-%5Breal-world%5D-%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%B7%E7%9B%97" tabindex="-1">⚓ [Real World] 互联网海盗</h1>
+<p>抓包找到sign生成</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pedhb-2.png" alt="image"></p>
+<p>进index搜索<code>sign:</code>(带冒号是因为只匹配json中的</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pegmd-2.png" alt="image"></p>
+<p>给四个<code>sign:</code>都打上断点</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pem0f-2.png" alt="image"></p>
+<p>点击翻译按钮进入断点, 跟随断点来到这个位置, 就找到了sign的生成函数.</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12peqa0-2.png" alt="image"></p>
+<p>复制到python中, 给这里取个函数名:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pesya-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pez75-2.png" alt="image"></p>
+<p>利用execjs执行一遍试试:</p>
+<pre><code class="language-python">import execjs
+
+js = r&quot;&quot;&quot;
+function e(t, e) &#123;
+    (null == e || e &gt; t.length) &amp;&amp; (e = t.length);
+    for (var n = 0, r = new Array(e); n &lt; e; n++)
+        r[n] = t[n];
+    return r
+&#125;
+function n(t, e) &#123;
+    for (var n = 0; n &lt; e.length - 2; n += 3) &#123;
+        var r = e.charAt(n + 2);
+        r = &quot;a&quot; &lt;= r ? r.charCodeAt(0) - 87 : Number(r),
+        r = &quot;+&quot; === e.charAt(n + 1) ? t &gt;&gt;&gt; r : t &lt;&lt; r,
+        t = &quot;+&quot; === e.charAt(n) ? t + r &amp; 4294967295 : t ^ r
+    &#125;
+    return t
+&#125;
+var r = null;
+function signGen(t) &#123;
+    var o, i = t.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g);
+    if (null === i) &#123;
+        var a = t.length;
+        a &gt; 30 &amp;&amp; (t = &quot;&quot;.concat(t.substr(0, 10)).concat(t.substr(Math.floor(a / 2) - 5, 10)).concat(t.substr(-10, 10)))
+    &#125; else &#123;
+        for (var s = t.split(/[\uD800-\uDBFF][\uDC00-\uDFFF]/), c = 0, u = s.length, l = []; c &lt; u; c++)
+            &quot;&quot; !== s[c] &amp;&amp; l.push.apply(l, function(t) &#123;
+                if (Array.isArray(t))
+                    return e(t)
+            &#125;(o = s[c].split(&quot;&quot;)) || function(t) &#123;
+                if (&quot;undefined&quot; != typeof Symbol &amp;&amp; null != t[Symbol.iterator] || null != t[&quot;@@iterator&quot;])
+                    return Array.from(t)
+            &#125;(o) || function(t, n) &#123;
+                if (t) &#123;
+                    if (&quot;string&quot; == typeof t)
+                        return e(t, n);
+                    var r = Object.prototype.toString.call(t).slice(8, -1);
+                    return &quot;Object&quot; === r &amp;&amp; t.constructor &amp;&amp; (r = t.constructor.name),
+                    &quot;Map&quot; === r || &quot;Set&quot; === r ? Array.from(t) : &quot;Arguments&quot; === r || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r) ? e(t, n) : void 0
+                &#125;
+            &#125;(o) || function() &#123;
+                throw new TypeError(&quot;Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.&quot;)
+            &#125;()),
+            c !== u - 1 &amp;&amp; l.push(i[c]);
+        var p = l.length;
+        p &gt; 30 &amp;&amp; (t = l.slice(0, 10).join(&quot;&quot;) + l.slice(Math.floor(p / 2) - 5, Math.floor(p / 2) + 5).join(&quot;&quot;) + l.slice(-10).join(&quot;&quot;))
+    &#125;
+    for (var d = &quot;&quot;.concat(String.fromCharCode(103)).concat(String.fromCharCode(116)).concat(String.fromCharCode(107)), h = (null !== r ? r : (r = window[d] || &quot;&quot;) || &quot;&quot;).split(&quot;.&quot;), f = Number(h[0]) || 0, m = Number(h[1]) || 0, g = [], y = 0, v = 0; v &lt; t.length; v++) &#123;
+        var _ = t.charCodeAt(v);
+        _ &lt; 128 ? g[y++] = _ : (_ &lt; 2048 ? g[y++] = _ &gt;&gt; 6 | 192 : (55296 == (64512 &amp; _) &amp;&amp; v + 1 &lt; t.length &amp;&amp; 56320 == (64512 &amp; t.charCodeAt(v + 1)) ? (_ = 65536 + ((1023 &amp; _) &lt;&lt; 10) + (1023 &amp; t.charCodeAt(++v)),
+        g[y++] = _ &gt;&gt; 18 | 240,
+        g[y++] = _ &gt;&gt; 12 &amp; 63 | 128) : g[y++] = _ &gt;&gt; 12 | 224,
+        g[y++] = _ &gt;&gt; 6 &amp; 63 | 128),
+        g[y++] = 63 &amp; _ | 128)
+    &#125;
+    for (var b = f, w = &quot;&quot;.concat(String.fromCharCode(43)).concat(String.fromCharCode(45)).concat(String.fromCharCode(97)) + &quot;&quot;.concat(String.fromCharCode(94)).concat(String.fromCharCode(43)).concat(String.fromCharCode(54)), k = &quot;&quot;.concat(String.fromCharCode(43)).concat(String.fromCharCode(45)).concat(String.fromCharCode(51)) + &quot;&quot;.concat(String.fromCharCode(94)).concat(String.fromCharCode(43)).concat(String.fromCharCode(98)) + &quot;&quot;.concat(String.fromCharCode(43)).concat(String.fromCharCode(45)).concat(String.fromCharCode(102)), x = 0; x &lt; g.length; x++)
+        b = n(b += g[x], w);
+    return b = n(b, k),
+    (b ^= m) &lt; 0 &amp;&amp; (b = 2147483648 + (2147483647 &amp; b)),
+    &quot;&quot;.concat((b %= 1e6).toString(), &quot;.&quot;).concat(b ^ f)
+&#125;
+&quot;&quot;&quot;
+
+
+def signGen(text):
+    return execjs.compile(js).call('signGen', text)
+
+print(signGen(&quot;CNSS&quot;))
+</code></pre>
+<p>发现报错<code>execjs._exceptions.ProgramError: ReferenceError: window is not defined</code>,这里我们可以直接搜索window发现是对r进行定义, 在断点中查看r的值, 可以发现r是一个定值</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pez3a-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pf9ov-2.png" alt="image"></p>
+<p><code>r = &quot;320305.131321201&quot;</code></p>
+<p>所以我们把js中r的定义语句删掉, 换成<code>let r = &quot;320305.131321201&quot;;</code></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pf5jq-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pfcn0-2.png" alt="image"></p>
+<p>即可正常运行</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pfikv-2.png" alt="image"></p>
+<p>稍微修改代码逻辑, 打包一下, 最终程序:</p>
+<pre><code class="language-python">import execjs
+
+js = r&quot;&quot;&quot;
+function e(t, e) &#123;
+    (null == e || e &gt; t.length) &amp;&amp; (e = t.length);
+    for (var n = 0, r = new Array(e); n &lt; e; n++)
+        r[n] = t[n];
+    return r
+&#125;
+function n(t, e) &#123;
+    for (var n = 0; n &lt; e.length - 2; n += 3) &#123;
+        var r = e.charAt(n + 2);
+        r = &quot;a&quot; &lt;= r ? r.charCodeAt(0) - 87 : Number(r),
+        r = &quot;+&quot; === e.charAt(n + 1) ? t &gt;&gt;&gt; r : t &lt;&lt; r,
+        t = &quot;+&quot; === e.charAt(n) ? t + r &amp; 4294967295 : t ^ r
+    &#125;
+    return t
+&#125;
+let r = &quot;320305.131321201&quot;;
+function signGen(t) &#123;
+    var o, i = t.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g);
+    if (null === i) &#123;
+        var a = t.length;
+        a &gt; 30 &amp;&amp; (t = &quot;&quot;.concat(t.substr(0, 10)).concat(t.substr(Math.floor(a / 2) - 5, 10)).concat(t.substr(-10, 10)))
+    &#125; else &#123;
+        for (var s = t.split(/[\uD800-\uDBFF][\uDC00-\uDFFF]/), c = 0, u = s.length, l = []; c &lt; u; c++)
+            &quot;&quot; !== s[c] &amp;&amp; l.push.apply(l, function(t) &#123;
+                if (Array.isArray(t))
+                    return e(t)
+            &#125;(o = s[c].split(&quot;&quot;)) || function(t) &#123;
+                if (&quot;undefined&quot; != typeof Symbol &amp;&amp; null != t[Symbol.iterator] || null != t[&quot;@@iterator&quot;])
+                    return Array.from(t)
+            &#125;(o) || function(t, n) &#123;
+                if (t) &#123;
+                    if (&quot;string&quot; == typeof t)
+                        return e(t, n);
+                    var r = Object.prototype.toString.call(t).slice(8, -1);
+                    return &quot;Object&quot; === r &amp;&amp; t.constructor &amp;&amp; (r = t.constructor.name),
+                    &quot;Map&quot; === r || &quot;Set&quot; === r ? Array.from(t) : &quot;Arguments&quot; === r || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r) ? e(t, n) : void 0
+                &#125;
+            &#125;(o) || function() &#123;
+                throw new TypeError(&quot;Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.&quot;)
+            &#125;()),
+            c !== u - 1 &amp;&amp; l.push(i[c]);
+        var p = l.length;
+        p &gt; 30 &amp;&amp; (t = l.slice(0, 10).join(&quot;&quot;) + l.slice(Math.floor(p / 2) - 5, Math.floor(p / 2) + 5).join(&quot;&quot;) + l.slice(-10).join(&quot;&quot;))
+    &#125;
+    for (var d = &quot;&quot;.concat(String.fromCharCode(103)).concat(String.fromCharCode(116)).concat(String.fromCharCode(107)), h = (null !== r ? r : (r = window[d] || &quot;&quot;) || &quot;&quot;).split(&quot;.&quot;), f = Number(h[0]) || 0, m = Number(h[1]) || 0, g = [], y = 0, v = 0; v &lt; t.length; v++) &#123;
+        var _ = t.charCodeAt(v);
+        _ &lt; 128 ? g[y++] = _ : (_ &lt; 2048 ? g[y++] = _ &gt;&gt; 6 | 192 : (55296 == (64512 &amp; _) &amp;&amp; v + 1 &lt; t.length &amp;&amp; 56320 == (64512 &amp; t.charCodeAt(v + 1)) ? (_ = 65536 + ((1023 &amp; _) &lt;&lt; 10) + (1023 &amp; t.charCodeAt(++v)),
+        g[y++] = _ &gt;&gt; 18 | 240,
+        g[y++] = _ &gt;&gt; 12 &amp; 63 | 128) : g[y++] = _ &gt;&gt; 12 | 224,
+        g[y++] = _ &gt;&gt; 6 &amp; 63 | 128),
+        g[y++] = 63 &amp; _ | 128)
+    &#125;
+    for (var b = f, w = &quot;&quot;.concat(String.fromCharCode(43)).concat(String.fromCharCode(45)).concat(String.fromCharCode(97)) + &quot;&quot;.concat(String.fromCharCode(94)).concat(String.fromCharCode(43)).concat(String.fromCharCode(54)), k = &quot;&quot;.concat(String.fromCharCode(43)).concat(String.fromCharCode(45)).concat(String.fromCharCode(51)) + &quot;&quot;.concat(String.fromCharCode(94)).concat(String.fromCharCode(43)).concat(String.fromCharCode(98)) + &quot;&quot;.concat(String.fromCharCode(43)).concat(String.fromCharCode(45)).concat(String.fromCharCode(102)), x = 0; x &lt; g.length; x++)
+        b = n(b += g[x], w);
+    return b = n(b, k),
+    (b ^= m) &lt; 0 &amp;&amp; (b = 2147483648 + (2147483647 &amp; b)),
+    &quot;&quot;.concat((b %= 1e6).toString(), &quot;.&quot;).concat(b ^ f)
+&#125;
+&quot;&quot;&quot;
+
+def signGen(text):
+    return execjs.compile(js).call('signGen', text)
+
+while True:
+    text = str(input('输入文本: '))
+    print(signGen(text))
+</code></pre>
+<p>pyinstaller打包</p>
+<pre><code>pyinstaller.exe sign.py -F
+</code></pre>
+<p>最终效果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12pfkaw-2.png" alt="image"></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                        
+
+<a href="/server-archive/tags/CTF/">#CTF</a> <a href="/server-archive/tags/Writeup/">#Writeup</a> <a href="/server-archive/tags/Reverse/">#Reverse</a>
+
+
+                                            
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2022-10-21
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
+
+<div id="vcomments" class="comment"></div>
+<script>
+  new Valine({
+    el: '.comment',
+    appId: 'TSp33hlPwuAsaq6YiQt7qxqB-gzGzoHsz',
+    appKey: '4pv9GKDHCxnThP1EN1u9uYSN',
+    placeholder: 'random',
+    avatar: '',
+    enableQQ: true,
+    emojiCDN: '//i0.hdslb.com/bfs/emote/',
+    // 表情title和图片映射
+    emojiMaps: {
+      "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+      "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+      "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+      "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+      "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+      "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+      "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+      "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+      "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+      "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+      "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+      "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+      "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+      "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+      "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+      "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+      "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+      "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+      "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+      "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+      "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+      "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+      "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+      "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+      "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+      "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+      "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+      "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+      "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+      "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+      "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+      "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+      "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+      "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+      "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+      "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+      "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+      "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+      "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+      "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+      "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+      "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+      "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+      "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+      "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+      "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+      "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+      "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+      "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+      "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+      // ... 更多表情
+    }
+  })
+  if('random' == 'random'){
+    var veditor = document.getElementById("veditor");
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+        veditor.placeholder = '『' + data.hitokoto + '』' + '\n\n\n' + 'From  ' + data.from;
+        })
+        .catch(console.error)
+  }
+</script>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+</section>
+
+<!-- Image viewer-->
+
+    
+    <!-- Custom picture view-->
+    <link href="/server-archive/css/viewer.min.css" rel="stylesheet" />
+    <script
+      src="/server-archive/js/viewer.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    
+    <script type="text/javascript">
+      // set image viewer
+      Viewer.setDefaults({
+        zoomRatio: [0.5],
+        navbar: false,
+        toolbar: false,
+        button: false,
+        title: [2, (image, imageData) => `${image.alt}`],
+        show: function() {
+          this.viewer.zoomTo(0.5);
+        }
+      });
+      var imageList = document.getElementsByTagName("img");
+      Array.prototype.forEach.call(imageList, element => {
+        var viewer = new Viewer(element);
+      });
+    </script>
+
+    
+
+
+<!-- TOC -->
+<!-- 
+    <aside id="article-toc" role="navigation" class="fixed">
+        <div id="article-toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%98%87-%5Bbaby%5D-welcome-to-reverse-world"><span class="toc-text">😇 [Baby] Welcome to Reverse World</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%92%94-%5Bbaby%5D-find-me"><span class="toc-text">💔 [Baby] Find me</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%92%AB-%5Beasy%5D-%E5%9B%9E%E3%83%AC!-%E9%9B%AA%E6%9C%88%E8%8A%B1"><span class="toc-text">💫 [Easy] 回レ! 雪月花</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%91%81-%5Beasy%5D-%E9%82%AA%E7%8E%8B%E7%9C%9F%E7%9C%BC"><span class="toc-text">👁 [Easy] 邪王真眼</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%94%AA-%5Beasy%5D-%E6%81%AD%E5%96%9C%E4%BD%A0%E8%8E%B7%E5%BE%97%E4%BA%86flag%E6%8F%90%E7%8E%B0%E6%9C%BA%E4%BC%9A%EF%BC%81"><span class="toc-text">🔪 [Easy] 恭喜你获得了flag提现机会！</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%92%BB-%5Beasy+%5D-diannaobaozhale"><span class="toc-text">💻 [Easy+] diannaobaozhale</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%A4%A1-%5Bmiddle%5D-vip-of-mihoyo"><span class="toc-text">🤡 [Middle] Vip of Mihoyo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%AD%90-%5Bmiddle%5D-super-mario-code"><span class="toc-text">⭐ [Middle] Super Mario Code</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%8C%B8-%5Bmiddle%5D-%E8%8A%B1%E8%8A%B1"><span class="toc-text">🌸 [Middle] 花花</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%9D%A4-%5Bmiddle%5D-shino-%E7%9A%84%E5%BF%83%E8%B7%B3%E5%A4%A7%E5%86%92%E9%99%A9"><span class="toc-text">❤ [Middle] Shino 的心跳大冒险</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%A6%A0-%5Beasy?%5D-baby-xor?"><span class="toc-text">🦠 [Easy?] Baby XOR?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%A7%A0-%5Bhard%5D-brainfuck++"><span class="toc-text">🧠 [Hard] Brainfuck++</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%8F%8D%E8%B0%83%E8%AF%95"><span class="toc-text">反反调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95"><span class="toc-text">动态调试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%AF%86"><span class="toc-text">解密</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%98%B4-%5Bboss%5D-crazy-hacker"><span class="toc-text">😴 [BOSS] Crazy Hacker</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%9A%93-%5Breal-world%5D-%E4%BA%92%E8%81%94%E7%BD%91%E6%B5%B7%E7%9B%97"><span class="toc-text">⚓ [Real World] 互联网海盗</span></a></li></ol>
+        </div>
+    </aside>
+ -->
+
+
+    <script>
+        hljs.highlightAll();
+    </script>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© Timlzh 🙋 2022-" + new Date().getFullYear());
+    console.log("Welcome to my blog: https://timlzh.com");
+</script>
+  
+    <!-- Google Analytics -->
+    
+
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
+    <!-- Go Top -->
+    <a class="go-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    if ($(window).scrollTop() <= 100) {
+        $(".go-top").hide();
+    }
+    
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".go-top").fadeIn(500);
+            } else {
+                $(".go-top").fadeOut(500);
+            }
+        });
+        $(".go-top").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
+</body>
+
+<footer>
+    
+    
+    
+        <div class="beian">
+            <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备2022036129号-2</a>
+        </div>
+    
+
+</footer>
+
+</html>

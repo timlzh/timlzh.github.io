@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="🖥️Wake On Lan
+Windows设备管理器开启WOL">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Timlzh">
+    
+
+    <!-- Title -->
+    
+    <title>2022 CNSS Recruit SA 复现wp | CTF Writeup | Tim的杂货铺</title>
+
+    <!-- favicon -->
+    
+        <link rel="shortcut icon" href="https://timlzh.github.io/melody-favicon.ico">
+    
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Valine -->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+    <link rel="stylesheet" href="/server-archive/css/darkmode.css">
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/server-archive/css/style.css">
+
+
+    <!-- Top Menu  -->
+    <div class="top_menu">
+        
+            
+            <a href="/server-archive/">Home</a>
+            
+            <a href="/server-archive/links">Friends</a>
+            
+            <a href="/server-archive/tags">Tags</a>
+            
+            <a href="/server-archive/about">About</a>
+            
+            <a href="/server-archive/">asdfa</a>
+            
+        
+        <a class="darkmode-toggle" href="#" data-toggle="darkmode">
+            <i class="fa fa-moon-o"></i>
+            <i class="fa fa-sun-o" style="display: none;"></i>
+        </a>
+    </div>
+
+    <!-- Darkmode -->
+    <script src='/server-archive/js/darkmode.js'></script>
+
+    <!-- Custom Fonts -->
+    <link href="//cdn.jsdelivr.net/npm/font-awesome@4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Noto+Serif:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- jQuery -->
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@3.3.6/dist/js/bootstrap.min.js"></script>
+
+    <!-- Highlight -->
+    
+        <script>
+            var lightTheme = "github";
+            var darkTheme = "github-dark-dimmed";
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/server-archive/atom.xml" title="Tim的杂货铺" type="application/atom+xml">
+</head>
+
+
+<body>
+
+    <!-- Content -->
+    
+
+
+<section class="article-container">
+    <!-- Back Home -->
+    <!-- <a class="nav-back" href="javascript:back()">
+    <i class="fa fa-arrow-left"></i>
+</a>
+
+<script>
+    function back() {
+        var home = '/server-archive/'
+        if (document.referrer && document.referrer.indexOf(home) > -1) {
+            window.history.back();
+        } else {
+            window.location.href = home;
+        }
+    }
+</script> -->
+
+        <!-- Page Header -->
+        <header class="intro-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>
+                                2022 CNSS Recruit SA 复现wp
+                            </h1>
+                            <div class="subheading">
+                                CTF Writeup
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Post Content -->
+        <article>
+            <div class="container">
+                <div class="row">
+                    <!-- Post Main Content -->
+                    <div class="post-content col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <h1 id="%F0%9F%96%A5%EF%B8%8Fwake-on-lan" tabindex="-1">🖥️Wake On Lan</h1>
+<h2 id="windows%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E5%99%A8%E5%BC%80%E5%90%AFwol" tabindex="-1">Windows设备管理器开启WOL</h2>
+<span id="more"></span>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12omkd9-2.png" alt="image"></p>
+<h2 id="bios%E6%89%93%E5%BC%80wol(rog%E4%B8%BB%E6%9D%BF%E4%B8%BApcie%E5%94%A4%E9%86%92)" tabindex="-1">BIOS打开WOL(ROG主板为PCIE唤醒)</h2>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12omn4p-2.png" alt="image"></p>
+<h2 id="%E7%BC%96%E5%86%99python%E7%A8%8B%E5%BA%8F-flask-%2B-wakeonlan-%E5%B0%86%E5%94%A4%E9%86%92%E7%AE%80%E5%8C%96%E4%B8%BA%E4%BB%85%E9%9C%80%E8%AE%BF%E9%97%AE%E7%BD%91%E9%A1%B5" tabindex="-1">编写python程序 Flask + wakeonlan 将唤醒简化为仅需访问网页</h2>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12omzqj-2.png" alt="image"></p>
+<pre><code class="language-python">from flask import Flask, request
+from wakeonlan import send_magic_packet
+
+app = Flask(__name__)
+@app.route('/server-archive/')
+def index():
+    try:
+        send_magic_packet('FC.34.97.**.**.**.**', ip_address='192.168.*.***')
+        return &quot;&lt;h1&gt;Woke Up!&lt;/h1&gt;&quot;
+    except:
+        return &quot;&lt;h1&gt;Failed!&lt;/h1&gt;&quot;
+
+if __name__=='__main__':
+    app.run(host='0.0.0.0', port='8999')
+</code></pre>
+<p>效果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12omy67-2.png" alt="image"></p>
+<h2 id="%E9%85%8D%E7%BD%AEfrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%2C-%E5%8F%AF%E4%BB%A5%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE" tabindex="-1">配置frp内网穿透, 可以外网访问</h2>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12on26l-2.png" alt="image"></p>
+<h2 id="%E9%85%8D%E7%BD%AE%E8%87%AA%E5%90%AF%E5%8A%A8" tabindex="-1">配置自启动</h2>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ond3c-2.png" alt="image"></p>
+<h2 id="%E9%85%8D%E7%BD%AE%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4%E4%B8%80%E9%94%AE%E8%AE%BF%E9%97%AE(%E9%9D%9E%E5%94%AF%E4%B8%80%E6%96%B9%E6%B3%95%2C-%E9%80%89%E7%94%A8%E6%98%AF%E5%9B%A0%E4%B8%BA%E6%AF%94%E8%BE%83%E4%BE%BF%E6%8D%B7%2B%E6%94%AF%E6%8C%81siri)" tabindex="-1">配置快捷指令一键访问(非唯一方法, 选用是因为比较便捷+支持siri)</h2>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oncw3-2.png" alt="image"></p>
+<h2 id="%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C" tabindex="-1">最终效果</h2>
+<p><a target="_blank" rel="noopener" href="https://uestc.feishu.cn/file/boxcnDrwZvBer9oiyYapuSwNjvh" title="最终效果(https://uestc.feishu.cn/file/boxcnDrwZvBer9oiyYapuSwNjvh)">最终效果(https://uestc.feishu.cn/file/boxcnDrwZvBer9oiyYapuSwNjvh)</a></p>
+<h1 id="%F0%9F%93%BAgui-undoubtedly-indispensable" tabindex="-1">📺GUI Undoubtedly Indispensable</h1>
+<h2 id="%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87" tabindex="-1">环境准备</h2>
+<pre><code class="language-bash">sudo apt-get install tightvncserver x-window-system-core gdm3 ubuntu-desktop gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal # 安装Vncserver/桌面环境/依赖
+</code></pre>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12onmml-2.png" alt="image"></p>
+<h2 id="%E9%85%8D%E7%BD%AEvncserver" tabindex="-1">配置vncserver</h2>
+<pre><code class="language-bash">vncserver
+</code></pre>
+<p>输入密码, 第二个选n即可</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12onlwl-2.png" alt="image"></p>
+<pre><code class="language-bash">chmod +x ~/.vnc/xstartup # 修改配置文件权限
+vim ~/.vnc/xstartup
+</code></pre>
+<p>打开配置文件, 删除原内容, 换为如下内容:</p>
+<pre><code>#!/bin/sh
+export XKL_XMODMAP_DISABLE=1
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+gnome-panel &amp;
+gnome-settings-daemon &amp;
+metacity &amp;
+nautilus &amp;
+gnome-terminal &amp;
+</code></pre>
+<p>保存并重启vnc</p>
+<pre><code class="language-bash">vncserver -kill :1 ; vncserver
+</code></pre>
+<h2 id="%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5" tabindex="-1">远程连接</h2>
+<p>windows使用VNC Viewer连接</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12onp22-2.png" alt="image"></p>
+<h1 id="%F0%9F%98%8B%E6%87%92%E4%BA%BA%E7%A6%8F%E9%9F%B3" tabindex="-1">😋懒人福音</h1>
+<h2 id="%E8%84%9A%E6%9C%AC" tabindex="-1">脚本</h2>
+<pre><code class="language-sh">Codename=$(cat /etc/os-release | grep VERSION_CODENAME |awk -F'=' '&#123;print $2&#125;')
+echo &quot;[Info] 检测到您的Ubuntu系统版本为：$Codename&quot;
+
+echo &quot;**********************************&quot;
+echo &quot;请选择镜像源：&quot;
+echo &quot;
+    1.阿里      
+    2.清华     
+    3.网易
+    4.中科大
+    &quot;
+echo &quot;**********************************&quot;
+read -s -n1 sourceChoice
+
+if [ $sourceChoice -ne 1 ] &amp;&amp; [ $sourceChoice -ne 2 ] &amp;&amp; [ $sourceChoice -ne 3 ] &amp;&amp; [ $sourceChoice -ne 4 ];then
+    echo
+    echo '输入有误，Good Bye.'
+    exit
+fi
+
+case $sourceChoice in
+	1)
+		choose='aliyun'
+	;;
+	2)
+		choose='tsinghua'
+	;;
+	3)
+		choose='163'
+	;;
+	4)
+		choose='ustc'
+	;;
+esac
+
+case $choose in
+	aliyun)
+		sourceweb='http://mirrors.aliyun.com'
+	;;
+	tsinghua)
+		sourceweb='https://mirrors.tuna.tsinghua.edu.cn'
+	;;
+	163)
+		sourceweb='http://mirrors.163.com'
+	;;
+	ustc)
+		sourceweb='http://mirrors.ustc.edu.cn'
+	;;
+esac
+
+echo &quot;[Info] 备份sources.list...&quot;
+cp /etc/apt/sources.list /etc/apt/sources.list.bak
+echo &quot;[Info] 设置新的镜像源...&quot;
+echo &quot;\
+deb $sourceweb/ubuntu/ $Codename main restricted universe multiverse
+deb $sourceweb/ubuntu/ $Codename-security main restricted universe multiverse
+deb $sourceweb/ubuntu/ $Codename-updates main restricted universe multiverse
+deb $sourceweb/ubuntu/ $Codename-proposed main restricted universe multiverse
+deb $sourceweb/ubuntu/ $Codename-backports main restricted universe multiverse
+deb-src $sourceweb/ubuntu/ $Codename main restricted universe multiverse
+deb-src $sourceweb/ubuntu/ $Codename-security main restricted universe multiverse
+deb-src $sourceweb/ubuntu/ $Codename-updates main restricted universe multiverse
+deb-src $sourceweb/ubuntu/ $Codename-proposed main restricted universe multiverse
+deb-src $sourceweb/ubuntu/ $Codename-backports main restricted universe multiverse&quot;&gt;/etc/apt/sources.list
+echo &quot;[Info] 更新源...&quot;
+apt update
+echo &quot;[Info] 正在更新软件...&quot;
+apt upgrade -y
+echo &quot;[Info] 设置超时时间为1000000&quot;
+echo &quot;export TMOUT=1000000&quot; &gt;&gt; /etc/profile
+echo &quot;[Info] 正在安装git&quot;
+apt install -y git
+read -p &quot;请输入你的git用户名: &quot; username
+read -p &quot;请输入你的git邮箱: &quot; email
+git config --global user.name &quot;$username&quot;
+git config --global user.email &quot;$email&quot;
+echo &quot;[Info] 正在切换系统Local为中文&quot;
+echo &quot;LANG=\&quot;zh_CN.UTF-8\&quot;
+LANGUAGE=\&quot;zh_CN:zh\&quot;&quot; &gt; /etc/default/locale 
+echo &quot;[Info] 正在配置.vimrc&quot;
+echo &quot;######################################  编码配置  #######################################
+# fileencoding 选项是 Vim 写入文件时采用的编码类型；
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+# termencoding 选项表示输出到终端时采用的编码类型。
+set termencoding=utf-8
+# 设置编码格式，encoding 选项用于缓存的文本、寄存器、Vim 脚本文件等；
+set encoding=utf-8
+
+# nu是number 的缩写，所以上面两个配置命令是完全等效的，二选一即可。取消行号可使用 set nonu。
+#set number	
+set nu
+
+# 突出显示当前行。
+set cursorline
+
+# Vim 编辑器里默认是不启用鼠标的，通过此设置即可启动鼠标。
+set mouse=a
+set selection=exclusive
+set selectmode=mouse,key
+
+# 设置自动缩进，即每行的缩进同上一节相同。
+# set autoindent
+# 设置Tab键宽度为 4 个空格。
+set tabstop=2
+# 由于 Tab 键在不同的编辑器缩进不一致，该设置自动将 Tab 转为空格。
+set expandtab
+
+# 打开语法高亮
+syntax on
+
+# 在底部显示，当前处于命令模式还是插入模式。
+set showmode
+# 命令模式下，在底部显示，当前键入的指令。比如，键入的指令是2y3d，那么底部就会显示2y3，当键入d的时候，操作完成，显示消失。
+set showcmd
+
+# 启用256色。
+set t_Co=256
+
+
+# 自动折行，关闭折行，set nowrap
+set wrap
+
+######################################  搜索配置  #######################################
+# 进入搜索模式：Esc / xxx
+
+# 光标遇到圆括号、方括号、大括号时，自动高亮对应的另一个圆括号、方括号和大括号。
+set showmatch
+# 搜索时，高亮显示匹配结果。
+set hlsearch
+# 输入搜索模式时，每输入一个字符，就自动跳到第一个匹配的结果。
+set incsearch
+# 搜索时忽略大小写。
+set ignorecase
+
+######################################  编辑配置  #######################################
+# 不创建备份文件。默认情况下，文件保存时，会额外创建一个备份文件，文件名是在原文件名的末尾，再添加一个波浪号（〜）
+set nobackup
+# 不创建交换文件。交换文件主要用于系统崩溃时恢复文件，文件名的开头是.、结尾是.swp。
+set noswapfile
+# 如果行尾有多余的空格（包括 Tab 键），该配置将让这些空格显示成可见的小方块。
+set listchars=tab:»■,trail:■
+set list
+# 命令模式下，底部操作指令按下 Tab 键自动补全。第一次按下 Tab，会显示所有匹配的操作指令的清单；第二次按下 Tab，会依次选择各个指令。
+set wildmenu
+set wildmode=longest:list,full&quot; &gt; /etc/.vimrc
+
+read -p &quot;是否需要配置系统代理? [y/n]&quot; input
+case $input in
+        [yY]*)
+                read -p &quot;请输入选择代理类型 [socks5/http/https]&quot; proxyType
+                read -p &quot;请输入选择代理ip地址&quot;  proxyIP 
+                read -p &quot;请输入选择代理端口&quot;  proxyPort 
+                echo &quot;export ALL_PROXY=$proxyType://$proxyIP:$proxyPort&quot; &gt;&gt; ~/.bashrc
+                ;;
+esac
+
+echo &quot;[Info] 正在安装zsh&quot;
+apt install -y zsh
+echo &quot;[Info] 正在安装Oh-my-zsh&quot;
+sh -c &quot;$(curl -fsSL https://gitee.com/whisky-root/ohmyzsh/raw/master/tools/install.sh)&quot;
+</code></pre>
+<h2 id="%E5%85%AC%E7%BD%91%E8%8E%B7%E5%8F%96" tabindex="-1">公网获取</h2>
+<pre><code class="language-bash">wget http://file.easierflying.com/scriptForLazy.sh &amp;&amp; sudo bash scriptForLazy.sh &amp;&amp; sudo rm -f scriptForLazy.sh
+</code></pre>
+<h1 id="%F0%9F%9A%80%E8%90%8C%E6%96%B0%E4%B9%9F%E6%83%B3%E6%90%AD%E8%BD%BD%E4%B8%8Ax-%E5%BC%95%E6%93%8E" tabindex="-1">🚀萌新也想搭载上X-引擎</h1>
+<h2 id="%E5%AE%89%E8%A3%85nginx" tabindex="-1">安装nginx</h2>
+<pre><code class="language-bash">sudo apt-get install nginx
+nginx -v # 检查是否安装完成
+</code></pre>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12onuor-2.png" alt="image"></p>
+<h2 id="%E9%BB%98%E8%AE%A4%E9%A1%B5%E9%9D%A2" tabindex="-1">默认页面</h2>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12onx5b-2.png" alt="image"></p>
+<h2 id="%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E9%A1%B5%E9%9D%A2" tabindex="-1">修改默认页面</h2>
+<p>创建新配置文件</p>
+<pre><code class="language-bash">sudo vim /etc/nginx/conf.d/default.conf
+</code></pre>
+<p>输入如下内容</p>
+<pre><code class="language-bash">server &#123;
+        listen       80 default_server;
+        listen       [::]:80 default_server;
+        server_name  服务器ip/域名;
+
+        root         /home/ubuntu/server/;
+
+        include /etc/nginx/default.d/*.conf;
+
+        location / &#123;
+            index index.html index.htm;
+        &#125;
+
+        error_page 404 /404.html;
+            location = /40x.html &#123;
+        &#125;
+
+        error_page 500 502 503 504 /50x.html;
+            location = /50x.html &#123;
+        &#125;
+&#125;
+</code></pre>
+<p>进入默认配置文件中删除默认的页面配置</p>
+<pre><code class="language-bash">sudo vim /etc/nginx/sites-enabled/default
+</code></pre>
+<p>将页面文件解压到/home/ubuntu/server, 重启nginx</p>
+<pre><code class="language-bash">sudo service nginx restart
+</code></pre>
+<p>效果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oo9y7-2.png" alt="image"></p>
+<h2 id="%E9%85%8D%E7%BD%AE%E4%B8%89%E4%B8%AA%E6%96%B0%E9%A1%B5%E9%9D%A2" tabindex="-1">配置三个新页面</h2>
+<p>新建配置文件</p>
+<pre><code class="language-bash">sudo vim /etc/nginx/conf.d/h123.conf
+</code></pre>
+<pre><code class="language-yaml">server &#123;
+        listen 81;
+        server_name localhost;
+
+        location / &#123;
+                root /home/ubuntu/server;
+                index h1.html;
+        &#125;
+&#125;
+
+server &#123;
+        listen 82;
+        server_name localhost;
+
+        location / &#123;
+                root /home/ubuntu/server;
+                index h2.html;
+        &#125;
+&#125;
+
+server &#123;
+        listen 83;
+        server_name localhost;
+
+        location / &#123;
+                root /home/ubuntu/server;
+                index h3.html;
+        &#125;
+&#125;
+</code></pre>
+<p>将h1.html, h2.thml, h3.html解压至server目录下, 重启nginx</p>
+<pre><code class="language-bash">sudo service nginx restart
+</code></pre>
+<p>效果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oo9ax-2.png" alt="image"></p>
+<h2 id="%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC" tabindex="-1">链接跳转</h2>
+<p>配置文件</p>
+<pre><code class="language-yaml">server &#123;
+        listen       84;
+
+        location /google &#123;
+                rewrite &quot;.*&quot; https://www.google.com/;
+        &#125;
+        location /github &#123;
+                rewrite &quot;.*&quot; https://github.com/;
+        &#125;
+        location ^~ /cnss/ &#123;
+                rewrite &quot;.*&quot; https://recruit.cnss.io/;
+        &#125;
+&#125;
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://uestc.feishu.cn/file/boxcnfcI9nQ7W09VzKFDuirCf2d">戳我看效果(https://uestc.feishu.cn/file/boxcnfcI9nQ7W09VzKFDuirCf2d)</a></p>
+<h2 id="%E6%96%87%E4%BB%B6%E9%A1%B5%E9%9D%A2" tabindex="-1">文件页面</h2>
+<p>配置文件</p>
+<pre><code class="language-yaml">server &#123;
+    listen  85;
+    server_name localhost;
+    charset utf-8;
+    root /home/ubuntu/fileServer/;
+    location / &#123;
+        autoindex on;
+        autoindex_exact_size on;
+        autoindex_localtime off;
+    &#125;
+&#125;
+</code></pre>
+<p>效果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oog8l-2.png" alt="image"></p>
+<h2 id="%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1" tabindex="-1">负载均衡</h2>
+<p>这里用三个不同的端口模拟三个服务器</p>
+<pre><code class="language-yaml">upstream server_list&#123;
+        server 43.xxx.xxx.xxx:81 weight=1;
+        server 43.xxx.xxx.xxx:82 weight=2;
+        server 43.xxx.xxx.xxx:83 weight=3;
+&#125;
+server &#123;
+        listen       86;
+        server_name  localhost;
+
+        location / &#123;
+                proxy_pass http://server_list;
+        &#125;
+&#125;
+</code></pre>
+<p>效果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ooh55-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ookjm-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12ookrd-2.png" alt="image"></p>
+<h2 id="%E8%BD%AE%E8%AF%A2(%E4%B8%8D%E7%9F%A5%E9%81%93%E7%AE%97%E4%B8%8D%E7%AE%97%E6%9B%B2%E7%BA%BF%E6%95%91%E5%9B%BD)" tabindex="-1">轮询(不知道算不算曲线救国)</h2>
+<p>编写python脚本</p>
+<pre><code class="language-python">from flask import Flask, redirect
+
+ind = -1
+urls = [
+    &quot;https://www.cnblogs.com/timlzh/&quot;,
+    &quot;http://www.sh1no.icu/&quot;,
+    &quot;https://4ever-xxxl.github.io/about/&quot;,
+    &quot;https://zbwer.github.io/&quot;,
+    &quot;https://lrl52.top/&quot;
+        ]
+app=Flask(__name__)  #实例
+@app.route(&quot;/&quot;)
+def index():
+    global ind
+    ind += 1
+    ind %= len(urls)
+    return redirect(urls[ind])
+
+if __name__==&quot;__main__&quot;:
+    app.run()
+</code></pre>
+<p>nginx转发一下</p>
+<pre><code class="language-bash">        location / &#123;
+                proxy_pass        http://127.0.0.1:5000/;
+                proxy_redirect     off;
+
+                proxy_set_header   Host             $http_host;
+                proxy_set_header   X-Real-IP        $remote_addr;
+                proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+        &#125;
+</code></pre>
+<p>效果:</p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oox2g-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12oot5e-2.png" alt="image"></p>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12op2r2-2.png" alt="image"></p>
+<h2 id="https" tabindex="-1">https</h2>
+<p>配置文件</p>
+<pre><code class="language-yaml">server &#123;
+        listen 443 ssl;
+        server_name timlzh.com;
+        ssl_certificate /home/ubuntu/timlzh.com_nginx/timlzh.com_bundle.crt;
+        ssl_certificate_key /home/ubuntu/timlzh.com_nginx/timlzh.com.key;
+        ssl_session_timeout 5m;
+        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+        ssl_protocols TLSv1.2 TLSv1.3;
+        ssl_prefer_server_ciphers on;
+        root         /home/ubuntu/server/;
+
+        location / &#123;
+                index index.html index.htm;
+        &#125;
+&#125;
+</code></pre>
+<p><img src="http://pic.timlzh.com/i/2023/11/03/12op9yl-2.png" alt="image"></p>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+
+
+                            <!-- Meta -->
+                            <div class="post-meta">
+                                <hr>
+                                <br>
+                                <div class="post-tags">
+                                    
+                                        
+
+<a href="/server-archive/tags/CTF/">#CTF</a> <a href="/server-archive/tags/Writeup/">#Writeup</a> <a href="/server-archive/tags/SA/">#SA</a>
+
+
+                                            
+                                </div>
+                                <div class="post-date">
+                                    
+                                        2022-10-21
+                                    
+                                </div>
+                            </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <!-- Disqus Comments -->
+
+<div id="vcomments" class="comment"></div>
+<script>
+  new Valine({
+    el: '.comment',
+    appId: 'TSp33hlPwuAsaq6YiQt7qxqB-gzGzoHsz',
+    appKey: '4pv9GKDHCxnThP1EN1u9uYSN',
+    placeholder: 'random',
+    avatar: '',
+    enableQQ: true,
+    emojiCDN: '//i0.hdslb.com/bfs/emote/',
+    // 表情title和图片映射
+    emojiMaps: {
+      "tv_doge": "6ea59c827c414b4a2955fe79e0f6fd3dcd515e24.png",
+      "tv_亲亲": "a8111ad55953ef5e3be3327ef94eb4a39d535d06.png",
+      "tv_偷笑": "bb690d4107620f1c15cff29509db529a73aee261.png",
+      "tv_再见": "180129b8ea851044ce71caf55cc8ce44bd4a4fc8.png",
+      "tv_冷漠": "b9cbc755c2b3ee43be07ca13de84e5b699a3f101.png",
+      "tv_发怒": "34ba3cd204d5b05fec70ce08fa9fa0dd612409ff.png",
+      "tv_发财": "34db290afd2963723c6eb3c4560667db7253a21a.png",
+      "tv_可爱": "9e55fd9b500ac4b96613539f1ce2f9499e314ed9.png",
+      "tv_吐血": "09dd16a7aa59b77baa1155d47484409624470c77.png",
+      "tv_呆": "fe1179ebaa191569b0d31cecafe7a2cd1c951c9d.png",
+      "tv_呕吐": "9f996894a39e282ccf5e66856af49483f81870f3.png",
+      "tv_困": "241ee304e44c0af029adceb294399391e4737ef2.png",
+      "tv_坏笑": "1f0b87f731a671079842116e0991c91c2c88645a.png",
+      "tv_大佬": "093c1e2c490161aca397afc45573c877cdead616.png",
+      "tv_大哭": "23269aeb35f99daee28dda129676f6e9ea87934f.png",
+      "tv_委屈": "d04dba7b5465779e9755d2ab6f0a897b9b33bb77.png",
+      "tv_害羞": "a37683fb5642fa3ddfc7f4e5525fd13e42a2bdb1.png",
+      "tv_尴尬": "7cfa62dafc59798a3d3fb262d421eeeff166cfa4.png",
+      "tv_微笑": "70dc5c7b56f93eb61bddba11e28fb1d18fddcd4c.png",
+      "tv_思考": "90cf159733e558137ed20aa04d09964436f618a1.png",
+      "tv_惊吓": "0d15c7e2ee58e935adc6a7193ee042388adc22af.png",
+      "tv_打脸": "56ab10b624063e966bfcb76ea5dc4794d87dfd47.png",
+      "tv_抓狂": "fe31c08edad661d63762b04e17b8d5ae3c71a757.png",
+      "tv_抠鼻": "c666f55e88d471e51bbd9fab9bb308110824a6eb.png",
+      "tv_斜眼笑": "911f987aa8bc1bee12d52aafe62bc41ef4474e6c.png",
+      "tv_无奈": "ea8ed89ee9878f2fece2dda0ea8a5dbfe21b5751.png",
+      "tv_晕": "5443c22b4d07fb1907ccc610c8e6db254f2461b7.png",
+      "tv_流汗": "cead1c351ab8d79e9f369605beb90148db0fbed3.png",
+      "tv_流泪": "7e71cde7858f0cd50d74b0264aa26db612a8a167.png",
+      "tv_流鼻血": "c32d39db2737f89b904ca32700d140a9241b0767.png",
+      "tv_点赞": "f85c354995bd99e28fc76c869bfe42ba6438eff4.png",
+      "tv_生气": "26702dcafdab5e8225b43ffd23c94ac1ff932654.png",
+      "tv_生病": "8b0ec90e6b86771092a498c54f09fc94621c1900.png",
+      "tv_疑问": "0793d949b18d7be716078349c202c15ff166f314.png",
+      "tv_白眼": "c1d59f439e379ee50eef488bcb5e5378e5044ea4.png",
+      "tv_皱眉": "72ccad6679fea0d14cce648b4d818e09b8ffea2d.png",
+      "tv_目瞪口呆": "0b8cb81a68de5d5365212c99375e7ace3e7891b7.png",
+      "tv_睡着": "8b196675b53af58264f383c50ad0945048290b33.png",
+      "tv_笑哭": "1abc628f6d4f4caf9d0e7800878f4697abbc8273.png",
+      "tv_腼腆": "89712c0d4af73e67f89e35cbc518420380a7f6f4.png",
+      "tv_色": "61822c7e9aae5da76475e7892534545336b23a6f.png",
+      "tv_调侃": "4bc022533ef31544ca0d72c12c808cf4a1cce3e3.png",
+      "tv_调皮": "b9c41de8e82dd7a8515ae5e3cb63e898bf245186.png",
+      "tv_鄙视": "6e72339f346a692a495b123174b49e4e8e781303.png",
+      "tv_闭嘴": "c9e990da7f6e93975e25fd8b70e2e290aa4086ef.png",
+      "tv_难过": "87f46748d3f142ebc6586ff58860d0e2fc8263ba.png",
+      "tv_馋": "fc7e829b845c43c623c8b490ee3602b7f0e76a31.png",
+      "tv_鬼脸": "0ffbbddf8a94d124ca2f54b360bbc04feb6bbfea.png",
+      "tv_黑人问号": "45821a01f51bc867da9edbaa2e070410819a95b2.png",
+      "tv_鼓掌": "1d21793f96ef4e6f48b23e53e3b9e42da833a0f6.png"
+      // ... 更多表情
+    }
+  })
+  if('random' == 'random'){
+    var veditor = document.getElementById("veditor");
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+        veditor.placeholder = '『' + data.hitokoto + '』' + '\n\n\n' + 'From  ' + data.from;
+        })
+        .catch(console.error)
+  }
+</script>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+</section>
+
+<!-- Image viewer-->
+
+    
+    <!-- Custom picture view-->
+    <link href="/server-archive/css/viewer.min.css" rel="stylesheet" />
+    <script
+      src="/server-archive/js/viewer.min.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    
+    <script type="text/javascript">
+      // set image viewer
+      Viewer.setDefaults({
+        zoomRatio: [0.5],
+        navbar: false,
+        toolbar: false,
+        button: false,
+        title: [2, (image, imageData) => `${image.alt}`],
+        show: function() {
+          this.viewer.zoomTo(0.5);
+        }
+      });
+      var imageList = document.getElementsByTagName("img");
+      Array.prototype.forEach.call(imageList, element => {
+        var viewer = new Viewer(element);
+      });
+    </script>
+
+    
+
+
+<!-- TOC -->
+<!-- 
+    <aside id="article-toc" role="navigation" class="fixed">
+        <div id="article-toc-inner">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%96%A5%EF%B8%8Fwake-on-lan"><span class="toc-text">🖥️Wake On Lan</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#windows%E8%AE%BE%E5%A4%87%E7%AE%A1%E7%90%86%E5%99%A8%E5%BC%80%E5%90%AFwol"><span class="toc-text">Windows设备管理器开启WOL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bios%E6%89%93%E5%BC%80wol(rog%E4%B8%BB%E6%9D%BF%E4%B8%BApcie%E5%94%A4%E9%86%92)"><span class="toc-text">BIOS打开WOL(ROG主板为PCIE唤醒)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99python%E7%A8%8B%E5%BA%8F-flask-+-wakeonlan-%E5%B0%86%E5%94%A4%E9%86%92%E7%AE%80%E5%8C%96%E4%B8%BA%E4%BB%85%E9%9C%80%E8%AE%BF%E9%97%AE%E7%BD%91%E9%A1%B5"><span class="toc-text">编写python程序 Flask + wakeonlan 将唤醒简化为仅需访问网页</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEfrp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F,-%E5%8F%AF%E4%BB%A5%E5%A4%96%E7%BD%91%E8%AE%BF%E9%97%AE"><span class="toc-text">配置frp内网穿透, 可以外网访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%87%AA%E5%90%AF%E5%8A%A8"><span class="toc-text">配置自启动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%BF%AB%E6%8D%B7%E6%8C%87%E4%BB%A4%E4%B8%80%E9%94%AE%E8%AE%BF%E9%97%AE(%E9%9D%9E%E5%94%AF%E4%B8%80%E6%96%B9%E6%B3%95,-%E9%80%89%E7%94%A8%E6%98%AF%E5%9B%A0%E4%B8%BA%E6%AF%94%E8%BE%83%E4%BE%BF%E6%8D%B7+%E6%94%AF%E6%8C%81siri)"><span class="toc-text">配置快捷指令一键访问(非唯一方法, 选用是因为比较便捷+支持siri)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="toc-text">最终效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%93%BAgui-undoubtedly-indispensable"><span class="toc-text">📺GUI Undoubtedly Indispensable</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEvncserver"><span class="toc-text">配置vncserver</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5"><span class="toc-text">远程连接</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%98%8B%E6%87%92%E4%BA%BA%E7%A6%8F%E9%9F%B3"><span class="toc-text">😋懒人福音</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%84%9A%E6%9C%AC"><span class="toc-text">脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E7%BD%91%E8%8E%B7%E5%8F%96"><span class="toc-text">公网获取</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%9A%80%E8%90%8C%E6%96%B0%E4%B9%9F%E6%83%B3%E6%90%AD%E8%BD%BD%E4%B8%8Ax-%E5%BC%95%E6%93%8E"><span class="toc-text">🚀萌新也想搭载上X-引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85nginx"><span class="toc-text">安装nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E9%A1%B5%E9%9D%A2"><span class="toc-text">默认页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4%E9%A1%B5%E9%9D%A2"><span class="toc-text">修改默认页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%89%E4%B8%AA%E6%96%B0%E9%A1%B5%E9%9D%A2"><span class="toc-text">配置三个新页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%93%BE%E6%8E%A5%E8%B7%B3%E8%BD%AC"><span class="toc-text">链接跳转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E9%A1%B5%E9%9D%A2"><span class="toc-text">文件页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="toc-text">负载均衡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AE%E8%AF%A2(%E4%B8%8D%E7%9F%A5%E9%81%93%E7%AE%97%E4%B8%8D%E7%AE%97%E6%9B%B2%E7%BA%BF%E6%95%91%E5%9B%BD)"><span class="toc-text">轮询(不知道算不算曲线救国)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#https"><span class="toc-text">https</span></a></li></ol></li></ol>
+        </div>
+    </aside>
+ -->
+
+
+    <script>
+        hljs.highlightAll();
+    </script>
+
+    <!-- Scripts -->
+    <script type="text/javascript">
+    console.log("© Timlzh 🙋 2022-" + new Date().getFullYear());
+    console.log("Welcome to my blog: https://timlzh.com");
+</script>
+  
+    <!-- Google Analytics -->
+    
+
+    <!-- Service Worker -->
+    <!-- if using service worker -->
+
+    
+    <!-- Go Top -->
+    <a class="go-top">
+    <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+    if ($(window).scrollTop() <= 100) {
+        $(".go-top").hide();
+    }
+    
+    $(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".go-top").fadeIn(500);
+            } else {
+                $(".go-top").fadeOut(500);
+            }
+        });
+        $(".go-top").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
+    });
+</script>
+</body>
+
+<footer>
+    
+    
+    
+        <div class="beian">
+            <a href="http://www.beian.miit.gov.cn" target="_blank">浙ICP备2022036129号-2</a>
+        </div>
+    
+
+</footer>
+
+</html>
